@@ -1,25 +1,26 @@
-import logo from './logo.svg';
+
 import './App.css';
+import Header from './Header.js';
+import { useSelector } from 'react-redux';
+import { RandomNumber } from './features/RandomNumber';
+import  BaseStats  from './Components/BaseStats'
+import  Race  from './Components/Race';
 
 function App() {
+  const state = useSelector((state)=>state);
+  //console.log(state, 'i am the state')
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+      <div className="App">
+        <Header />
+        <div className="main">
+        <h1>{state.randomNumber}</h1>
+        <RandomNumber />
+        <BaseStats />
+        <Race />
+        </div>
+      </div>
   );
 }
+
 
 export default App;

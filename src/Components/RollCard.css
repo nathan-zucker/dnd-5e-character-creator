@@ -1,0 +1,16 @@
+.rollCardContainer {
+    display: inline-flex;
+}
+
+.rollCards {
+    background-color: rgb(90, 12, 12);
+    display: inline-block;
+    width: 4rem;
+    height: 4rem;
+    margin: .5rem;
+    border-radius: 1rem;
+}
+
+.number {
+    color: whitesmoke;
+}
