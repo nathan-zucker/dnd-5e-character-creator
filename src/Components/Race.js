@@ -10,6 +10,7 @@ class Race extends React.Component {
         }
         this.selectRace = this.selectRace.bind(this)
         this.selectSubRace = this.selectSubRace.bind(this)
+        this.handleSubmit = this.handleSubmit.bind(this)
     }
     
     selectRace(event) {
@@ -20,11 +21,16 @@ class Race extends React.Component {
         this.setState({subRace: event.target.value})
     }
 
+    handleSubmit() {
+        this.props.submitRace(this.state.race)
+        this.props.submitSubRace(this.state.subRace)
+        this.props.updateProgress()
+    }
+
     render(){
-        if (this.props.progress.includes('baseStats')) {
+        if (this.props.progress.includes('baseStats') && !this.props.progress.includes('race')) {
             return(
                 <div>
-                    <p>progress: [{this.props.progress}]</p>
                     <h1>Select Race</h1>
                     <div id='container'>
                         <div className='nestedRadio'>
@@ -247,6 +253,7 @@ class Race extends React.Component {
                             <div>
                                 <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
                                 <button onClick={()=>this.setState({race: '', subRace: ''})}>RESET</button>
+                                <button onClick={this.handleSubmit}>SUBMIT</button>
                             </div>
                         : null}
                         
@@ -257,15 +264,37 @@ class Race extends React.Component {
     } 
 }
 
+const sendRace = (race) => {
+    return ({
+        type: 'race',
+        payload: race
+    })
+}
+
+const sendSubRace = (subRace) => {
+    return({
+        type: 'subRace',
+        payload: subRace
+    })
+}
+
+const updateProgress = () => {
+    return({
+        type: 'submitRace'
+    })
+}
+
 const mapStateToProps = state => {
     return{
-        progress: state.progress
+        progress: state.progress,
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitRace: (race) => { dispatch({type: 'submitRace', payload: race}) }
+        submitRace: (race) => { dispatch(sendRace(race)) },
+        submitSubRace: (subRace) => { dispatch(sendSubRace(subRace)) },
+        updateProgress: () => { dispatch(updateProgress()) },
     }
 }
 

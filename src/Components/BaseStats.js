@@ -52,16 +52,16 @@ class BaseStats extends React.Component {
 
     render() {
         const rolls = this.state.Rolls;
-        const rawRolls = this.state.Rolls.map((i) => <li>{i}</li>)
+        const rawRolls = this.state.Rolls.map((i, key) => <li key={key}>{i}</li>)
         const input = this.state.input
         const rollsAccepted = this.state.rollsAccepted
-        const rollCards = this.state.Rolls.map((i)=> <RollCard value={i} key={i}/>)
+        const rollCards = this.state.Rolls.map((i, key)=> <RollCard value={i} key={key}/>)
         return(
             <div>
                 <h1>Base Stats</h1>
                 <h3>Let's Roll!</h3>
                 <button onClick={this.standardArray}>Standard Array</button><br/>
-                <input type='number' onChange={this.handleChange} value={input}></input>
+                <input type='number' onChange={this.handleChange} value={input || ''}></input>
                 <br/>
                 {this.state.Rolls.length < 6 ? <button type='submit' onClick={this.submitRoll}>SUBMIT</button> : null}
                 <h3>{input}</h3>
@@ -75,7 +75,6 @@ class BaseStats extends React.Component {
                         {rollCards}
                     </div>
                     <BaseStatList rolls={rolls}/>
-                    <h3>stats: [{this.props.stats.join(', ')}]</h3>
                 </div>
                 : null}
             </div>
