@@ -24,7 +24,8 @@ const randomNumberReducer = (state = 0, action) => {
 
 const baseStatReducer = (state = [], action) => {
     switch(action.type){
-        case 'selectStat': return [...state, action.payload];
+        case 'selectStat': 
+            return  [...state, action.payload];
         default: return state;
     }
 }
@@ -44,9 +45,17 @@ const classLevelReducer = (state = [[undefined]], action) => {
     }
 }
 
+const baseStatModReducer = (state=[0,0,0,0,0,0], action)=>{
+    switch(action.type){
+        case 'statBonus': return state.map((e,i)=>e+action.payload[i]);
+        default: return state;
+    }
+}
+
+
 const savingThrowInitialState = {
     str: [0],
-    dex: [0],
+    dex: [0],  
     con: [0],
     int: [0],
     wis: [0],
@@ -66,6 +75,7 @@ const store = configureStore({
         randomNumber: randomNumberReducer,
         progress: progressReducer,
         baseStats: baseStatReducer,
+        baseStatMods: baseStatModReducer,
         race: raceReducer,
         class: classLevelReducer,
         savingThrows: savingThrowReducer,

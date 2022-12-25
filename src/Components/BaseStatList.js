@@ -6,16 +6,15 @@ class BaseStatList extends React.Component {
         super(props);
         this.state = {
             rolls: [...props.rolls],
+            baseStats: this.props.stats.map(e=>e.pop()),
             nextStat: () => {
-                switch(this.props.stats.length) {
-                    case 0: return 'Strength';
-                    case 1: return 'Dexterity';
-                    case 2: return 'Constitution';
-                    case 3: return 'Intelligence';
-                    case 4: return 'Wisdom';
-                    case 5: return 'Charisma';
-                    default: return 'default';
-                }
+                if (this.state.baseStats[0] === 0) {return 'Strength'}
+                if (this.state.baseStats[1] === 0) {return 'Dexterity'}
+                if (this.state.baseStats[2] === 0) {return 'Constitution'}
+                if (this.state.baseStats[3] === 0) {return 'Intelligence'}
+                if (this.state.baseStats[4] === 0) {return 'Wisdom'}
+                if (this.state.baseStats[5] === 0) {return 'Charisma'} 
+                else{return null}
             }
         }
     }
@@ -28,6 +27,7 @@ class BaseStatList extends React.Component {
         const next = this.state.nextStat()
         return(
             <div>
+                <h1>base {this.state.baseStats.join(' ')}</h1>
                 {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
                 {this.props.stats.length >= 6 && !this.props.progress.includes('baseStats') ? <button onClick={this.handleSubmit}>next</button> : null}
             </div>

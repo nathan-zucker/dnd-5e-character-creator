@@ -7,21 +7,22 @@ class RollCard extends React.Component {
         super(props);
         this.state = {
             number: props.value,
+            index: props.index,
             visible: true
         }
     }
 
-    handleClick = (number) => {
-        this.props.selectStat(number)
+    handleClick = (number, index) => {
+        this.props.selectStat(number, index)
         this.setState({visible: false})
     }
     
     render() {
-        console.log(this.props);
         const number = this.state.number;
+        const index = this.state.index;
         if (this.state.visible === true) {
             return(
-                <button className='rollCards' onClick={()=>{this.handleClick(number)}}>
+                <button className='rollCards' onClick={()=>this.handleClick(number, index)}>
                     <h2 className='number'>{number}</h2>
                 </button>
             );
@@ -34,7 +35,7 @@ class RollCard extends React.Component {
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectStat: (i) => { dispatch({type: 'selectStat', payload: i}) }
+        selectStat: (e, i) => { dispatch({type: 'selectStat', payload: e, index: i}) }
     }
 }
 

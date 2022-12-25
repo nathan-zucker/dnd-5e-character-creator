@@ -16,13 +16,18 @@ function App() {
       <div className="App">
         <Header />
         <div className="main">
-        {!state.progress.includes('baseStats') ? <BaseStats /> : null}
-        <DisplayBaseStats />
-        {state.progress.includes('baseStats') && !state.progress.includes('race') ? <Race /> : null}
-        <DisplayRace />
-        {state.progress.includes('race') && !state.progress.includes('classLevel')? <Class /> : null}
-        <DisplayClass />
-        {state.progress.includes('classLevel') ? <h1>Hello!</h1> : null}
+          {!state.progress.includes('classLevel') ? <Class /> : null}
+          <DisplayClass />
+          {!state.progress.includes('race') && state.progress.includes('classLevel') ? <Race /> : null}
+          <DisplayRace />
+          {!state.progress.includes('baseStats') && state.progress.includes('race') ? <BaseStats /> : null}
+          {state.progress.includes('race') ? <DisplayBaseStats /> : null}
+          {state.progress.includes('baseStats') ? <h1>extra selections</h1> : null}
+          <h2>{}</h2>
+          <h2>background</h2>
+          <h2>saving throws</h2>
+          <h2>skills</h2>
+          <h2>equipment</h2>
         </div>
       </div>
   );

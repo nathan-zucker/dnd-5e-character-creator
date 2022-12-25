@@ -3,8 +3,11 @@ import { useSelector } from "react-redux";
 
 export const DisplayBaseStats = () => {
     const stats = useSelector((state)=>state.baseStats)
-    const display = ([['Strength: ', stats[0]], ['Dexterity: ', stats[1]], ['Constitution: ', stats[2]], 
-    ['Intelligence: ', stats[3]], ['Wisdom: ', stats[4]], ['Charisma: ', stats[5]]]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
+    const bonus = useSelector((state)=>state.baseStatMods)
+    const mergeStats = (a, b) => a.map((e, i)=>e+b[i])
+    const finalStats = mergeStats(stats, bonus)
+    const display = ([['Strength: ', finalStats[0]], ['Dexterity: ', finalStats[1]], ['Constitution: ', finalStats[2]], 
+    ['Intelligence: ', finalStats[3]], ['Wisdom: ', finalStats[4]], ['Charisma: ', finalStats[5]]]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
     return(
         <div id='displayBaseStats'>
             {display}
