@@ -45,9 +45,32 @@ const classLevelReducer = (state = [[undefined]], action) => {
     }
 }
 
-const RacialBonusReducer = ((state={}, action)=>{
+const RacialBonusReducer = ((state={finalized: false}, action)=>{
     switch(action.type){
-        case 'RacialBonuses': return action.payload;
+        case 'ResetRace': return Object.assign({}, state, action.payload);
+        case 'RacialBonuses': return Object.assign({}, state, {
+            race: action.race,
+            subRace: action.subRace,
+            abilityScoreIncrease: action.abilityScoreIncrease || state.abilityScoreIncrease,
+            size: action.size,
+            speed: action.speed,
+            languages: action.languages,
+            darkVision: action.darkVision,
+            baseFeatures: action.baseFeatures,
+            features: action.features || state.features
+        });
+        case 'AbilityHumanBonus': return Object.assign({}, state, {
+            abilityScoreIncrease: action.payload,
+            finalized: true
+        });
+        case 'SkillHumanBonus': return Object.assign({}, state, {
+            features: ['EXTRA SKILL'],
+            finalized: true,
+        });
+        case 'FeatHumanBonus': return Object.assign({}, state, {
+            features: ['FEAT'],
+            finalized: true
+        })
         default: return state;
     }
 })
@@ -69,6 +92,13 @@ const savingThrowReducer = (state = savingThrowInitialState, action) => {
     }
 }
 
+const weaponReducer = (state = [], action) => {
+    switch(action.type){
+        case 'weaponProficiency': return [...state, action.payload]
+        default: return state;
+    }
+}
+
 const store = configureStore({
     reducer: {
         randomNumber: randomNumberReducer,
@@ -78,6 +108,7 @@ const store = configureStore({
         raceDetails: RacialBonusReducer,
         class: classLevelReducer,
         savingThrows: savingThrowReducer,
+        weapons: weaponReducer,
     }
 });
 

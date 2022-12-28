@@ -1,19 +1,22 @@
 import React from "react"
 import { connect } from "react-redux"
+import  AbilityHuman from "./AbilityHuman"
+import SkillHuman from "./SkillHuman"
+import FeatHuman from "./FeatHuman"
 
 const defaultState = {
     race: '',
     subRace: '',
-    statBonuses: [ 0, 0, 0, 0, 0, 0 ],
-    abilityScoreIncrease: [0,0,0,0,0,0],
-    age: 0,
-    alignment: [],
+    abilityScoreIncrease: undefined,
+    age: undefined,
+    alignment: undefined,
     size: '',
     speed: 0,
-    languages: [],
+    languages: undefined,
     darkVision: false,
-    baseFeatures: [],
-    features: []
+    baseFeatures: undefined,
+    features: undefined,
+    finalized: false
 }
 
 
@@ -23,6 +26,7 @@ class Race extends React.Component {
         this.state=defaultState;
 
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleReset = this.handleReset.bind(this)
         this.applyStatBonus = this.applyStatBonus.bind(this)
         this.Dwarf = this.Dwarf.bind(this)
         this.HillDwarf = this.HillDwarf.bind(this)
@@ -179,7 +183,7 @@ class Race extends React.Component {
     AbilityHuman(){
         this.setState({
             subRace: 'Ability',
-            abilityScoreIncrease: [0,0,0,0,0,0],
+            abilityScoreIncrease: undefined,
         })
     }
 
@@ -286,8 +290,17 @@ class Race extends React.Component {
     }
     
     handleSubmit() {
-        this.props.submitState(this.state)
+        const state = Object.assign({}, this.state)
+        Object.keys(state).forEach(key => state[key] === undefined && delete state[key])
+        this.props.submitState(state)
         this.props.updateProgress()
+    }
+
+    handleReset(){
+        alert('resetting (click handler)')
+        return (
+            this.props.resetStore()
+        )
     }
 
     render(){
@@ -295,7 +308,9 @@ class Race extends React.Component {
             return(
                 <div>
                     <h1>Select Race</h1>
+                    {this.props.details.finalized === false ?
                     <div id='container'>
+                        
                         <div className='nestedRadio'>
                             <label>
                                 <input onInput={this.Dwarf} type='radio' name='race'></input>
@@ -370,18 +385,21 @@ class Race extends React.Component {
                                             <input onInput={this.AbilityHuman} type='radio' name='subRace'></input>
                                             Ability Score Increase
                                         </label>
+                                        {this.state.subRace === 'Ability' ? <AbilityHuman bonuses={this.state.abilityScoreIncrease}/> : null}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
                                             <input onInput={this.SkillHuman} type='radio' name='subRace'></input>
                                             Skill
                                         </label>
+                                        {this.state.subRace === 'Skill' ? <SkillHuman/> : null}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
                                             <input onInput={this.FeatHuman} type='radio' name='subRace'></input>
                                             Feat
                                         </label>
+                                        {this.state.subRace === 'Feat' ? <FeatHuman raceDetails={this.state}/> : null}
                                     </div>
                                 </div>
                             : null }
@@ -511,23 +529,27 @@ class Race extends React.Component {
                                 <input onInput={this.Tiefling} type='radio' name='race'></input>
                                 Tiefling
                             </label>
-                        </div>
-                        
-                        {this.state.race !== '' ?
-                            <div>
-                                <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
-                                <h2>Race Bonus (stats): {this.state.abilityScoreIncrease}</h2>
-                                <h3>{this.state.features.join(', ')}</h3>
-                                <button onClick={()=>this.setState({race: '', subRace: ''})}>RESET</button>
-                                <button onClick={this.handleSubmit}>SUBMIT</button>
-                            </div>
-                        : null}
-                        
+                        </div> 
+                    </div> : null}
+                    {this.state.race !== '' ?
+                    <div>
+                        <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
+                        <h2>Race Bonus (stats): {this.props.details.abilityScoreIncrease}</h2>
+                        <h3>features</h3>
+                        <button onClick={this.handleReset}>RESET</button>
+                        <button onClick={this.handleSubmit}>SUBMIT</button>
                     </div>
+                    : null}
                 </div>
             )
         } else {
-            return null}
+            return (
+                <div>
+                    <h2>submit bonuses</h2>
+                    <button onClick={this.handleReset}>RESET</button>
+                    <button onClick={this.handleSubmit}>SUBMIT</button>
+                </div>
+            )}
     } 
 }
 
@@ -562,12 +584,28 @@ const sendStatBonuses = (bonus) => {
 const sendState = (state) => {
     return({
         type: 'RacialBonuses',
-        payload: state
+        race: state.race,
+        subRace: state.subRace,
+        abilityScoreIncrease: state.abilityScoreIncrease,
+        size: state.size,
+        speed: state.speed,
+        languages: state.languages,
+        darkVision: state.darkVision,
+        baseFeatures: state.baseFeatures,
+        features: state.features
+    })
+}
+
+const clearStore = () => {
+    return({
+        type: 'ResetRace',
+        payload: defaultState
     })
 }
 
 const mapStateToProps = state => {
     return{
+        details: state.raceDetails,
         progress: state.progress,
     }
 }
@@ -578,7 +616,8 @@ const mapDispatchToProps = (dispatch) => {
         submitSubRace: (subRace) => { dispatch(sendSubRace(subRace)) },
         updateProgress: () => { dispatch(updateProgress()) },
         submitStatBonuses: (bonus) => { dispatch(sendStatBonuses(bonus)) },
-        submitState: (state) => { dispatch(sendState(state)) }
+        submitState: (state) => { dispatch(sendState(state)) },
+        resetStore: () => { dispatch(clearStore()) }
     }
 }
 

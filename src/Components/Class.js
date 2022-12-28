@@ -19,7 +19,7 @@ class Class extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            levelInput: 0,
+            levelInput: 1,
             class: '',
             level: 0,
             multiClass: '',
@@ -105,7 +105,7 @@ class Class extends React.Component {
                     <div id='levels'>
                     <h1>Choose {this.state.class} Level</h1>
                     <label>
-                        <input type='number' id='levelInput' onChange={this.handleChange}></input>
+                        <input type='number' id='levelInput' onChange={this.handleChange} value={this.levelInput}></input>
                         level (1-20)
                     </label>
                     <input type='submit' onClick={()=>this.setState({level: this.state.levelInput})}></input>
