@@ -1,0 +1,16 @@
+{
+  "files": {
+    "main.css": "/dnd-5e-character-creator/static/css/main.9705c87c.css",
+    "main.js": "/dnd-5e-character-creator/static/js/main.ed77f552.js",
+    "static/js/787.346cd47a.chunk.js": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js",
+    "static/media/logo.svg": "/dnd-5e-character-creator/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
+    "index.html": "/dnd-5e-character-creator/index.html",
+    "main.9705c87c.css.map": "/dnd-5e-character-creator/static/css/main.9705c87c.css.map",
+    "main.ed77f552.js.map": "/dnd-5e-character-creator/static/js/main.ed77f552.js.map",
+    "787.346cd47a.chunk.js.map": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.9705c87c.css",
+    "static/js/main.ed77f552.js"
+  ]
+}
