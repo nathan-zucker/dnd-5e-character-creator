@@ -22,13 +22,26 @@ const randomNumberReducer = (state = 0, action) => {
     }
 }
 
-const baseStatReducer = (state = [], action) => {
+const baseStatReducer = (state = {picks: 0, stats: []}, action) => {
     switch(action.type){
-        case 'selectStat': 
-            return  [...state, action.payload];
+        case 'selectStat': return  Object.assign({}, state, {
+                stats: [...state.stats, action.payload]
+            });
+        case 'addAbilityScorePick': return Object.assign({}, state, {
+            picks: state.picks + action.payload
+        });
         default: return state;
     }
 }
+
+const hitPointReducer = ((state = {'Hit Die': 0, 'HP': 0, "bonus": 0}, action) => {
+    switch(action.type){
+        case "hitDie": return Object.assign({}, state, {'Hit Die': action.payload})
+        case "hitPoints": return Object.assign({}, state, {'HP': state["HP"] + action.payload});
+        case "HPbonus": return Object.assign({}, state, {'bonus': state["bonus"] + action.payload})
+        default: return state;
+    }
+})
 
 const raceReducer = (state = [], action) => {
     switch(action.type){
@@ -75,26 +88,68 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
     }
 })
 
-const savingThrowInitialState = {
-    str: [0],
-    dex: [0],  
-    con: [0],
-    int: [0],
-    wis: [0],
-    cha: [0]
+
+const savingThrowReducer = (state = {proficient: [], advantage: []}, action) => {
+    switch(action.type) {
+        case 'saveProficiency': return Object.assign({}, state, {
+            proficient: [...state.proficient, action.payload]
+        });
+        case 'saveAdvantage': return Object.assign({}, state, {
+            advantage: [...state.advantage, action.payload]
+        });
+        default: return state;
+    }
 }
 
-const savingThrowReducer = (state = savingThrowInitialState, action) => {
-    switch(action.type) {
-        case 'proficient': return ()=>state.action.stat = [...state.action.stat, 'proficient'];
-        case 'stat': return ()=>state.action.stat = [action.payload];
+
+const skillReducer = (state = {picks: 0, proficiencies: []}, action) => {
+    switch(action.type){
+        case 'addSkillProficiency': return Object.assign({}, state, {
+            proficiencies: [...state.proficiencies, action.payload]
+        });
+        case 'addSkillPick': return Object.assign({}, state, {
+            picks: state.picks + action.payload
+        })
         default: return state;
     }
 }
 
 const weaponReducer = (state = [], action) => {
     switch(action.type){
-        case 'weaponProficiency': return [...state, action.payload]
+        case 'weaponProficiency': return state.concat(action.payload)
+        default: return state;
+    }
+}
+
+const armorReducer = (state = [], action) => {
+    switch(action.type){
+        case 'armorProficiency': return state.concat(action.payload);
+        default: return state;
+    }
+}
+
+const toolReducer = (state = [], action) => {
+    switch(action.type){
+        case 'toolProficiency': return [...state, action.payload]
+        default: return state;
+    }
+}
+
+const languageReducer = (state = {picks: 0, languages: []}, action) => {
+    switch(action.type){
+        case 'addLanguagePick': return Object.assign({}, state, {
+            picks: state.picks + action.payload 
+        });
+        case 'addLanguage': return Object.assign({}, state, {
+            languages: [...state.languages, action.payload]
+        })
+        default: return state;
+    }
+}
+
+const spellReducer = (state = [], action) => {
+    switch(action.type){
+        case 'addSpell': return [...state, action.payload]
         default: return state;
     }
 }
@@ -104,11 +159,17 @@ const store = configureStore({
         randomNumber: randomNumberReducer,
         progress: progressReducer,
         baseStats: baseStatReducer,
+        hitPoints: hitPointReducer,
         race: raceReducer,
         raceDetails: RacialBonusReducer,
+        languages: languageReducer,
         class: classLevelReducer,
         savingThrows: savingThrowReducer,
+        skillProficiencies: skillReducer,
         weapons: weaponReducer,
+        spells: spellReducer,
+        armor: armorReducer,
+        tools: toolReducer,
     }
 });
 

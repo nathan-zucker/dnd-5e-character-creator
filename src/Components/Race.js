@@ -1,8 +1,8 @@
 import React from "react"
 import { connect } from "react-redux"
-import  AbilityHuman from "./AbilityHuman"
-import SkillHuman from "./SkillHuman"
-import FeatHuman from "./FeatHuman"
+//  import  AbilityHuman from "./AbilityHuman"
+//  import SkillHuman from "./SkillHuman"
+//  import FeatHuman from "./FeatHuman"
 
 const defaultState = {
     race: '',
@@ -15,8 +15,9 @@ const defaultState = {
     languages: undefined,
     darkVision: false,
     baseFeatures: undefined,
-    features: undefined,
-    finalized: false
+    features: [],
+    finalized: false,
+    actions: []
 }
 
 
@@ -61,7 +62,7 @@ class Race extends React.Component {
                 alignment: ['Lawful', 'Good'],
                 size: 'Medium',
                 speed: 25,
-                languages: [],
+                languages: ['Common', 'Dwarvish'],
                 darkVision: true,
                 baseFeatures: ['Dwarven Resilience', 'Dwarven Combat Training', 'Tool Proficiency', 'Stonecunning']
             }
@@ -74,7 +75,18 @@ class Race extends React.Component {
             return {
                 subRace: 'Hill',
                 abilityScoreIncrease: [0,0,2,0,1,0],
-                features: [...state.baseFeatures, 'Dwarven Toughness']
+                features: [...state.baseFeatures, 'Dwarven Toughness'],
+                actions: [{ //Dwarven Combat Training
+                    type: "weaponProficiency",
+                    payload: ["battleaxe", "handaxe", "throwing hammer", "warhammer"]  
+                    },{ //Dwarven Toughness
+                        type: "hitPoints",
+                        payload: 1
+                    },{
+                        type: "HPbonus",
+                        payload: 1
+                    }
+                ]
             }
         })
     }
@@ -84,7 +96,15 @@ class Race extends React.Component {
             return{
                 subRace: 'Mountain',
                 abilityScoreIncrease: [2,0,2,0,0,0],
-                features: [...state.baseFeatures, 'Dwarven Armor Training']
+                features: [...state.baseFeatures, 'Dwarven Armor Training'],
+                actions: [{ //Dwarven Armor Training
+                    type: "armorProficiency",
+                    payload: ["light", "medium"]
+                },{
+                    type: "weaponProficiency",
+                    payload: ["battleaxe", "handaxe", "throwing hammer", "warhammer"]  
+                }
+            ]
             }
         })
     }
@@ -100,7 +120,11 @@ class Race extends React.Component {
                 speed: 30,
                 darkVision: true,
                 languages: ['Common', 'Elvish'],
-                baseFeatures: ['Keen Senses', 'Fey Ancestry', 'Trance']
+                baseFeatures: ['Keen Senses', 'Fey Ancestry', 'Trance'],
+                actions: [{ //Keen Senses
+                    type: 'addSkillProficiency',
+                    payload: "Perception"
+                }]
             }
         })
     }
@@ -110,7 +134,21 @@ class Race extends React.Component {
             return{
                 subRace: 'High',
                 abilityScoreIncrease: [0,2,0,1,0,0],
-                features: [...state.baseFeatures, 'Elf Weapon Training', 'Cantrip', 'Extra Language'],
+                features: [...state.baseFeatures, 'Elf Weapon Training', 'Cantrip(wizard)', 'Extra Language'],
+                actions: [...state.actions, 
+                    { //Elf Weapon Training
+                        type: 'weaponProficiency',
+                        payload: ['longsword', 'shortsword', 'shortbow', 'longbow']
+                    },
+                    { //Extra Language
+                        type: 'addLanguagePick',
+                        payload: 1
+                    },
+                    {
+                        type: 'addSpell',
+                        payload: 'Wizard Cantrip'
+                    }
+                ]
             }
         })
     }
@@ -120,7 +158,14 @@ class Race extends React.Component {
             return{
                 subRace: 'Wood',
                 abilityScoreIncrease: [0,2,0,0,1,0],
-                features: [...state.baseFeatures, 'Elf Weapon Training', 'Fleet of Foot', 'Mask of the Wild']
+                speed: 35,
+                features: [...state.baseFeatures, 'Elf Weapon Training', 'Fleet of Foot', 'Mask of the Wild'],
+                actions: [...state.actions, 
+                    { //Elf Weapon Training
+                        type: 'weaponProficiency',
+                        payload: ['longsword', 'shortsword', 'shortbow', 'longbow']
+                    }
+                ]
             }
         })
     }
@@ -130,7 +175,13 @@ class Race extends React.Component {
             return {
                 subRace: 'Dark',
                 abilityScoreIncrease: [0,2,0,0,0,1],
-                features: [...state.baseFeatures, 'Drow Weapon Training', 'Superior Darkvision', 'Sunlight Sensitivity', 'Drow Magic']
+                features: [...state.baseFeatures, 'Drow Weapon Training', 'Superior Darkvision', 'Sunlight Sensitivity', 'Drow Magic'],
+                actions: [...state.actions, 
+                    { //Drow Weapon Training
+                        type: "weaponProficiency",
+                        payload: ["rapier", "shortsword", "hand crossbow"]
+                    }
+                ]
             }
         })
     }
@@ -176,14 +227,26 @@ class Race extends React.Component {
             age: 18,
             size: 'Medium',
             speed: 30,
-            languages: ['Common', 'PICKONE']
+            languages: ['Common'],
+            actions: [
+                { //Extra Language
+                    type: 'addLanguagePick',
+                    payload: 1
+                }
+            ]
         })
     }
 
     AbilityHuman(){
         this.setState({
             subRace: 'Ability',
-            abilityScoreIncrease: undefined,
+            abilityScoreIncrease: [0,0,0,0,0,0],
+            actions: [...this.state.actions,
+                {
+                    type: 'addAbilityScorePick',
+                    payload: 2
+                }
+            ]
         })
     }
 
@@ -191,6 +254,12 @@ class Race extends React.Component {
         this.setState({
             subRace: 'Skill',
             abilityScoreIncrease: [0,0,0,0,0,0],
+            actions: [...this.state.actions,
+                {
+                    type: 'addSkillPick',
+                    payload: 1
+                }
+            ]
         })
     }
 
@@ -232,7 +301,13 @@ class Race extends React.Component {
             return {
                 subRace: 'Forest',
                 abilityScoreIncrease: [0,1,0,2,0,0],
-                features: [...state.baseFeatures, 'Natural Illusionist', 'Speak with Small Beasts']
+                features: [...state.baseFeatures, 'Natural Illusionist', 'Speak with Small Beasts'],
+                actions: [
+                    { //Natural Illusionist
+                        type: 'addSpell',
+                        payload: 'minor illusion'
+                    }
+                ]
             }
         })
     }
@@ -255,7 +330,21 @@ class Race extends React.Component {
             speed: 30,
             darkVision: true,
             languages: ['Common', 'Elvish', 'PICKONE'],
-            features: ['Fey Ancestry', 'Skill Verstility']
+            features: ['Fey Ancestry', 'Skill Verstility'],
+            actions: [
+                { //Skill Versatility
+                    type: 'addSkillPick',
+                    payload: 2
+                },
+                { //Ability Score Increase
+                    type: 'addAbilityScorePick',
+                    payload: 2
+                },
+                { //Extra Language
+                    type: 'addLanguagePick',
+                    payload: 1
+                }
+            ]
         })
     }
 
@@ -268,7 +357,13 @@ class Race extends React.Component {
             speed: 30,
             darkVision: true,
             languages: ['Common', 'Orc'],
-            features: ['Menacing', 'Relentless Endurance', 'Savage Attacks']
+            features: ['Menacing', 'Relentless Endurance', 'Savage Attacks'],
+            actions: [
+                {
+                    type: 'addSkillProficiency',
+                    payload: 'Intimidation'
+                }
+            ]
         })
     }
 
@@ -292,12 +387,15 @@ class Race extends React.Component {
     handleSubmit() {
         const state = Object.assign({}, this.state)
         Object.keys(state).forEach(key => state[key] === undefined && delete state[key])
+        const actions = this.state.actions.map(e=>e)
+        for(let i=0; i<actions.length; i++){
+            this.props.dispatch(actions[i].type, actions[i].payload)
+        }
         this.props.submitState(state)
         this.props.updateProgress()
     }
 
     handleReset(){
-        alert('resetting (click handler)')
         return (
             this.props.resetStore()
         )
@@ -385,21 +483,21 @@ class Race extends React.Component {
                                             <input onInput={this.AbilityHuman} type='radio' name='subRace'></input>
                                             Ability Score Increase
                                         </label>
-                                        {this.state.subRace === 'Ability' ? <AbilityHuman bonuses={this.state.abilityScoreIncrease}/> : null}
+                                        {/*{this.state.subRace === 'Ability' ? <AbilityHuman bonuses={this.state.abilityScoreIncrease}/> : null}*/}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
                                             <input onInput={this.SkillHuman} type='radio' name='subRace'></input>
                                             Skill
                                         </label>
-                                        {this.state.subRace === 'Skill' ? <SkillHuman/> : null}
+                                        {/*{this.state.subRace === 'Skill' ? <SkillHuman/> : null}*/}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
                                             <input onInput={this.FeatHuman} type='radio' name='subRace'></input>
                                             Feat
                                         </label>
-                                        {this.state.subRace === 'Feat' ? <FeatHuman raceDetails={this.state}/> : null}
+                                        {/*{this.state.subRace === 'Feat' ? <FeatHuman raceDetails={this.state}/> : null}*/}
                                     </div>
                                 </div>
                             : null }
@@ -603,12 +701,21 @@ const clearStore = () => {
     })
 }
 
+const dispatcher = (type, payload) => {
+    return({
+        type: type,
+        payload: payload
+    })
+}
+
+
 const mapStateToProps = state => {
     return{
         details: state.raceDetails,
         progress: state.progress,
     }
 }
+
 
 const mapDispatchToProps = (dispatch) => {
     return {
@@ -617,6 +724,7 @@ const mapDispatchToProps = (dispatch) => {
         updateProgress: () => { dispatch(updateProgress()) },
         submitStatBonuses: (bonus) => { dispatch(sendStatBonuses(bonus)) },
         submitState: (state) => { dispatch(sendState(state)) },
+        dispatch: (type, payload) => { dispatch(dispatcher(type, payload)) },
         resetStore: () => { dispatch(clearStore()) }
     }
 }

@@ -13,12 +13,6 @@ class BaseStats extends React.Component {
       preRoll: [],
       Rolls: [],
       rollsAccepted: false,
-      Str: 0,
-      Dex: 0,
-      Con: 0,
-      Int: 0,
-      Wis: 0,
-      Cha: 0,
     };
     this.handleChange = this.handleChange.bind(this);
     this.roll = this.roll.bind(this);
@@ -131,7 +125,7 @@ class BaseStats extends React.Component {
           <div>
             <h2>scores locked in!</h2>
             <div id="rollCardContainer">{rollCards}</div>
-            <BaseStatList rolls={rolls} />
+            <BaseStatList rolls={rolls} stats={this.state.stats}/>
           </div>
         ) : null}
       </div>

@@ -23,13 +23,16 @@ function App() {
           {!state.progress.includes('race') && state.progress.includes('classLevel') ? <Race /> : null}
           <DisplayRace />
           {!state.progress.includes('baseStats') && state.progress.includes('race') ? <BaseStats /> : null}
+          {state.progress.includes('race') ? <RacialTraitsIndex /> : null}
           {state.progress.includes('race') ? <DisplayBaseStats /> : null}
-          {state.progress.includes('baseStats') ? <RacialTraitsIndex /> : null}
+          
           <h2>{}</h2>
+  {/*
           <h2>background</h2>
           <h2>saving throws</h2>
           <h2>skills</h2>
           <h2>equipment</h2>
+  */}
         </div>
       </div>
   );

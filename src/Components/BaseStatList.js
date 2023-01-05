@@ -27,7 +27,6 @@ class BaseStatList extends React.Component {
         const next = this.state.nextStat()
         return(
             <div>
-                <h1>base {this.state.baseStats.join(' ')}</h1>
                 {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
                 {this.props.stats.length >= 6 && !this.props.progress.includes('baseStats') ? <button onClick={this.handleSubmit}>next</button> : null}
             </div>
@@ -37,7 +36,7 @@ class BaseStatList extends React.Component {
 
 const mapStateToProps = state => {
     return {
-        stats: state.baseStats,
+        stats: state.baseStats.stats,
         progress: state.progress
     }
 }

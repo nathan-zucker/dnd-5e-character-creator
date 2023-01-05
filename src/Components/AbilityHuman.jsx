@@ -7,7 +7,7 @@ class AbilityHuman extends React.Component{
         super(props)
         this.state={
             bonuses: [0,0,0,0,0,0],
-            picks: 2,
+            picks: this.props.picks || 2,
             submitted: false
         }
         this.handleClick = this.handleClick.bind(this)

@@ -2,12 +2,19 @@ import React from "react";
 import { useSelector } from "react-redux";
 
 export const DisplayBaseStats = () => {
-    const stats = useSelector((state)=>state.baseStats)
-    const bonus = useSelector((state)=>state.raceDetails.abilityScoreIncrease)
-    const mergeStats = (a, b) => a.map((e, i)=>e+b[i])
-    const finalStats = mergeStats(stats, bonus)
-    const display = ([['Strength: ', finalStats[0]], ['Dexterity: ', finalStats[1]], ['Constitution: ', finalStats[2]], 
-    ['Intelligence: ', finalStats[3]], ['Wisdom: ', finalStats[4]], ['Charisma: ', finalStats[5]]]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
+    const stats = useSelector((state)=>state.baseStats.stats)
+    //const bonus = useSelector((state)=>state.raceDetails.abilityScoreIncrease)
+
+    
+    const display = ([
+        ['Strength: ', stats[0] || null], 
+        ['Dexterity: ', stats[1] || null], 
+        ['Constitution: ', stats[2] || null], 
+        ['Intelligence: ', stats[3] || null], 
+        ['Wisdom: ', stats[4] || null], 
+        ['Charisma: ', stats[5] || null]
+    ]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
+    
     return(
         <div id='displayBaseStats'>
             {display}
