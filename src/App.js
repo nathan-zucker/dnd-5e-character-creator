@@ -18,11 +18,11 @@ function App() {
       <div className="App">
         <Header />
         <div className="main">
-          {!state.progress.includes('classLevel') ? <Class /> : null}
+          <Class />
           <DisplayClass />
-          {!state.progress.includes('race') && state.progress.includes('classLevel') ? <Race /> : null}
+          <Race />
           <DisplayRace />
-          {!state.progress.includes('baseStats') && state.progress.includes('race') ? <BaseStats /> : null}
+          <BaseStats />
           {state.progress.includes('race') ? <RacialTraitsIndex /> : null}
           {state.progress.includes('race') ? <DisplayBaseStats /> : null}
           

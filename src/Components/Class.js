@@ -13,12 +13,15 @@ import rogueImg from './images/Rogue.png';
 import sorcererImg from './images/Sorcerer.png';
 import warlockImg from './images/Warlock.png';
 import wizardImg from './images/Wizard.png';
-
+import cardFlip from './sounds/cardFlip.wav';
+import chipHandle from './sounds/chipsHandle1.wav';
+import chipStack from './sounds/chipsStack1.wav';
 
 class Class extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            hidden: false,
             levelInput: 1,
             class: '',
             level: 0,
@@ -46,7 +49,28 @@ class Class extends React.Component {
         this.Wizard = this.Wizard.bind(this)
     }
 
+    componentDidMount(){
+        this.bindSounds()
+    }
+
+    bindSounds = () => {
+        let buttons = document.querySelectorAll(".classSelector")
+        let buttonsArray = Array.prototype.slice.call(buttons)
+        buttonsArray.forEach((e)=>{
+            e.addEventListener(('click'), () => {
+                document.getElementById('cardFlip').play()
+            })
+        })
+        document.getElementById('levelButton').addEventListener(('click'), ()=>{
+            document.getElementById('chipHandle').play()
+        })
+        document.getElementById("continueButton").addEventListener(('click'), ()=>{
+            document.getElementById("chipStack").play()
+        })
+    }
+
     selectClass(value) {
+        this.playAudio()
         this.setState({class: value})
     }
 
@@ -59,6 +83,7 @@ class Class extends React.Component {
     }
 
     handleSubmit(){
+        setTimeout(()=>this.setState({hidden: true}), 500)
         this.props.updateClassLevel([this.state.class, this.state.level]);
         this.props.dispatchHitDie(this.state.hitDie)
         for (let i=0; i<this.state.savingThrows.length; i++){
@@ -202,8 +227,14 @@ class Class extends React.Component {
     }
 
     render(){
+        if(this.state.hidden === true){
+            return null
+        } else{
         return(
             <div id='classSelectors'>
+                <audio id="cardFlip" src={cardFlip} preload="auto"></audio>
+                <audio id="chipHandle" src={chipHandle} preload="auto" ></audio>
+                <audio id="chipStack" src={chipStack} preload="auto" ></audio>
                 <h1>Select Class</h1>
                 <button className='classSelector' value='barbarian' onClick={this.Barbarian} >
                     <img src={barbarianImg} alt='' />
@@ -254,22 +285,22 @@ class Class extends React.Component {
                     <h2>Wizard</h2>
                 </button>
                 <h2>class: {this.state.class}</h2>
-                {this.state.class !== '' ? 
                     <div id='levels'>
                     <h1>Choose {this.state.class} Level</h1>
                     <label>
                         <input type='number' id='levelInput' onChange={this.handleChange} value={this.levelInput}></input>
                         level (1-20)
                     </label>
-                    <input type='submit' onClick={()=>this.setState({level: this.state.levelInput})}></input>
+                    <input id="levelButton" type='submit' onClick={()=>this.setState({level: this.state.levelInput})}></input>
                     <h2>{this.state.class} {this.state.level}</h2>
                     <div>
-                        <button onClick={this.handleSubmit}>continue</button>
+                        <button id="continueButton" onClick={this.handleSubmit}>continue</button>
                     </div> 
-                </div>: null}
+                </div>
             </div>
             
         )
+        }
     }
 }
 

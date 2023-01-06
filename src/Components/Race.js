@@ -3,8 +3,12 @@ import { connect } from "react-redux"
 //  import  AbilityHuman from "./AbilityHuman"
 //  import SkillHuman from "./SkillHuman"
 //  import FeatHuman from "./FeatHuman"
+import selectorAudio from './sounds/selector1.wav';
+import resetAudio from './sounds/chipsStack3.wav';
+import submitAudio from './sounds/chipsStack1.wav';
 
 const defaultState = {
+    hidden: false,
     race: '',
     subRace: '',
     abilityScoreIncrease: undefined,
@@ -19,7 +23,6 @@ const defaultState = {
     finalized: false,
     actions: []
 }
-
 
 class Race extends React.Component {
     constructor(props){
@@ -50,6 +53,32 @@ class Race extends React.Component {
         this.HalfOrc = this.HalfOrc.bind(this)
         this.HalfElf = this.HalfElf.bind(this)
         this.Tiefling = this.Tiefling.bind(this)
+    }
+
+    componentDidMount(){
+        this.bindSounds()
+    }
+
+    componentDidUpdate(){
+        if(this.state.hidden === false){
+            this.bindSounds()
+        }
+    }
+
+    bindSounds = () => {
+        let buttons = document.querySelectorAll(".radioButton")
+        let buttonsArray = Array.prototype.slice.call(buttons)
+        buttonsArray.forEach((e)=>{
+            e.addEventListener(("click"), ()=>{
+                document.getElementById("radioAudio").play()
+            })
+        })
+        document.getElementById('resetButton').addEventListener(("click"), ()=>{
+            document.getElementById('resetAudio').play()
+        })
+        document.getElementById('submitButton').addEventListener(("click"), ()=>{
+            document.getElementById('submitAudio').play()
+        })
     }
 
     Dwarf() {
@@ -385,6 +414,7 @@ class Race extends React.Component {
     }
     
     handleSubmit() {
+        setTimeout(()=>this.setState({hidden: true}), 500)
         const state = Object.assign({}, this.state)
         Object.keys(state).forEach(key => state[key] === undefined && delete state[key])
         const actions = this.state.actions.map(e=>e)
@@ -402,26 +432,29 @@ class Race extends React.Component {
     }
 
     render(){
-        if (!this.props.progress.includes('race')) {
+        if (this.state.hidden === false) {
             return(
                 <div>
+                    <audio id="radioAudio" src={selectorAudio} preload="auto" ></audio>
+                    <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
+                    <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>
                     <h1>Select Race</h1>
                     {this.props.details.finalized === false ?
                     <div id='container'>
                         
-                        <div className='nestedRadio'>
+                        <div className='radio'>
                             <label>
-                                <input onInput={this.Dwarf} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Dwarf} type='radio' name='race'></input>
                                 Dwarf
                             </label>
                             {this.state.race === 'Dwarf' ? 
                                 <div>
                                     <label>
-                                        <input onInput={this.HillDwarf} type = 'radio' value='hill' name='subRace'></input>
+                                        <input className='radioButton' onInput={this.HillDwarf} type = 'radio' value='hill' name='subRace'></input>
                                         Hill Dwarf
                                     </label>
                                     <label>
-                                        <input onInput={this.MountainDwarf} type = 'radio' value='mountain' name='subRace'></input>
+                                        <input className='radioButton' onInput={this.MountainDwarf} type = 'radio' value='mountain' name='subRace'></input>
                                         Mountain Dwarf
                                     </label>
                                 </div>
@@ -429,20 +462,20 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Elf} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Elf} type='radio' name='race'></input>
                                 Elf
                             </label>
                             {this.state.race === 'Elf' ? 
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.HighElf} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.HighElf} type='radio' name='subRace'></input>
                                             High Elf
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.WoodElf} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.WoodElf} type='radio' name='subRace'></input>
                                             Wood Elf
                                         </label>
                                     </div>
@@ -451,20 +484,20 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Halfling} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Halfling} type='radio' name='race'></input>
                                 Halfing
                             </label>
                             {this.state.race === 'Halfling' ?
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.LightfootHalfling} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.LightfootHalfling} type='radio' name='subRace'></input>
                                             Lightfoot
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.StoutHalfling} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.StoutHalfling} type='radio' name='subRace'></input>
                                             Stout
                                         </label>
                                     </div>
@@ -473,28 +506,28 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Human} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Human} type='radio' name='race'></input>
                                 Human
                             </label>
                             {this.state.race === 'Human' ?
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.AbilityHuman} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.AbilityHuman} type='radio' name='subRace'></input>
                                             Ability Score Increase
                                         </label>
                                         {/*{this.state.subRace === 'Ability' ? <AbilityHuman bonuses={this.state.abilityScoreIncrease}/> : null}*/}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.SkillHuman} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.SkillHuman} type='radio' name='subRace'></input>
                                             Skill
                                         </label>
                                         {/*{this.state.subRace === 'Skill' ? <SkillHuman/> : null}*/}
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.FeatHuman} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.FeatHuman} type='radio' name='subRace'></input>
                                             Feat
                                         </label>
                                         {/*{this.state.subRace === 'Feat' ? <FeatHuman raceDetails={this.state}/> : null}*/}
@@ -504,68 +537,68 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Dragonborn} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Dragonborn} type='radio' name='race'></input>
                                 Dragonborn
                             </label>
                             {this.state.race === 'Dragonborn' ?
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Black'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Black'})} type='radio' name='subRace' ></input>
                                             Black
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Blue'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Blue'})} type='radio' name='subRace' ></input>
                                             Blue
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Brass'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Brass'})} type='radio' name='subRace' ></input>
                                             Brass
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Bronze'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Bronze'})} type='radio' name='subRace' ></input>
                                             Bronze
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Copper'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Copper'})} type='radio' name='subRace' ></input>
                                             Copper
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Gold'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Gold'})} type='radio' name='subRace' ></input>
                                             Gold
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Green'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Green'})} type='radio' name='subRace' ></input>
                                             Green
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Red'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Red'})} type='radio' name='subRace' ></input>
                                             Red
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'Silver'})} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'Silver'})} type='radio' name='subRace'></input>
                                             Silver
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={()=>this.setState({subRace: 'White'})} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={()=>this.setState({subRace: 'White'})} type='radio' name='subRace'></input>
                                             White
                                         </label>
                                     </div>
@@ -574,20 +607,20 @@ class Race extends React.Component {
                             </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Gnome} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Gnome} type='radio' name='race'></input>
                                 Gnome
                             </label>
                             {this.state.race === 'Gnome' ? 
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.ForestGnome} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={this.ForestGnome} type='radio' name='subRace' ></input>
                                             Forest
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.RockGnome} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={this.RockGnome} type='radio' name='subRace' ></input>
                                             Rock
                                         </label>
                                     </div>
@@ -596,26 +629,26 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.HalfElf} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.HalfElf} type='radio' name='race'></input>
                                 Half-Elf
                             </label>
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.HalfOrc} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.HalfOrc} type='radio' name='race'></input>
                                 Half-Orc
                             </label>
                             {this.state.race === 'Half-Orc' ? 
                                 <div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.setState({subRace: 'Scarred and Strong'})} type='radio' name='subRace'></input>
+                                            <input className='radioButton' onInput={this.setState({subRace: 'Scarred and Strong'})} type='radio' name='subRace'></input>
                                             Scarred and Strong
                                         </label>
                                     </div>
                                     <div className='subRadio'>
                                         <label>
-                                            <input onInput={this.setState({subRace: 'The Mark of Gruumsh'})} type='radio' name='subRace' ></input>
+                                            <input className='radioButton' onInput={this.setState({subRace: 'The Mark of Gruumsh'})} type='radio' name='subRace' ></input>
                                             The Mark of Gruumsh
                                         </label>
                                     </div>
@@ -624,29 +657,25 @@ class Race extends React.Component {
                         </div>
                         <div className='radio'>
                             <label>
-                                <input onInput={this.Tiefling} type='radio' name='race'></input>
+                                <input className='radioButton' onInput={this.Tiefling} type='radio' name='race'></input>
                                 Tiefling
                             </label>
                         </div> 
                     </div> : null}
-                    {this.state.race !== '' ?
+                    
                     <div>
                         <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
                         <h2>Race Bonus (stats): {this.props.details.abilityScoreIncrease}</h2>
                         <h3>features</h3>
-                        <button onClick={this.handleReset}>RESET</button>
-                        <button onClick={this.handleSubmit}>SUBMIT</button>
+                        <button id="resetButton" onClick={this.handleReset}>RESET</button>
+                        <button id="submitButton" onClick={this.handleSubmit}>SUBMIT</button>
                     </div>
-                    : null}
+                    
                 </div>
             )
         } else {
             return (
-                <div>
-                    <h2>submit bonuses</h2>
-                    <button onClick={this.handleReset}>RESET</button>
-                    <button onClick={this.handleSubmit}>SUBMIT</button>
-                </div>
+                null
             )}
     } 
 }

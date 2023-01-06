@@ -4,11 +4,16 @@ import RollCard from "./RollCard";
 import BaseStatList from "./BaseStatList";
 import { connect } from "react-redux";
 import Dice from "./DiceAnimation/Dice";
+import dieThrow from './sounds/dieThrow1.wav';
+import dieShuffle from './sounds/dieShuffle2.wav';
+import resetAudio from './sounds/chipsStack3.wav';
+import submitAudio from './sounds/chipsStack1.wav';
 
 class BaseStats extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
+      hidden: false,
       input: "",
       preRoll: [],
       Rolls: [],
@@ -20,6 +25,29 @@ class BaseStats extends React.Component {
     this.resetRolls = this.resetRolls.bind(this);
     this.acceptRolls = this.acceptRolls.bind(this);
     this.standardArray = this.standardArray.bind(this);
+  }
+
+  componentDidMount(){
+    this.bindSounds()
+  }
+
+  componentDidUpdate(){
+    if(this.state.hidden === false){
+      this.bindSounds()
+    }
+  }
+
+  bindSounds = () => {
+    document.getElementById('rollDice').addEventListener(("click"), ()=>{
+      document.getElementById('dieShuffle').play();
+      setTimeout(()=>document.getElementById('dieThrow').play(), 1300)
+    });
+    document.getElementById('resetButton').addEventListener(("click"), ()=>{
+      document.getElementById('resetAudio').play()
+    })
+    document.getElementById('submitButton').addEventListener(("click"), ()=>{
+      document.getElementById('submitAudio').play()
+  })
   }
 
   getRandomDieNumber() {
@@ -61,6 +89,7 @@ class BaseStats extends React.Component {
         input: best3,
       });
     }, 1500);
+    if(this.state.Rolls.length < 6){this.submitRoll()}
   }
 
   submitRoll() {
@@ -83,9 +112,11 @@ class BaseStats extends React.Component {
 
   acceptRolls() {
     this.setState({ rollsAccepted: true });
+    setTimeout(()=>this.setState({hidden: true}), 500)
   }
 
   render() {
+
     const rolls = this.state.Rolls;
     const rawRolls = this.state.Rolls.map((i, key) => <li key={key}>{i}</li>);
     const input = this.state.input;
@@ -93,8 +124,25 @@ class BaseStats extends React.Component {
     const rollCards = this.state.Rolls.map((e, i) => (
       <RollCard value={e} key={i} index={i} />
     ));
+
+    if(this.state.hidden === true){
+      return (
+        <div>
+          <h2>scores locked in!</h2>
+          <div id="rollCardContainer">{rollCards}</div>
+          <BaseStatList rolls={rolls} stats={this.state.stats}/>
+        </div>
+      )
+    } 
+    
+    else {
     return (
       <div>
+        <audio id="dieShuffle" src={dieShuffle} preload="auto" ></audio>
+        <audio id="dieThrow" src={dieThrow} preload="auto" ></audio>
+        <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
+        <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>
+
         <Dice numbers={this.state.preRoll} />
         <h1>Base Stats</h1>
         <h3>Let's Roll!</h3>
@@ -105,31 +153,24 @@ class BaseStats extends React.Component {
           onChange={this.handleChange}
           value={input || ""}
         ></input>
-        <button onClick={this.roll}>ROLL!</button>
+        <button id="rollDice" onClick={this.roll}>ROLL!</button>
         <br />
         <br />
         {this.state.Rolls.length < 6 ? (
-          <button type="submit" onClick={this.submitRoll}>
+          <button id="submitScore" type="submit" onClick={this.submitRoll}>
             SUBMIT
           </button>
         ) : null}
         <h3>{input}</h3>
         {rollsAccepted === false ? <ul>{rawRolls}</ul> : null}
-        {this.state.Rolls.length === 6 && rollsAccepted === false ? (
-          <button onClick={this.acceptRolls}>ACCEPT</button>
-        ) : null}
-        {rollsAccepted === false ? (
-          <button onClick={this.resetRolls}>RESET</button>
-        ) : null}
-        {rollsAccepted === true ? (
-          <div>
-            <h2>scores locked in!</h2>
-            <div id="rollCardContainer">{rollCards}</div>
-            <BaseStatList rolls={rolls} stats={this.state.stats}/>
-          </div>
-        ) : null}
+        
+        <button id="submitButton" onClick={this.acceptRolls}>ACCEPT</button>
+
+        <button id="resetButton" onClick={this.resetRolls}>RESET</button>
+        
       </div>
-    );
+    )
+    }
   }
 }
 
