@@ -6,7 +6,7 @@ class AbilityHuman extends React.Component{
     constructor(props){
         super(props)
         this.state={
-            bonuses: [0,0,0,0,0,0],
+            bonuses: this.props.bonuses || [0,0,0,0,0,0],
             picks: this.props.picks || 2,
             submitted: false
         }
@@ -31,18 +31,20 @@ class AbilityHuman extends React.Component{
     render(){
         return(
             <div>
-            {this.state.picks > 0 ? <div>
-            <h1>select ability scores ({this.state.picks})</h1>
-            <div>
-                <button onClick={()=>this.AllocatePoint(0)}>Strength</button>
-                <button onClick={()=>this.AllocatePoint(1)}>Dexterity</button>
-                <button onClick={()=>this.AllocatePoint(2)}>Constitution</button>
-                <button onClick={()=>this.AllocatePoint(3)}>Intelligence</button>
-                <button onClick={()=>this.AllocatePoint(4)}>Wisdom</button>
-                <button onClick={()=>this.AllocatePoint(5)}>Charisma</button>
-            </div>
-            </div>: null }
-            <h2>stat mods: {this.state.bonuses}</h2>
+            {this.state.picks > 0 ? 
+                <div>
+                    <h1>select ability scores ({this.state.picks})</h1>
+                    <div>
+                        <button onClick={()=>this.AllocatePoint(0)}>Strength</button>
+                        <button onClick={()=>this.AllocatePoint(1)}>Dexterity</button>
+                        <button onClick={()=>this.AllocatePoint(2)}>Constitution</button>
+                        <button onClick={()=>this.AllocatePoint(3)}>Intelligence</button>
+                        <button onClick={()=>this.AllocatePoint(4)}>Wisdom</button>
+                        <button onClick={()=>this.AllocatePoint(5)}>Charisma</button>
+                    </div>
+                    <h2>stat mods: {this.state.bonuses}</h2>
+                </div>
+            : null }
             {this.state.picks === 0 && this.state.submitted === false ? <input type='submit' onClick={this.handleClick}></input> : null}
         </div>
         )

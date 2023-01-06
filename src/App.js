@@ -23,8 +23,9 @@ function App() {
           <Race />
           <DisplayRace />
           <BaseStats />
-          {state.progress.includes('race') ? <RacialTraitsIndex /> : null}
           {state.progress.includes('race') ? <DisplayBaseStats /> : null}
+          <RacialTraitsIndex />
+          
           
           <h2>{}</h2>
   {/*

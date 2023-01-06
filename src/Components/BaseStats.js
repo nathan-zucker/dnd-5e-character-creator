@@ -8,6 +8,7 @@ import dieThrow from './sounds/dieThrow1.wav';
 import dieShuffle from './sounds/dieShuffle2.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
+import AbilityHuman from "./AbilityHuman";
 
 class BaseStats extends React.Component {
   constructor(props) {
@@ -17,6 +18,7 @@ class BaseStats extends React.Component {
       input: "",
       preRoll: [],
       Rolls: [],
+      diceRolls: 0,
       rollsAccepted: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -39,8 +41,7 @@ class BaseStats extends React.Component {
 
   bindSounds = () => {
     document.getElementById('rollDice').addEventListener(("click"), ()=>{
-      document.getElementById('dieShuffle').play();
-      setTimeout(()=>document.getElementById('dieThrow').play(), 1300)
+      
     });
     document.getElementById('resetButton').addEventListener(("click"), ()=>{
       document.getElementById('resetAudio').play()
@@ -69,50 +70,68 @@ class BaseStats extends React.Component {
   }
 
   roll() {
-    const newPreRoll = [
-      this.getRandomDieNumber(),
-      this.getRandomDieNumber(),
-      this.getRandomDieNumber(),
-      this.getRandomDieNumber(),
-    ];
+    if(this.state.Rolls.length < 6 && this.state.diceRolls < 6){
+      
+      document.getElementById('dieShuffle').play();
+      setTimeout(()=>document.getElementById('dieThrow').play(), 1200);
+      
+      this.setState({diceRolls: this.state.diceRolls + 1})
 
-    this.setState({
-      preRoll: newPreRoll,
-    });
+      const newPreRoll = [
+        this.getRandomDieNumber(),
+        this.getRandomDieNumber(),
+        this.getRandomDieNumber(),
+        this.getRandomDieNumber(),
+      ];
 
-    const best3 = newPreRoll
-      .sort((a, b) => b - a)
-      .slice(0, 3)
-      .reduce((a, b) => a + b, 0);
-    setTimeout(() => {
       this.setState({
-        input: best3,
+        preRoll: newPreRoll,
       });
-    }, 1500);
-    if(this.state.Rolls.length < 6){this.submitRoll()}
+
+      const best3 = newPreRoll
+        .sort((a, b) => b - a)
+        .slice(0, 3)
+        .reduce((a, b) => a + b, 0);
+      setTimeout(() => {
+        this.setState({
+          input: best3,
+        });
+      }, 1500);
+
+      setTimeout(()=>{this.submitRoll()}, 1600)
+      
+    } 
+   
+    else {
+      return null
+    }
   }
 
   submitRoll() {
     if (this.state.input === "" || this.state.input === null) {
       return null;
     } else {
-      this.setState({
-        Rolls: [...this.state.Rolls, this.state.input],
-        input: null,
-      });
+      if (this.state.Rolls.length < 6) {
+        this.setState({
+          Rolls: [...this.state.Rolls, this.state.input],
+          input: null,
+        });
+      }
     }
   }
 
   resetRolls() {
     this.setState({
+      input: null,
       Rolls: [],
+      diceRolls: 0,
       rollsAccepted: false,
     });
   }
 
   acceptRolls() {
     this.setState({ rollsAccepted: true });
-    setTimeout(()=>this.setState({hidden: true}), 500)
+    setTimeout(()=>this.setState({hidden: true}), 1000)
   }
 
   render() {
@@ -131,6 +150,8 @@ class BaseStats extends React.Component {
           <h2>scores locked in!</h2>
           <div id="rollCardContainer">{rollCards}</div>
           <BaseStatList rolls={rolls} stats={this.state.stats}/>
+          { this.props.details.subRace === "Ability" ? <AbilityHuman /> : null }
+          { this.props.details.race === "Half Elf" ? <AbilityHuman picks={1} bonuses={[0,0,0,0,0,2]} /> : null }
         </div>
       )
     } 
@@ -176,6 +197,7 @@ class BaseStats extends React.Component {
 
 const mapStateToProps = (state) => {
   return {
+    details: state.raceDetails,
     stats: state.baseStats,
     progress: state.progress,
   };

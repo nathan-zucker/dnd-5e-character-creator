@@ -27,10 +27,10 @@ class RacialTraitsIndex extends React.Component {
     constructor(props){
         super(props)
         this.state = {
+            inputNeeded: [],
+            inputAcquired: []
         }
     }
-
-    
 
     render(){
         let features = this.props.features;
@@ -38,20 +38,21 @@ class RacialTraitsIndex extends React.Component {
         let subRace = this.props.subRace;
         let languageOptions = languagesIndex.map(e=><option value={e}>{e}</option>)
 
-        return(
-            <div>
-                <h1>Make some additional selections</h1>
-                <h2>{features.join(', ')}</h2>
-                
-                {subRace === "Ability" && <AbilityHuman /> }
-                {race === "Half Elf" && <AbilityHuman picks={1} />}
-                {features.includes("Extra Language") && <select>{languageOptions}</select> }
+        if (!this.props.progress.includes("baseStats")) {
+            return null
+        }
+        
+        else {
 
-                {features.includes("Tool Proficiency") ? <ToolProficiency /> : null}
-               
-                {/*features.includes("") ? < /> : null*/}
-            </div>
-        )
+            return(
+                <div>
+                    <h1>these are your features</h1>
+                    <h2>{features.join(', ')}</h2>
+                </div>
+            )
+        }
+
+        
     }
 }
 
@@ -59,7 +60,8 @@ const mapStateToProps = state => {
     return({
         features: state.raceDetails.features,
         race: state.raceDetails.race,
-        subRace: state.raceDetails.subRace
+        subRace: state.raceDetails.subRace,
+        progress: state.progress
     })
 }
 
