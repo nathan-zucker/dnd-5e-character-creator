@@ -1,16 +1,24 @@
 {
   "files": {
     "main.css": "/dnd-5e-character-creator/static/css/main.8ee953d6.css",
-    "main.js": "/dnd-5e-character-creator/static/js/main.ed77f552.js",
+    "main.js": "/dnd-5e-character-creator/static/js/main.48dcc3ce.js",
     "static/js/787.346cd47a.chunk.js": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js",
+    "static/media/dieShuffle2.wav": "/dnd-5e-character-creator/static/media/dieShuffle2.dbaf9a6f5ace58f5beeb.wav",
+    "static/media/chipsHandle1.wav": "/dnd-5e-character-creator/static/media/chipsHandle1.57d2b8c1b2d4e127bfa4.wav",
+    "static/media/cardFlip.wav": "/dnd-5e-character-creator/static/media/cardFlip.2fcd78868bfd43548751.wav",
+    "static/media/dieThrow1.wav": "/dnd-5e-character-creator/static/media/dieThrow1.84e6f98504507208bdab.wav",
+    "static/media/selector1.wav": "/dnd-5e-character-creator/static/media/selector1.854e646eb36a1c4d51f5.wav",
+    "static/media/chipsStack3.wav": "/dnd-5e-character-creator/static/media/chipsStack3.37872d90c65881cccff5.wav",
+    "static/media/chipsStack1.wav": "/dnd-5e-character-creator/static/media/chipsStack1.d31d99ebb604ce6f7ada.wav",
+    "static/media/cardSelect.mp3": "/dnd-5e-character-creator/static/media/cardSelect.b3613f7907ff0b3260b2.mp3",
     "static/media/logo.svg": "/dnd-5e-character-creator/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/dnd-5e-character-creator/index.html",
     "main.8ee953d6.css.map": "/dnd-5e-character-creator/static/css/main.8ee953d6.css.map",
-    "main.ed77f552.js.map": "/dnd-5e-character-creator/static/js/main.ed77f552.js.map",
+    "main.48dcc3ce.js.map": "/dnd-5e-character-creator/static/js/main.48dcc3ce.js.map",
     "787.346cd47a.chunk.js.map": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.8ee953d6.css",
-    "static/js/main.ed77f552.js"
+    "static/js/main.48dcc3ce.js"
   ]
 }
