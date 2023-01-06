@@ -1,22 +1,4 @@
-:root {
-    --die-color: #fefefe;
-  }
-  * {
-    margin: 0;
-    padding: 0;
-    vertical-align: baseline;
-  }
-  html {
-    font-family: system-ui, sans-serif;
-  }
-  body {
-    background: linear-gradient(#545454, #454545, #676767);
-    display: grid;
-    grid-template-columns: 1fr;
-    height: 100vh;
-    overflow: hidden;
-    width: 100%;
-  }
+
   .dice {
     align-items: center;
     display: grid;
@@ -199,20 +181,7 @@
     grid-area: nine;
   }
   
-  button {
-    align-self: center;
-    background-color: #efefef;
-    border: none;
-    color: #333;
-    font-size: 1.25rem;
-    font-weight: 700;
-    justify-self: center;
-    padding: 0.5rem 1rem;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  
+
   @media (min-width: 900px) {
     .dice {
       perspective: 1300px;
