@@ -19,6 +19,7 @@ class BaseStats extends React.Component {
       preRoll: [],
       Rolls: [],
       diceRolls: 0,
+      modifiers: undefined,
       rollsAccepted: false,
     };
     this.handleChange = this.handleChange.bind(this);
@@ -131,8 +132,11 @@ class BaseStats extends React.Component {
 
   acceptRolls() {
     this.setState({ rollsAccepted: true });
+    //this.props.dispatch("ASmodifiers", mods)
     setTimeout(()=>this.setState({hidden: true}), 1000)
   }
+
+  
 
   render() {
 
@@ -143,8 +147,12 @@ class BaseStats extends React.Component {
     const rollCards = this.state.Rolls.map((e, i) => (
       <RollCard value={e} key={i} index={i} />
     ));
+    
+    
 
     if(this.state.hidden === true){
+      
+
       return (
         <div>
           <h2>scores locked in!</h2>
@@ -208,6 +216,7 @@ const mapDispatchToProps = (dispatch) => {
     submitStats: () => {
       dispatch({ type: "submitBaseStats" });
     },
+    dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
   };
 };
 

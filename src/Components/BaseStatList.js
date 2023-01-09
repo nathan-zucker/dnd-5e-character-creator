@@ -7,27 +7,43 @@ class BaseStatList extends React.Component {
         super(props);
         this.state = {
             rolls: [...props.rolls],
-            baseStats: this.props.stats.map(e=>e.pop()),
+            baseStats: this.props.stats,
             nextStat: () => {
-                if (this.state.baseStats[0] === 0) {return 'Strength'}
-                if (this.state.baseStats[1] === 0) {return 'Dexterity'}
-                if (this.state.baseStats[2] === 0) {return 'Constitution'}
-                if (this.state.baseStats[3] === 0) {return 'Intelligence'}
-                if (this.state.baseStats[4] === 0) {return 'Wisdom'}
-                if (this.state.baseStats[5] === 0) {return 'Charisma'} 
+                if (this.props.stats.length === 0) {return 'Strength'}
+                if (this.props.stats.length === 1) {return 'Dexterity'}
+                if (this.props.stats.length === 2) {return 'Constitution'}
+                if (this.props.stats.length === 3) {return 'Intelligence'}
+                if (this.props.stats.length === 4) {return 'Wisdom'}
+                if (this.props.stats.length === 5) {return 'Charisma'} 
                 else{return null}
             }
         }
     }
- 
+    getModifiers = () => {
+        const stats = this.props.stats;
+        const mods = this.props.bonus;
+        const combined = stats.map((e, i)=>e+mods[i]);
+        const modifiers = combined.map(e=>Math.floor((e-10)/2));
+        const dressedModifiers = modifiers.map(e=>{
+            switch(e>=0){
+              case true: return "(+"+e+")";
+              case false: return "("+e+")";
+              default: return null;
+            }
+          })
+        this.props.dispatch("ASmodifiers", [modifiers, dressedModifiers])
+        this.props.dispatch("setStats", combined)
+        return [modifiers, dressedModifiers]
+      }
 
     handleSubmit = () => {
         document.getElementById("submitAudio").play()
         setTimeout(()=>this.props.submitStats(), 500)
+        this.getModifiers()
     }
     
     render() {
-        const next = this.state.nextStat()
+        let next = this.state.nextStat()
         return(
             <div>
                 <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
@@ -42,13 +58,15 @@ class BaseStatList extends React.Component {
 const mapStateToProps = state => {
     return {
         stats: state.baseStats.stats,
+        bonus: state.raceDetails.abilityScoreIncrease,
         progress: state.progress
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitStats: () => { dispatch({type: 'submitBaseStats'}) }
+        submitStats: () => { dispatch({type: 'submitBaseStats'}) },
+        dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
     }
 }
 
