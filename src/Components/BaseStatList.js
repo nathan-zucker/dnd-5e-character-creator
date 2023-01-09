@@ -7,14 +7,14 @@ class BaseStatList extends React.Component {
         super(props);
         this.state = {
             rolls: [...props.rolls],
-            baseStats: this.props.stats.map(e=>e.pop()),
+            baseStats: this.props.stats,
             nextStat: () => {
-                if (this.state.baseStats[0] === 0) {return 'Strength'}
-                if (this.state.baseStats[1] === 0) {return 'Dexterity'}
-                if (this.state.baseStats[2] === 0) {return 'Constitution'}
-                if (this.state.baseStats[3] === 0) {return 'Intelligence'}
-                if (this.state.baseStats[4] === 0) {return 'Wisdom'}
-                if (this.state.baseStats[5] === 0) {return 'Charisma'} 
+                if (this.props.stats.length === 0) {return 'Strength'}
+                if (this.props.stats.length === 1) {return 'Dexterity'}
+                if (this.props.stats.length === 2) {return 'Constitution'}
+                if (this.props.stats.length === 3) {return 'Intelligence'}
+                if (this.props.stats.length === 4) {return 'Wisdom'}
+                if (this.props.stats.length === 5) {return 'Charisma'} 
                 else{return null}
             }
         }
@@ -27,7 +27,7 @@ class BaseStatList extends React.Component {
     }
     
     render() {
-        const next = this.state.nextStat()
+        let next = this.state.nextStat()
         return(
             <div>
                 <audio id="submitAudio" src={submitAudio} preload="auto"></audio>

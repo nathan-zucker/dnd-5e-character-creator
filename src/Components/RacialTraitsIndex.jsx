@@ -58,7 +58,7 @@ class RacialTraitsIndex extends React.Component {
 
 const mapStateToProps = state => {
     return({
-        features: state.raceDetails.features,
+        features: state.features,
         race: state.raceDetails.race,
         subRace: state.raceDetails.subRace,
         progress: state.progress

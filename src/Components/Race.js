@@ -16,7 +16,7 @@ const defaultState = {
     alignment: undefined,
     size: '',
     speed: 0,
-    languages: undefined,
+    languages: [],
     darkVision: false,
     baseFeatures: undefined,
     features: [],
@@ -422,6 +422,9 @@ class Race extends React.Component {
             this.props.dispatch(actions[i].type, actions[i].payload)
         }
         this.props.submitState(state)
+        this.props.dispatch('addLanguages', this.state.languages)
+        this.props.dispatch('addFeatureArray', this.state.features)
+
         this.props.updateProgress()
     }
 
@@ -716,7 +719,6 @@ const sendState = (state) => {
         abilityScoreIncrease: state.abilityScoreIncrease,
         size: state.size,
         speed: state.speed,
-        languages: state.languages,
         darkVision: state.darkVision,
         baseFeatures: state.baseFeatures,
         features: state.features

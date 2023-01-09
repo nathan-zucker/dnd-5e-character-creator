@@ -58,6 +58,22 @@ const classLevelReducer = (state = [[undefined]], action) => {
     }
 }
 
+const classDetailsReducer = (state = {}, action) => {
+    switch(action.type){
+        case 'classDetails': return Object.assign({}, state, action.payload)
+        default: return state;
+    }
+}
+
+const featureReducer = (state = [], action) => {
+    switch(action.type) {
+        case 'clearFeatures': return [];
+        case 'addFeature': return state.push(action.payload);
+        case 'addFeatureArray': return state.concat(action.payload)
+        default: return state;
+    }
+}
+
 const RacialBonusReducer = ((state={finalized: false}, action)=>{
     switch(action.type){
         case 'ResetRace': return Object.assign({}, state, action.payload);
@@ -67,7 +83,6 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
             abilityScoreIncrease: action.abilityScoreIncrease || state.abilityScoreIncrease,
             size: action.size,
             speed: action.speed,
-            languages: action.languages,
             darkVision: action.darkVision,
             baseFeatures: action.baseFeatures,
             features: action.features || state.features
@@ -92,7 +107,7 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
 const savingThrowReducer = (state = {proficient: [], advantage: []}, action) => {
     switch(action.type) {
         case 'saveProficiency': return Object.assign({}, state, {
-            proficient: [...state.proficient, action.payload]
+            proficient: [...state.proficient, ...action.payload]
         });
         case 'saveAdvantage': return Object.assign({}, state, {
             advantage: [...state.advantage, action.payload]
@@ -140,16 +155,16 @@ const languageReducer = (state = {picks: 0, languages: []}, action) => {
         case 'addLanguagePick': return Object.assign({}, state, {
             picks: state.picks + action.payload 
         });
-        case 'addLanguage': return Object.assign({}, state, {
-            languages: [...state.languages, action.payload]
+        case 'addLanguages': return Object.assign({}, state, {
+            languages: [...state.languages, ...action.payload]
         })
         default: return state;
     }
 }
 
-const spellReducer = (state = [], action) => {
+const spellReducer = (state = {}, action) => {
     switch(action.type){
-        case 'addSpell': return [...state, action.payload]
+        case 'updateSpells': return action.payload;
         default: return state;
     }
 }
@@ -158,12 +173,14 @@ const store = configureStore({
     reducer: {
         randomNumber: randomNumberReducer,
         progress: progressReducer,
+        features: featureReducer,
         baseStats: baseStatReducer,
         hitPoints: hitPointReducer,
         race: raceReducer,
         raceDetails: RacialBonusReducer,
         languages: languageReducer,
         class: classLevelReducer,
+        classDetails: classDetailsReducer,
         savingThrows: savingThrowReducer,
         skillProficiencies: skillReducer,
         weapons: weaponReducer,
