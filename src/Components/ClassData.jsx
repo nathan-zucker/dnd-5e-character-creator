@@ -1,3 +1,8 @@
+const generateASModifiers = (ASarray) => {
+    let mod = ASarray.map(e=>Math.floor((e-10)/2));
+    return mod;
+}
+
 const barbarian = {
     base: {
         class: 'Barbarian',
@@ -708,8 +713,16 @@ const rogue = {
         hitDie: 8,
         primaryAbility: ['Dexterity'],
         savingThrows: ["Dexterity", "Intelligence"],
+        skills: [4, ["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"]],
         armor: ['light', 'medium'],
-        weapons: ['simple', 'hand crossbow', 'longsword', 'rapier', 'shortsword']
+        weapons: ['simple', 'hand crossbow', 'longsword', 'rapier', 'shortsword'],
+        tools: ["thieves's tools"],
+        equipment: [
+            ["rapier", "shortsword"],
+            ["shortbow & 20 arrows", "shortsword"],
+            ["burglar's pack", "dungeoneer's pack", "explorer's pack"],
+            "leather armor", "two daggers", "thieve's tools"
+        ]
     },
     1: {
         proficiencyBonus: 2,
@@ -748,7 +761,14 @@ const sorcerer = {
         primaryAbility: ['Charisma'],
         savingThrows: ['Constitution', 'Charisma'],
         armor: [],
-        weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow']
+        weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
+        skills: [2, ["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"]],
+        equipment: [
+            ["light crossbow & 20 bolts", "any simple weapon"],
+            ["component pouch", "arcane focus"],
+            ["dugeoneer's pack", "explorer's pack"],
+            "two daggers"
+        ]
     },
     1: {
         proficiencyBonus: 2,
@@ -811,8 +831,17 @@ const warlock = {
         hitDie: 8,
         primaryAbility: "Charisma",
         savingThrows: ["Wisdom", "Charisma"],
+        skills: [2, ["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"]],
         armor: ["light"],
-        weapons: ['simple']
+        weapons: ['simple'],
+        equipment: [
+            ["light crossbow & 20 bolts", "any simple weapon"],
+            ["component pouch", "arcane focus"],
+            ["scholar's pack", "dungeoneer's pack"],
+            "leather armor",
+            "any simple weapon",
+            "two daggers"
+        ]
     },
     1: {
         proficiencyBonus: 2,
@@ -874,8 +903,15 @@ const wizard = {
         hitDie: 6,
         primaryAbility: "Intelligence",
         savingThrows: ["Intelligence", "Wisdom"],
+        skills: [2, ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]],
         armor: [],
-        weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow']
+        weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
+        equipment: [
+            ["quarterstaff", "dagger"],
+            ["component pouch", "arcane focus"],
+            ["scholar's pack", "explorer's pack"],
+            "spellbook"
+        ]
     },
     1: {
         proficiencyBonus: 2,

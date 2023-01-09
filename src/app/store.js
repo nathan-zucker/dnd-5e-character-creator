@@ -30,6 +30,12 @@ const baseStatReducer = (state = {picks: 0, stats: []}, action) => {
         case 'addAbilityScorePick': return Object.assign({}, state, {
             picks: state.picks + action.payload
         });
+        case 'ASmodifiers': return Object.assign({}, state, {
+            modifiers: action.payload
+        });
+        case "setStats": return Object.assign({}, state, {
+            stats: action.payload
+        })
         default: return state;
     }
 }

@@ -19,11 +19,27 @@ class BaseStatList extends React.Component {
             }
         }
     }
- 
+    getModifiers = () => {
+        const stats = this.props.stats;
+        const mods = this.props.bonus;
+        const combined = stats.map((e, i)=>e+mods[i]);
+        const modifiers = combined.map(e=>Math.floor((e-10)/2));
+        const dressedModifiers = modifiers.map(e=>{
+            switch(e>=0){
+              case true: return "(+"+e+")";
+              case false: return "("+e+")";
+              default: return null;
+            }
+          })
+        this.props.dispatch("ASmodifiers", [modifiers, dressedModifiers])
+        this.props.dispatch("setStats", combined)
+        return [modifiers, dressedModifiers]
+      }
 
     handleSubmit = () => {
         document.getElementById("submitAudio").play()
         setTimeout(()=>this.props.submitStats(), 500)
+        this.getModifiers()
     }
     
     render() {
@@ -42,13 +58,15 @@ class BaseStatList extends React.Component {
 const mapStateToProps = state => {
     return {
         stats: state.baseStats.stats,
+        bonus: state.raceDetails.abilityScoreIncrease,
         progress: state.progress
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        submitStats: () => { dispatch({type: 'submitBaseStats'}) }
+        submitStats: () => { dispatch({type: 'submitBaseStats'}) },
+        dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
     }
 }
 
