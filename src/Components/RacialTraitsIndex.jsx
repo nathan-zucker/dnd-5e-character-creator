@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import ToolProficiency from "./RaceFeatures/ToolProficiency";
-import AbilityHuman from "./AbilityHuman"
+import AbilityScordIncrease from "./AbilityScoreIncrease"
 
 
 const languagesIndex = [

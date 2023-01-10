@@ -67,7 +67,7 @@ const Header = () => {
               this.centerY = this.height * 0.5;
               this.x = this.centerX - this.image.width * 0.5;
               this.y = this.centerY - this.image.width * 0.5;
-              this.gap = 3;
+              this.gap = 4;
               this.mouse = {
                   radius: 5000,
                   x: undefined,

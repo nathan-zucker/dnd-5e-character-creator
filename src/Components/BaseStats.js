@@ -8,7 +8,7 @@ import dieThrow from './sounds/dieThrow1.wav';
 import dieShuffle from './sounds/dieShuffle2.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
-import AbilityHuman from "./AbilityHuman";
+import AbilityScordIncrease from "./AbilityScoreIncrease";
 
 class BaseStats extends React.Component {
   constructor(props) {
@@ -158,8 +158,6 @@ class BaseStats extends React.Component {
           <h2>scores locked in!</h2>
           <div id="rollCardContainer">{rollCards}</div>
           <BaseStatList rolls={rolls} stats={this.state.stats}/>
-          { this.props.details.subRace === "Ability" ? <AbilityHuman /> : null }
-          { this.props.details.race === "Half Elf" ? <AbilityHuman picks={1} bonuses={[0,0,0,0,0,2]} /> : null }
         </div>
       )
     } 
