@@ -1,11 +1,12 @@
-.App {
-  text-align: center;
-}
+
+
 .main {
-  padding-top: 2rem;
+  text-align: center;
+  padding-top: 10rem;
   padding-bottom: 15em;
   min-height: 70vh;
   height: fit-content;
   width: 100%;
   background-color: bisque;
+  z-index: 2;
 }
