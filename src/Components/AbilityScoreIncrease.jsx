@@ -26,7 +26,7 @@ class AbilityScordIncrease extends React.Component{
     }
 
     handleClick(){
-        this.props.dispatchPoints(this.state.bonuses)
+        this.props.dispatch('abilityScoreIncrease', this.state.bonuses)
         this.setState({submitted: true})
     }    
 
@@ -65,7 +65,7 @@ const mapDispatchToProps = (dispatch) => {
     return{
         dispatchPoints: (bonus) => { dispatch(sendPoints(bonus)) },
         dispatchPicks: (picks) => { dispatch({type: 'ASIpick', payload: picks}) },
-        dispatch: (type) => { dispatch({type: type}) }
+        dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
     }
 }
 

@@ -33,12 +33,12 @@ const Header = () => {
               this.angle = 0;
           }
           draw(context){
-              context.fillRect(this.x, this.y, this.size, this.size);
+              context.fillRect(this.x, this.y, (this.size / scaleX), (this.size / scaleY));
               context.fillStyle = this.color;
           }
           update(){
-              this.dx = this.effect.mouse.x - this.x;
-              this.dy = this.effect.mouse.y - this.y;
+              this.dx = (this.effect.mouse.x - this.x) * scaleX;
+              this.dy = (this.effect.mouse.y - this.y) * scaleY;
               this.distance = this.dx * this.dx + this.dy * this.dy;
               this.force = -this.effect.mouse.radius / this.distance - 2;
   
@@ -67,9 +67,9 @@ const Header = () => {
               this.centerY = this.height * 0.5;
               this.x = this.centerX - this.image.width * 0.5;
               this.y = this.centerY - this.image.width * 0.5;
-              this.gap = 4;
+              this.gap = 2;
               this.mouse = {
-                  radius: 5000,
+                  radius: 3000,
                   x: undefined,
                   y: undefined
               }
@@ -81,8 +81,8 @@ const Header = () => {
           init(context){
               context.drawImage(this.image, this.x, this.y);
               const pixels = context.getImageData(0, 0, this.width, this.height).data;
-              for (let y = 0; y < this.height; y += this.gap) {
-                  for (let x = 0; x < this.width; x += this.gap){
+              for (let y = 0; y < this.height; y += (this.gap / scaleY)) {
+                  for (let x = 0; x < this.width; x += (this.gap / scaleX)){
                       const index = (y * this.width + x) * 4;
                       const red = pixels[index];
                       const green = pixels[index + 1];

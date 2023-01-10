@@ -50,7 +50,7 @@ class BaseStatList extends React.Component {
                 <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
                 {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
                 
-                {this.props.picks > 0 ? <AbilityScoreIncrease picks={this.props.picks} bonuses={this.props.bonus} /> : null}
+                <AbilityScoreIncrease picks={this.props.picks} bonuses={this.props.bonus} />
 
                 {this.props.stats.length >= 6 && !this.props.progress.includes('baseStats') ? 
                 <button id="submitButton" onClick={this.handleSubmit}>next</button> : null}

@@ -96,7 +96,7 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
             baseFeatures: action.baseFeatures,
             features: action.features || state.features
         });
-        case 'AbilityHumanBonus': return Object.assign({}, state, {
+        case 'abilityScoreIncrease': return Object.assign({}, state, {
             abilityScoreIncrease: action.payload,
             finalized: true
         });
