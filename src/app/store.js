@@ -194,7 +194,7 @@ const store = configureStore({
         savingThrows: savingThrowReducer,
         skillProficiencies: skillReducer,
         weapons: weaponReducer,
-        spells: spellReducer,
+        spellCasting: spellReducer,
         armor: armorReducer,
         tools: toolReducer,
     }

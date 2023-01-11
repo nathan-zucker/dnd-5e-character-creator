@@ -1,9 +1,9 @@
 import React from "react";
 import { connect } from "react-redux";
-import ToolProficiency from "./RaceFeatures/ToolProficiency";
-import AbilityScordIncrease from "./AbilityScoreIncrease"
+//import ToolProficiency from "./RaceFeatures/ToolProficiency";
+//import AbilityScordIncrease from "./AbilityScoreIncrease"
 
-
+/*
 const languagesIndex = [
     "Common",
     "Dwarvish",
@@ -22,6 +22,7 @@ const languagesIndex = [
     "Sylvan",
     "Undercommon"
 ]
+*/
 
 class RacialTraitsIndex extends React.Component {
     constructor(props){
@@ -101,6 +102,83 @@ class RacialTraitsIndex extends React.Component {
         document.getElementById(targetFeature).disabled = true;
     }
 
+    handleContinue = () => {
+        this.dispatchInfo()
+
+    }
+
+    dispatchInfo = () => {
+        let info = this.state.savedInfo.map(e=>e);
+        let keys;
+        let infoType;
+        let infoPayload;
+        let type;
+        let payload;
+        
+        console.log("processing",info)
+
+        info.forEach(infoObj=>{
+            keys = Object.keys(infoObj)
+            for (let i=0; i<keys.length; i++) {
+                infoType = keys[i];
+                infoPayload = infoObj[keys[i]];
+                
+                switch(infoType){
+                    case 'features': 
+                        type = 'addFeatureArray';
+                        payload = infoPayload;
+                        this.props.sendPackage(type, payload)
+                        break;
+                    case 'spellCasting':
+                        console.log('found spells')
+                        let spellObj = Object.assign({}, infoObj.spellCasting);
+                        const subKeys = Object.keys(spellObj)
+                        console.log(spellObj)
+                        // COMBINE DATA FROM REDUX STORE
+
+                        subKeys.forEach(e=>{
+                            if (this.props.spellCasting.hasOwnProperty(e)) {
+                                const a = infoObj.spellCasting[e];
+                                const b = this.props.spellCasting[e];
+                                let c = [];
+                                if (e === "slots") {
+                                    a.length > b.length ? c=a.map((e, i)=>e+b[i] || e) : c=b.map((e,i)=>e+a[i] || e)
+                                    spellObj[e] = c;
+                                    console.log(c, spellObj)
+                                } 
+                                else if ( infoObj[e].isArray() ) {
+                                    c = b.concat(a);
+                                    spellObj[e] = c;
+                                    console.log(c, spellObj)
+                                } 
+                                else {
+                                    spellObj[e] = a + b;
+                                    console.log(c, spellObj)
+                                }
+                            } 
+                            else { 
+                                console.log(spellObj);
+                            }
+                        })
+
+                        // SEND ENTIRE UPDATED SPELLCASTING OBJECT
+                        
+                        type = "updateSpells";
+                        payload = Object.assign({}, this.props.spellCasting, spellObj);
+                        this.props.sendPackage(type, payload)
+
+                    break;
+
+                    default:
+                    this.props.sendPackage(infoType, infoPayload);
+                    console.log("dispatched ",infoType, infoPayload);
+
+                }
+
+                
+            }
+        })
+    }
 
     render(){
         let features = this.props.features;
@@ -115,6 +193,8 @@ class RacialTraitsIndex extends React.Component {
                 <div>
                     <h1>these are your features</h1>
                     <h2>{features.join(', ')}</h2>
+                    <h2>select {this.state.inputNeeded} more options! ({this.state.selectors} total) </h2>
+                    <h3>confirm entry: {this.state.subClass}</h3>
 
                     {this.subClassSelector("Primal Path")}
                     {this.subClassSelector("Bard College")}
@@ -132,12 +212,24 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Fighting Style", 2)}
 
 
-                    {this.state.inputNeeded === 0 && <button>continue</button>}
+                    {this.state.inputNeeded === 0 || this.state.selectors === 0 ? 
+                    <button onClick={this.handleContinue} >continue</button> : null}
                 </div>
             )
         }
     }
 }
+
+
+
+const sendPackage = (type, payload) => {
+    return {
+        type: type,
+        payload: payload
+    }
+}
+
+
 
 const mapStateToProps = state => {
     return({
@@ -146,8 +238,15 @@ const mapStateToProps = state => {
         features: state.features,
         race: state.raceDetails.race,
         subRace: state.raceDetails.subRace,
+        spellCasting: state.spellCasting,
         progress: state.progress
     })
 }
 
-export default connect(mapStateToProps)(RacialTraitsIndex)
+const mapDispatchToProps = dispatch => {
+    return {
+        sendPackage: (type, payload) => { dispatch(sendPackage(type, payload)) }
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(RacialTraitsIndex)

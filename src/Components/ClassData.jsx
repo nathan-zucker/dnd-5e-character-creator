@@ -796,7 +796,7 @@ const paladin = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Fighting Style", "Spellcasting", "Divine Smite"],
+        features: ["Fighting Style", "SpellCasting", "Divine Smite"],
         spellCasting: {
             slots: [2]
         }
@@ -826,26 +826,38 @@ const paladin = {
         "Oath of Devotion": {
             3: {
                 features: ["Oath Spells", "Channel Divinity"],
-                oathSpells: ["protection from evil and good", "sanctuary"],
-                channelDivinity: ["Sacred Weapon", "Turn the Unholy"]
+                spellCasting: {
+                    oathSpells: ["protection from evil and good", "sanctuary"],
+                    channelDivinity: ["Sacred Weapon", "Turn the Unholy"]
+                }
+                
             },
             5: {
-                oathSpells: ["lesser restoration", "zone of truth"]
+                spellCasting: {
+                    oathSpells: ["lesser restoration", "zone of truth"]
+                }
+                
             },
             7: {
                 features: ["Aura of Devotion"]
             },
             9: {
-                oathSpells: ["beacon of hope", "dispel magic"]
+                spellCasting: {
+                    oathSpells: ["beacon of hope", "dispel magic"]
+                }
             },
             13: {
-                oathSpells: ["freedom of movement", "guardian of faith"]
+                spellCasting: {
+                    oathSpells: ["freedom of movement", "guardian of faith"]
+                }
             },
             15: {
                 features: ["Purity of Spirit"]
             },
             17: {
-                oathSpells: ["commune", "flame strike"]
+                spellCasting: {
+                    oathSpells: ["commune", "flame strike"]
+                }
             },
             18: {
                 features: ["Improved Aura of Devotion"]
@@ -857,26 +869,28 @@ const paladin = {
         "Oath of the Ancients": {
             3: {
                 features: ["Channel Divinity", "Oath Spells"],
-                oathSpells: ["ensnaring strike", "speak with animals"],
-                channelDivinity: ["Nature's Wrath", "Turn the Faithless"]
+                spellCasting: {
+                    oathSpells: ["ensnaring strike", "speak with animals"],
+                    channelDivinity: ["Nature's Wrath", "Turn the Faithless"]
+                }
             },
             5: {
-                oathSpells: ["moonbeam", "misty step"]
+                spellCasting: {oathSpells: ["moonbeam", "misty step"]}
             },
             7: {
                 features: ["Aura of Warding"]
             },
             9: {
-                oathSpells: ["plant growth", "protection from energy"]
+                spellCasting: {oathSpells: ["plant growth", "protection from energy"]}
             },
             13: {
-                oathSpells: ["ice storm", "stoneskin"]
+                spellCasting: {oathSpells: ["ice storm", "stoneskin"]}
             },
             15: {
                 features: ["Undying Sentinel"]
             },
             17: {
-                oathSpells: ["commune with nature", "tree stride"]
+                spellCasting: {oathSpells: ["commune with nature", "tree stride"]}
             },
             18: {
                 features: ["Improved Aura of Warding"]
@@ -913,8 +927,39 @@ const paladin = {
                 features: ["Avenging Angel"]
             }
         }
+    },
+    subClasses2: {
+        "Archery": {
+            1: {
+                features: ["Archery Fighting Style"]
+            } 
+        },
+        "Defense": {
+            1: {
+                features: ["Defense Fighting Style"]
+            }
+        },
+        "Dueling": {
+            1: {
+                features: ["Dueling Fighting Style"]
+            }
+        },
+        "Great Weapon Fighting": {
+            1: {
+                features: ["Great Weapon Fighting Style"]
+            }
+        },
+        "Protection": {
+            1: {
+                features: ["Protection Fighting Style"]
+            }
+        },
+        "Two-Weapon Fighting": {
+            1: {
+                features: ["Two-Weapon Fighting Style"]
+            }
+        }
     }
-    
 }
 
 const ranger = {
