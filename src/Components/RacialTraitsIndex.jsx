@@ -114,7 +114,6 @@ class RacialTraitsIndex extends React.Component {
         let infoPayload;
         let type;
         let payload;
-        
         console.log("processing",info)
 
         info.forEach(infoObj=>{
@@ -122,7 +121,9 @@ class RacialTraitsIndex extends React.Component {
             for (let i=0; i<keys.length; i++) {
                 infoType = keys[i];
                 infoPayload = infoObj[keys[i]];
+                let spellObj = Object.assign({}, infoObj.spellCasting);
                 
+
                 switch(infoType){
                     case 'features': 
                         type = 'addFeatureArray';
@@ -130,43 +131,42 @@ class RacialTraitsIndex extends React.Component {
                         this.props.sendPackage(type, payload)
                         break;
                     case 'spellCasting':
-                        console.log('found spells')
-                        let spellObj = Object.assign({}, infoObj.spellCasting);
+                        
+                        
                         const subKeys = Object.keys(spellObj)
-                        console.log(spellObj)
+                        
                         // COMBINE DATA FROM REDUX STORE
 
                         subKeys.forEach(e=>{
                             if (this.props.spellCasting.hasOwnProperty(e)) {
-                                const a = infoObj.spellCasting[e];
+                                const a = spellObj[e];
                                 const b = this.props.spellCasting[e];
                                 let c = [];
+                                
                                 if (e === "slots") {
                                     a.length > b.length ? c=a.map((e, i)=>e+b[i] || e) : c=b.map((e,i)=>e+a[i] || e)
                                     spellObj[e] = c;
-                                    console.log(c, spellObj)
                                 } 
-                                else if ( infoObj[e].isArray() ) {
-                                    c = b.concat(a);
-                                    spellObj[e] = c;
-                                    console.log(c, spellObj)
+                                else if ( Array.isArray(a) ) {
+                                    spellObj[e] = a.concat(b);
+                                    console.log("concatenating to state array", spellObj[e])
                                 } 
                                 else {
                                     spellObj[e] = a + b;
-                                    console.log(c, spellObj)
                                 }
                             } 
                             else { 
-                                console.log(spellObj);
+                                console.log('new data', spellObj);
                             }
                         })
 
                         // SEND ENTIRE UPDATED SPELLCASTING OBJECT
                         
                         type = "updateSpells";
+                        
                         payload = Object.assign({}, this.props.spellCasting, spellObj);
                         this.props.sendPackage(type, payload)
-
+                        
                     break;
 
                     default:

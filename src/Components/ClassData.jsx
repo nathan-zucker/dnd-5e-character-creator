@@ -171,8 +171,8 @@ const bard = {
                 features: ["Battle Magic"]
             }
         }
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const cleric = {
@@ -237,13 +237,13 @@ const cleric = {
         "Knowledge": {
             1: {
                 features: ["Blessings of Knowledge"],
-                spells: ["command", "identify"]
+                spellCasting: {clericSpells: ["command", "identify"]}
             },
             2: {
                 features: ["Channel Divinity: Knowledge of the Ages"]
             },
             3: {
-                spells: ["augury", "suggestion"]
+                spellCasting: {clericSpells: ["command", "identify", "augury", "suggestion"]}
             },
             5: {
                 spells: ["nondetection", "speak with dead"]
@@ -441,8 +441,8 @@ const cleric = {
                 features: ["Avatar of Battle"]
             }
         }
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const druid = {
@@ -504,8 +504,8 @@ const druid = {
     subClasses: {
         "Circle of the Land": {},
         "Circle of the Moon": {}
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const fighter = {
@@ -769,8 +769,8 @@ const monk = {
                 features: ["Disciple of the Elements"]
             }
         }
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const paladin = {
@@ -1018,8 +1018,8 @@ const ranger = {
     subClasses: {
         "Hunter": {},
         "Beast Master": {}
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const rogue = {
@@ -1068,8 +1068,8 @@ const rogue = {
         "Thief": {},
         "Assassin": {},
         "Arcane Trickster": {}
-    }
-
+    },
+    subClasses2: {}
 }
 
 const sorcerer = {
@@ -1141,8 +1141,8 @@ const sorcerer = {
     subClasses: {
         "Draconic Bloodline": {},
         "Wild Magic": {}
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const warlock = {
@@ -1216,8 +1216,8 @@ const warlock = {
         "Archfey": {},
         "Fiend": {},
         "The Great Old One": {}
-    }
-    
+    },
+    subClasses2: {}
 }
 
 const wizard = {
@@ -1290,8 +1290,8 @@ const wizard = {
         "Illusion": {},
         "Necromancy": {},
         "Transmutation": {}
-    }
-    
+    },
+    subClasses2: {}
 }
 
 export { 
