@@ -78,7 +78,8 @@ const barbarian = {
                 features: ["Totemic Attunement"]
             }
         }
-    }
+    },
+    subClasses2: {}
     
 }
 
