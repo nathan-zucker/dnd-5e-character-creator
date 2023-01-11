@@ -33,6 +33,9 @@ const baseStatReducer = (state = {picks: 0, stats: []}, action) => {
         case 'ASmodifiers': return Object.assign({}, state, {
             modifiers: action.payload
         });
+        case 'ASIpick': return Object.assign({}, state, {
+            picks: action.payload
+        })
         case "setStats": return Object.assign({}, state, {
             stats: action.payload
         })
@@ -60,6 +63,7 @@ const raceReducer = (state = [], action) => {
 const classLevelReducer = (state = [[undefined]], action) => {
     switch(action.type) {
         case 'classLevel': return [action.payload]; 
+        case 'subClass': return state.push(action.payload)
         default: return state;
     }
 }
@@ -93,7 +97,7 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
             baseFeatures: action.baseFeatures,
             features: action.features || state.features
         });
-        case 'AbilityHumanBonus': return Object.assign({}, state, {
+        case 'abilityScoreIncrease': return Object.assign({}, state, {
             abilityScoreIncrease: action.payload,
             finalized: true
         });
@@ -190,7 +194,7 @@ const store = configureStore({
         savingThrows: savingThrowReducer,
         skillProficiencies: skillReducer,
         weapons: weaponReducer,
-        spells: spellReducer,
+        spellCasting: spellReducer,
         armor: armorReducer,
         tools: toolReducer,
     }

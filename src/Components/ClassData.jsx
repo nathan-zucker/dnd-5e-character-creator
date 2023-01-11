@@ -1,7 +1,3 @@
-const generateASModifiers = (ASarray) => {
-    let mod = ASarray.map(e=>Math.floor((e-10)/2));
-    return mod;
-}
 
 const barbarian = {
     base: {
@@ -50,37 +46,41 @@ const barbarian = {
         rages: 3,
         rageDamage: 2
     },
-    "Path of the Berserker": {
-        3: {
-            features: ["Frenzy"]
-        },
-        6: {
-            features: ["Mindless Rage"]
-        },
-        10: {
-            features: ["Intimidating Presence"]
-        },
-        14: {
-            features: ["Retaliation"]
-        }
-    },
-    "Path of the Totem Warrior": {
-        3: {
-            features: ["Spirit Seeker", "Totem Spirit"],
-            spellcasting: {
-                rituals: ["beast sense", "speak with animals"]
+    subClasses: {
+        Berserker: {
+            3: {
+                features: ["Frenzy"]
+            },
+            6: {
+                features: ["Mindless Rage"]
+            },
+            10: {
+                features: ["Intimidating Presence"]
+            },
+            14: {
+                features: ["Retaliation"]
             }
         },
-        6: {
-            features: ["Aspect of the Beast"]
-        },
-        10: {
-            features: ["Spirit Walker"]
-        },
-        14: {
-            features: ["Totemic Attunement"]
+        TotemWarrior: {
+            3: {
+                features: ["Spirit Seeker", "Totem Spirit"],
+                spellcasting: {
+                    rituals: ["beast sense", "speak with animals"]
+                }
+            },
+            6: {
+                features: ["Aspect of the Beast"]
+            },
+            10: {
+                features: ["Spirit Walker"]
+            },
+            14: {
+                features: ["Totemic Attunement"]
+            }
         }
-    }
+    },
+    subClasses2: {}
+    
 }
 
 const bard = {
@@ -148,28 +148,31 @@ const bard = {
             slots: [4, 3, 2]
         }
     },
-    "College of Lore": {
-        3: {
-            features: ["Bonus Proficiencies Lore", "Cutting Words"]
+    subClasses: {
+        "College of Lore": {
+            3: {
+                features: ["Bonus Proficiencies Lore", "Cutting Words"]
+            },
+            6: {
+                features: ["Additional Magic Secrets"]
+            },
+            14: {
+                features: ["Peerless Skill"]
+            }
         },
-        6: {
-            features: ["Additional Magic Secrets"]
-        },
-        14: {
-            features: ["Peerless Skill"]
+        "College of Valor": {
+            3: {
+                features: ["Bonus Proficiencies Valor", "Combat Inspiration"]
+            },
+            6: {
+                features: ["Extra Attack"]
+            },
+            14: {
+                features: ["Battle Magic"]
+            }
         }
     },
-    "College of Valor": {
-        3: {
-            features: ["Bonus Proficiencies Valor", "Combat Inspiration"]
-        },
-        6: {
-            features: ["Extra Attack"]
-        },
-        14: {
-            features: ["Battle Magic"]
-        }
-    }
+    subClasses2: {}
 }
 
 const cleric = {
@@ -230,213 +233,216 @@ const cleric = {
             slots: [4, 3, 2]
         }
     },
-    "Knowledge": {
-        1: {
-            features: ["Blessings of Knowledge"],
-            spells: ["command", "identify"]
+    subClasses: {
+        "Knowledge": {
+            1: {
+                features: ["Blessings of Knowledge"],
+                spellCasting: {clericSpells: ["command", "identify"]}
+            },
+            2: {
+                features: ["Channel Divinity: Knowledge of the Ages"]
+            },
+            3: {
+                spellCasting: {clericSpells: ["command", "identify", "augury", "suggestion"]}
+            },
+            5: {
+                spells: ["nondetection", "speak with dead"]
+            },
+            6: {
+                features: ["Channel Divinity: Read Thoughts"]
+            },
+            7: {
+                spells: ["arcane eye", "confusion"]
+            },
+            8: {
+                features: ["Potent Spellcasting"]
+            },
+            9: {
+                spells: ["legend lore", "scrying"]
+            },
+            17: {
+                features: ["Visions of the Past"]
+            }
         },
-        2: {
-            features: ["Channel Divinity: Knowledge of the Ages"]
+        "Life": {
+            1: {
+                features: ["Disciple of Life"],
+                spells: ["bless", "cure wounds"]
+            },
+            2: {
+                features: ["Channel Divinity: Preserve Life"]
+            },
+            3: {
+                spells: ["lesser restoration", "spiritual weapon"]
+            },
+            5: {
+                spells: ["beacon of hope", "revivify"]
+            },
+            6: {
+                features: ["Blessed Healer"]
+            },
+            7: {
+                spells: ["death ward", "garden of faith"]
+            },
+            8: {
+                features: ["Divine Strike"]
+            },
+            9: {
+                spells: ["mass cure wounds", "raise dead"]
+            },
+            17: {
+                features: ["Supreme Healing"]
+            }
         },
-        3: {
-            spells: ["augury", "suggestion"]
+        "Light": {
+            1: {
+                features: ["Bonus Cantrip Light", "Warding Flare"],
+                spells: ["burning hands", "faerie fire"]
+            },
+            2: {
+                features: ["Channel Divinity: Radiance of the Dawn"]
+            },
+            3: {
+                spells: ["flaming sphere", "scorching ray"]
+            },
+            5: {
+                spells: ["daylight", "fireball"]
+            },
+            6: {
+                features: ["Improved Flare"]
+            },
+            7: {
+                spells: ["guardian of faith", "wall of fire"]
+            },
+            8: {
+                features: ["Potent Spellcasting"]
+            },
+            9: {
+                spells: ["flame strike", "scrying"]
+            }
         },
-        5: {
-            spells: ["nondetection", "speak with dead"]
+        "Nature": {
+            1: {
+                features: ["Acolyte of Nature", "Bonus Proficiency Nature"],
+                spells: ["animal friendship", "speak with animals"]
+            },
+            2: {
+                features: ["Channel Divinity: Charm Animals and Plants"]
+            },
+            3: {
+                spells: ["barkskin", "spike growth"]
+            },
+            5: {
+                spells: ["plant growth", "wind wall"]
+            },
+            6: {
+                features: ["Dampen Elements"]
+            },
+            7: {
+                spells: ["dominate beast", "grasping vine"]
+            },
+            8: {
+                features: ["Divine Strike"]
+            },
+            9: {
+                spells: ["insect plague", "tree stride"]
+            },
+            17: {
+                features: ["Master of Nature"]
+            }
         },
-        6: {
-            features: ["Channel Divinity: Read Thoughts"]
+        "Tempest": {
+            1: {
+                features: ["Bonus Proficiencies Tempest", "Wrath of the Storm"],
+                spells: ["fog cloud", "thunderwave"]
+            },
+            2: {
+                features: ["Channel Divinity: Destructive Wrath"]
+            },
+            3: {
+                spells: ["gust of wind", "shatter"]
+            },
+            5: {
+                spells: ["call lightning", "sleet storm"]
+            },
+            6: {
+                features: ["Thunderbolt Strike"]
+            },
+            7: {
+                spells: ["control water", "ice storm"]
+            },
+            8: {
+                features: ["Divine Strike"]
+            },
+            9: {
+                spells: ["destructive wave", "insect plague"]
+            },
+            17: {
+                features: ["Stormborn"]
+            }
         },
-        7: {
-            spells: ["arcane eye", "confusion"]
+        "Trickery": {
+            1: {
+                features: ["Blessing of the Trickster"],
+                spells: ["charm person", "disguise self"]
+            },
+            2: {
+                features: ["Channel Divinity: Invoke Duplicity"]
+            },
+            3: {
+                spells: ["mirror image", "pass without trace"]
+            },
+            5: {
+                spells: ["blink", "dispel magic"]
+            },
+            6: {
+                features: ["Channel Divinity: Cloak of the Shadows"]
+            },
+            7: {
+                spells: ["dimension door", "polymorph"]
+            },
+            8: {
+                features: ["Divine Strike"]
+            },
+            9: {
+                spells: ["dominate person", "modify memory"]
+            },
+            17: {
+                features: ["Improved Duplicity"]
+            }
         },
-        8: {
-            features: ["Potent Spellcasting"]
-        },
-        9: {
-            spells: ["legend lore", "scrying"]
-        },
-        17: {
-            features: ["Visions of the Past"]
+        "War": {
+            1: {
+                features: ["Bonus Proficiencies War", "War Priest"],
+                spells: ["divine favor", "shield of faith"]
+            },
+            2: {
+                features: ["Channel Divinity: Cloud Strike"]
+            },
+            3: {
+                spells: ["magic weapon", "spiritual weapon"]
+            },
+            5: {
+                spells: ["crusader's mantle", "spirit guardians"]
+            },
+            6: {
+                features: ["Channel Divinity: War God's Blessing"]
+            },
+            7: {
+                spells: ["freedom of movement", "stoneskin"]
+            },
+            8: {
+                features: ["Divine Strike"]
+            },
+            9: {
+                spells: ["flame strike", "hold monster"]
+            },
+            17: {
+                features: ["Avatar of Battle"]
+            }
         }
     },
-    "Life": {
-        1: {
-            features: ["Disciple of Life"],
-            spells: ["bless", "cure wounds"]
-        },
-        2: {
-            features: ["Channel Divinity: Preserve Life"]
-        },
-        3: {
-            spells: ["lesser restoration", "spiritual weapon"]
-        },
-        5: {
-            spells: ["beacon of hope", "revivify"]
-        },
-        6: {
-            features: ["Blessed Healer"]
-        },
-        7: {
-            spells: ["death ward", "garden of faith"]
-        },
-        8: {
-            features: ["Divine Strike"]
-        },
-        9: {
-            spells: ["mass cure wounds", "raise dead"]
-        },
-        17: {
-            features: ["Supreme Healing"]
-        }
-    },
-    "Light": {
-        1: {
-            features: ["Bonus Cantrip Light", "Warding Flare"],
-            spells: ["burning hands", "faerie fire"]
-        },
-        2: {
-            features: ["Channel Divinity: Radiance of the Dawn"]
-        },
-        3: {
-            spells: ["flaming sphere", "scorching ray"]
-        },
-        5: {
-            spells: ["daylight", "fireball"]
-        },
-        6: {
-            features: ["Improved Flare"]
-        },
-        7: {
-            spells: ["guardian of faith", "wall of fire"]
-        },
-        8: {
-            features: ["Potent Spellcasting"]
-        },
-        9: {
-            spells: ["flame strike", "scrying"]
-        }
-    },
-    "Nature": {
-        1: {
-            features: ["Acolyte of Nature", "Bonus Proficiency Nature"],
-            spells: ["animal friendship", "speak with animals"]
-        },
-        2: {
-            features: ["Channel Divinity: Charm Animals and Plants"]
-        },
-        3: {
-            spells: ["barkskin", "spike growth"]
-        },
-        5: {
-            spells: ["plant growth", "wind wall"]
-        },
-        6: {
-            features: ["Dampen Elements"]
-        },
-        7: {
-            spells: ["dominate beast", "grasping vine"]
-        },
-        8: {
-            features: ["Divine Strike"]
-        },
-        9: {
-            spells: ["insect plague", "tree stride"]
-        },
-        17: {
-            features: ["Master of Nature"]
-        }
-    },
-    "Tempest": {
-        1: {
-            features: ["Bonus Proficiencies Tempest", "Wrath of the Storm"],
-            spells: ["fog cloud", "thunderwave"]
-        },
-        2: {
-            features: ["Channel Divinity: Destructive Wrath"]
-        },
-        3: {
-            spells: ["gust of wind", "shatter"]
-        },
-        5: {
-            spells: ["call lightning", "sleet storm"]
-        },
-        6: {
-            features: ["Thunderbolt Strike"]
-        },
-        7: {
-            spells: ["control water", "ice storm"]
-        },
-        8: {
-            features: ["Divine Strike"]
-        },
-        9: {
-            spells: ["destructive wave", "insect plague"]
-        },
-        17: {
-            features: ["Stormborn"]
-        }
-    },
-    "Trickery": {
-        1: {
-            features: ["Blessing of the Trickster"],
-            spells: ["charm person", "disguise self"]
-        },
-        2: {
-            features: ["Channel Divinity: Invoke Duplicity"]
-        },
-        3: {
-            spells: ["mirror image", "pass without trace"]
-        },
-        5: {
-            spells: ["blink", "dispel magic"]
-        },
-        6: {
-            features: ["Channel Divinity: Cloak of the Shadows"]
-        },
-        7: {
-            spells: ["dimension door", "polymorph"]
-        },
-        8: {
-            features: ["Divine Strike"]
-        },
-        9: {
-            spells: ["dominate person", "modify memory"]
-        },
-        17: {
-            features: ["Improved Duplicity"]
-        }
-    },
-    "War": {
-        1: {
-            features: ["Bonus Proficiencies War", "War Priest"],
-            spells: ["divine favor", "shield of faith"]
-        },
-        2: {
-            features: ["Channel Divinity: Cloud Strike"]
-        },
-        3: {
-            spells: ["magic weapon", "spiritual weapon"]
-        },
-        5: {
-            spells: ["crusader's mantle", "spirit guardians"]
-        },
-        6: {
-            features: ["Channel Divinity: War God's Blessing"]
-        },
-        7: {
-            spells: ["freedom of movement", "stoneskin"]
-        },
-        8: {
-            features: ["Divine Strike"]
-        },
-        9: {
-            spells: ["flame strike", "hold monster"]
-        },
-        17: {
-            features: ["Avatar of Battle"]
-        }
-    }
+    subClasses2: {}
 }
 
 const druid = {
@@ -495,8 +501,11 @@ const druid = {
             slots: [4, 3, 2]
         }
     },
-    "Circle of the Land": {},
-    "Circle of the Moon": {}
+    subClasses: {
+        "Circle of the Land": {},
+        "Circle of the Moon": {}
+    },
+    subClasses2: {}
 }
 
 const fighter = {
@@ -535,9 +544,144 @@ const fighter = {
         proficiencyBonus: 3,
         features: ["Extra Attack"]
     },
-    "Champion": {},
-    "Battle Master": {},
-    "Eldritch Knight": {}
+    subClasses: {
+        "Champion": {
+            3: {
+                features: ["Improved Critical"]
+            },
+            7: {
+                features: ["Remarkable Athlete"]
+            },
+            8: {
+                features: ["Additional Fighting Style"]
+            },
+            9: {
+                features: ["Superior Critical"]
+            },
+            18: {
+                features: ["Survivor"]
+            }
+        },
+        "Battle Master": {
+            3: {
+                features: ["Combat Superiority", "Student of War"]
+            },
+            7: {
+                features: ["Know Your Enemy"]
+            },
+            10: {
+                features: ["Improved Combat Superiority"]
+            },
+            15: {
+                features: ["Relentless"]
+            },
+            18: {
+                features: ["Superior Combat Superiority"]
+            }
+        },
+        "Eldritch Knight": {
+            3: {
+                features: ["Weapon Bond"],
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 3,
+                    slots: [2]
+                }
+            },
+            4: {
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 4,
+                    slots: [3]
+                }
+            },
+            5: {
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 4,
+                    slots: [3]
+                }
+            },
+            6: {
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 4,
+                    slots: [3]
+                }
+            },
+            7: {
+                features: ["War Magic"],
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 5,
+                    slots: [4, 2]
+                }
+            },
+            8: {
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 6,
+                    slots: [4, 2]
+                }
+            },
+            9: {
+                spellCasting: {
+                    cantripsKnown: 2,
+                    spellsKnown: 6,
+                    slots: [4, 2]
+                }
+            },
+            10: {
+                features: ["Eldritch Strike"],
+                spellCasting: {
+                    cantripsKnown: 3,
+                    spellsKnown: 7,
+                    slots: [4, 3]
+                }
+
+            },
+            //  FINISH LATER
+            15: {
+                features: ["Arcane Charge"]
+            },
+            18: {
+                features: ["Improved War Magic"]
+            }
+        }
+    },
+    subClasses2: {
+        "Archery": {
+            1: {
+                features: ["Archery Fighting Style"]
+            } 
+        },
+        "Defense": {
+            1: {
+                features: ["Defense Fighting Style"]
+            }
+        },
+        "Dueling": {
+            1: {
+                features: ["Dueling Fighting Style"]
+            }
+        },
+        "Great Weapon Fighting": {
+            1: {
+                features: ["Great Weapon Fighting Style"]
+            }
+        },
+        "Protection": {
+            1: {
+                features: ["Protection Fighting Style"]
+            }
+        },
+        "Two-Weapon Fighting": {
+            1: {
+                features: ["Two-Weapon Fighting Style"]
+            }
+        }
+    }
+    
 }
 
 const monk = {
@@ -591,9 +735,42 @@ const monk = {
         unarmoredMovement: 10,
         features: ["Extra Attack", "Stunning Strike"]
     },
-    "Way of the Open Hand": {},
-    "Way of the Shadow": {},
-    "Way of the Four Elements": {}
+    subClasses: {
+        "Way of the Open Hand": {
+            3: {
+                features: ["Open Hand Technique"]
+            },
+            6: {
+                features: ["Wholeness of Body"]
+            },
+            11: {
+                features: ["Tranquility"]
+            },
+            17: {
+                features: ["Quivering Palm"]
+            }
+        },
+        "Way of the Shadow": {
+            3: {
+                features: ["Shadow Arts"]
+            },
+            6: {
+                features: ["Shadow Step"]
+            },
+            11: {
+                features: ["Cloak of Shadows"]
+            },
+            17: {
+                features: ["Opportunist"]
+            }
+        },
+        "Way of the Four Elements": {
+            3: {
+                features: ["Disciple of the Elements"]
+            }
+        }
+    },
+    subClasses2: {}
 }
 
 const paladin = {
@@ -620,7 +797,7 @@ const paladin = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Fighting Style", "Spellcasting", "Divine Smite"],
+        features: ["Fighting Style", "SpellCasting", "Divine Smite"],
         spellCasting: {
             slots: [2]
         }
@@ -646,9 +823,144 @@ const paladin = {
             slots: [4, 2]
         }
     },
-    "Oath of Devotion": {},
-    "Oath of the Ancients": {},
-    "Oath of Vengeance": {}
+    subClasses: {
+        "Oath of Devotion": {
+            3: {
+                features: ["Oath Spells", "Channel Divinity"],
+                spellCasting: {
+                    oathSpells: ["protection from evil and good", "sanctuary"],
+                    channelDivinity: ["Sacred Weapon", "Turn the Unholy"]
+                }
+                
+            },
+            5: {
+                spellCasting: {
+                    oathSpells: ["lesser restoration", "zone of truth"]
+                }
+                
+            },
+            7: {
+                features: ["Aura of Devotion"]
+            },
+            9: {
+                spellCasting: {
+                    oathSpells: ["beacon of hope", "dispel magic"]
+                }
+            },
+            13: {
+                spellCasting: {
+                    oathSpells: ["freedom of movement", "guardian of faith"]
+                }
+            },
+            15: {
+                features: ["Purity of Spirit"]
+            },
+            17: {
+                spellCasting: {
+                    oathSpells: ["commune", "flame strike"]
+                }
+            },
+            18: {
+                features: ["Improved Aura of Devotion"]
+            },
+            20: {
+                features: ["Holy Nimbus"]
+            }
+        },
+        "Oath of the Ancients": {
+            3: {
+                features: ["Channel Divinity", "Oath Spells"],
+                spellCasting: {
+                    oathSpells: ["ensnaring strike", "speak with animals"],
+                    channelDivinity: ["Nature's Wrath", "Turn the Faithless"]
+                }
+            },
+            5: {
+                spellCasting: {oathSpells: ["moonbeam", "misty step"]}
+            },
+            7: {
+                features: ["Aura of Warding"]
+            },
+            9: {
+                spellCasting: {oathSpells: ["plant growth", "protection from energy"]}
+            },
+            13: {
+                spellCasting: {oathSpells: ["ice storm", "stoneskin"]}
+            },
+            15: {
+                features: ["Undying Sentinel"]
+            },
+            17: {
+                spellCasting: {oathSpells: ["commune with nature", "tree stride"]}
+            },
+            18: {
+                features: ["Improved Aura of Warding"]
+            },
+            20: {
+                features: ["Elder Champion"]
+            }
+        },
+        "Oath of Vengeance": {
+            3: {
+                features: ["Oath Spells", "Channel Divinity"],
+                oathSpells: ["bane", "hunter's mark"],
+                channelDivinity: ["Abjure Enemy", "Vow of Enmity"]
+            },
+            5: {
+                oathSpells: ["hold person", "misty step"]
+            },
+            7: {
+                features: ["Relentless Avenger"]
+            },
+            9: {
+                oathSpells: ["haste", "protection from energy"]
+            },
+            13: {
+                oathSpells: ["banishment", "dimension door"]
+            },
+            15: {
+                features: ["Soul of Vengeance"]
+            },
+            17: {
+                oathSpells: ["hold monster", "scrying"]
+            },
+            20: {
+                features: ["Avenging Angel"]
+            }
+        }
+    },
+    subClasses2: {
+        "Archery": {
+            1: {
+                features: ["Archery Fighting Style"]
+            } 
+        },
+        "Defense": {
+            1: {
+                features: ["Defense Fighting Style"]
+            }
+        },
+        "Dueling": {
+            1: {
+                features: ["Dueling Fighting Style"]
+            }
+        },
+        "Great Weapon Fighting": {
+            1: {
+                features: ["Great Weapon Fighting Style"]
+            }
+        },
+        "Protection": {
+            1: {
+                features: ["Protection Fighting Style"]
+            }
+        },
+        "Two-Weapon Fighting": {
+            1: {
+                features: ["Two-Weapon Fighting Style"]
+            }
+        }
+    }
 }
 
 const ranger = {
@@ -703,8 +1015,11 @@ const ranger = {
             slots: [4, 2]
         }
     },
-    "Hunter": {},
-    "Beast Master": {}
+    subClasses: {
+        "Hunter": {},
+        "Beast Master": {}
+    },
+    subClasses2: {}
 }
 
 const rogue = {
@@ -749,9 +1064,12 @@ const rogue = {
         sneakAttack: "3d6",
         features: ["Uncanny Dodge"]
     },
-    "Thief": {},
-    "Assassin": {},
-    "Arcane Trickster": {}
+    subClasses: {
+        "Thief": {},
+        "Assassin": {},
+        "Arcane Trickster": {}
+    },
+    subClasses2: {}
 }
 
 const sorcerer = {
@@ -820,9 +1138,11 @@ const sorcerer = {
             slots: [4, 3, 2]
         }
     },
-    "Draconic": {},
-    "Bloodline": {},
-    "Wild Magic": {}
+    subClasses: {
+        "Draconic Bloodline": {},
+        "Wild Magic": {}
+    },
+    subClasses2: {}
 }
 
 const warlock = {
@@ -892,9 +1212,12 @@ const warlock = {
             invocations: 3
         }
     },
-    "Archfey": {},
-    "Fiend": {},
-    "The Great Old One": {}
+    subClasses: {
+        "Archfey": {},
+        "Fiend": {},
+        "The Great Old One": {}
+    },
+    subClasses2: {}
 }
 
 const wizard = {
@@ -958,14 +1281,17 @@ const wizard = {
             slots: [4, 3, 2]
         }
     },
-    "Abjuration": {},
-    "Conjuration": {},
-    "Divination": {},
-    "Enchantment": {},
-    "Evocation": {},
-    "Illusion": {},
-    "Necromancy": {},
-    "Transmutation": {}
+    subClasses: {
+        "Abjuration": {},
+        "Conjuration": {},
+        "Divination": {},
+        "Enchantment": {},
+        "Evocation": {},
+        "Illusion": {},
+        "Necromancy": {},
+        "Transmutation": {}
+    },
+    subClasses2: {}
 }
 
 export { 

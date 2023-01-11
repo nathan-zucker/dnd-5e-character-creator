@@ -30,6 +30,7 @@ import barbarian, {
     wizard
 } from './ClassData.jsx';
 
+
 class Class extends React.Component {
     constructor(props){
         super(props)
@@ -66,7 +67,6 @@ class Class extends React.Component {
 
     selectClass(value) {
         this.setState(Object.assign(this.state, value))
-        console.log(this.state)
     }
 
     inputLevel(event) {
@@ -86,7 +86,9 @@ class Class extends React.Component {
         }
 
         const output = Object.assign({}, inputClass.base, inputClass[this.state.level], {
-            features: features
+            features: features,
+            subClasses: inputClass.subClasses,
+            subClasses2: inputClass.subClasses2 || null
         })
         
         const classDetails = Object.assign({}, output)

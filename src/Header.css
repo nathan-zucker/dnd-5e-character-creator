@@ -1,15 +1,14 @@
-.Header-logo {
-    height: 15vmin;
-    pointer-events: none;
+
+#canvas1 {
+    position: absolute;
+    top: 0;
+    bottom: 80vh;
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 20%;
 }
 
-.App-header {
-   background-color: #282c34;
-   max-height: 30vh;
-   display: flex;
-   flex-direction: column;
-   align-items: center;
-   justify-content: center;
-   font-size: calc(10px + 2vmin);
-   color: white; 
+#image1 {
+    display: none;
 }

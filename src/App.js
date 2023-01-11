@@ -1,6 +1,6 @@
 
 import './App.css';
-import Header from './Header.js';
+import Header from './Header.jsx';
 import { useSelector } from 'react-redux';
 import  BaseStats  from './Components/BaseStats'
 import  Race  from './Components/Race';
@@ -16,7 +16,10 @@ function App() {
   console.log(state, 'i am the state')
   return (
       <div className="App">
-        <Header />
+        <div className="canvas">
+          <Header />
+        </div>
+        
         <div className="main">
           <Class />
           <DisplayClass />

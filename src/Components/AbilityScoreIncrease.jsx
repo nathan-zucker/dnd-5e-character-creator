@@ -1,30 +1,32 @@
+import { type } from '@testing-library/user-event/dist/type';
 import React from 'react';
 import { connect } from 'react-redux';
 
 
-class AbilityHuman extends React.Component{
+class AbilityScordIncrease extends React.Component{
     constructor(props){
         super(props)
         this.state={
             bonuses: this.props.bonuses || [0,0,0,0,0,0],
-            picks: this.props.picks || 2,
+            picks: this.props.picks,
             submitted: false
         }
         this.handleClick = this.handleClick.bind(this)
     }
 
     AllocatePoint(i){
-        console.log(this.state)
+        
+        this.props.dispatchPicks(this.state.picks-1)
         this.setState((state)=>{
             const bonus = state.bonuses.map(i=>i)
             bonus[i]+=1
             return{bonuses: bonus, picks: state.picks-1}
-            })
+        });
+        console.log(this.state)
     }
 
     handleClick(){
-        console.log(this.state.bonuses)
-        this.props.dispatchPoints(this.state.bonuses)
+        this.props.dispatch('abilityScoreIncrease', this.state.bonuses)
         this.setState({submitted: true})
     }    
 
@@ -42,10 +44,10 @@ class AbilityHuman extends React.Component{
                         <button onClick={()=>this.AllocatePoint(4)}>Wisdom</button>
                         <button onClick={()=>this.AllocatePoint(5)}>Charisma</button>
                     </div>
-                    <h2>stat mods: {this.state.bonuses}</h2>
+                    
                 </div>
-            : null }
-            {this.state.picks === 0 && this.state.submitted === false ? <input type='submit' onClick={this.handleClick}></input> : null}
+            : <h2>Ability Score Increase: </h2> }
+            {this.state.picks === 0 && this.state.submitted === false ? <button onClick={this.handleClick}>{this.state.bonuses}</button> : null}
         </div>
         )
     }
@@ -54,15 +56,17 @@ class AbilityHuman extends React.Component{
 const sendPoints = (bonus) => {
     console.log(bonus)
     return({
-        type: 'AbilityHumanBonus',
+        type: 'abilityScordIncrease',
         payload: bonus
     })
 }
 
 const mapDispatchToProps = (dispatch) => {
     return{
-        dispatchPoints: (bonus) => { dispatch(sendPoints(bonus)) }
+        dispatchPoints: (bonus) => { dispatch(sendPoints(bonus)) },
+        dispatchPicks: (picks) => { dispatch({type: 'ASIpick', payload: picks}) },
+        dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
     }
 }
 
-export default connect(null, mapDispatchToProps)(AbilityHuman)
+export default connect(null, mapDispatchToProps)(AbilityScordIncrease)
