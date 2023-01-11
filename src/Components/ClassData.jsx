@@ -646,7 +646,9 @@ const fighter = {
             18: {
                 features: ["Improved War Magic"]
             }
-        },
+        }
+    },
+    subClasses2: {
         "Archery": {
             1: {
                 features: ["Archery Fighting Style"]

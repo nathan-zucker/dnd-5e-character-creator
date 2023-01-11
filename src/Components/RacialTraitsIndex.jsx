@@ -27,9 +27,25 @@ class RacialTraitsIndex extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            inputNeeded: [],
+            inputNeeded: -1,
             inputAcquired: [],
             subClass: undefined,
+            savedInfo: [],
+            selectors: 0
+        }
+    }
+
+    componentDidUpdate(){
+        const numSelectors = document.getElementsByClassName("subClassSelector").length
+        this.countSelectors(numSelectors)
+        
+    }
+
+    countSelectors = (num) => {
+        if(this.state.selectors === num) {
+            return null
+        } else {
+            this.setState({selectors: num, inputNeeded: num})
         }
     }
 
@@ -37,40 +53,52 @@ class RacialTraitsIndex extends React.Component {
         this.setState({subClass: event.target.value})
     }
 
-    /**options = [[subclass, label], [subClass, label]] */
-
-    subClassSelector = (targetFeature) => {
+    subClassSelector = (targetFeature, group) => {
         if(!this.props.features.includes(targetFeature)){return null} else {
-            const subClasses = this.props.classDetails.subClasses;
-            const options = Object.keys(subClasses)
-        const selectorOptions = options.map((e, i)=><option value={e} key={i}>{e}</option>)
+            let options = [];
+            if(group === 2){
+                const subClasses2 = this.props.classDetails.subClasses2;
+                options = Object.keys(subClasses2);
+            } else {
+                const subClasses = this.props.classDetails.subClasses;
+                options = Object.keys(subClasses);
+            }
+           
+            const selectorOptions = options.map((e, i)=><option value={e} key={i}>{e}</option>)
+            
         return (
-            <div className="subClassSelector">
+            <div className="subClassSelector" >
                 <h3>Select {targetFeature}:</h3>
                 <select onChange={this.handleSubClassChange}>
                     <option>(select)</option>
                     {selectorOptions}
                 </select>
-                <button onClick={this.mapResults}>submit</button>
+                <button disabled={false} id={targetFeature} value={targetFeature} onClick={this.handleSubmit}>submit</button>
             </div>
         )}
     }
 
-    mapResults = () => {
+    handleSubmit = (event) => {
+        this.setState({inputNeeded: this.state.inputNeeded - 1})
+        this.mapResults(event.target.value)
+    }
+
+    mapResults = (targetFeature) => {
         const subClass = this.state.subClass;
         const lv = this.props.level;
-        const info = this.props.classDetails;
-
-        const subs = Object.keys(info.subClasses);
-        console.log(subs)
+        let info = this.props.classDetails.subClasses;
+        if (this.props.classDetails.subClasses2.hasOwnProperty(subClass)) {
+            info = this.props.classDetails.subClasses2
+        };
         
         let results = [];
         for (let i=0; i<=lv; i++) {
-            if(info.subClasses[subClass].hasOwnProperty(i)){
-                results.push(info.subClasses[subClass][i])
+            if(info[subClass].hasOwnProperty(i)){
+                results.push(info[subClass][i])
             }
         }
-        console.log(results)
+        this.setState({savedInfo: [...this.state.savedInfo, ...results] })
+        document.getElementById(targetFeature).disabled = true;
     }
 
 
@@ -83,7 +111,6 @@ class RacialTraitsIndex extends React.Component {
         }
         
         else {
-
             return(
                 <div>
                     <h1>these are your features</h1>
@@ -102,8 +129,10 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Arcane Tradition")}
                     {this.subClassSelector("Sorcerous Origins")}
                     
+                    {this.subClassSelector("Fighting Style", 2)}
 
 
+                    {this.state.inputNeeded === 0 && <button>continue</button>}
                 </div>
             )
         }
