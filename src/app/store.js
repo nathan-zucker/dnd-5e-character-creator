@@ -71,6 +71,9 @@ const classLevelReducer = (state = [[undefined]], action) => {
 const classDetailsReducer = (state = {}, action) => {
     switch(action.type){
         case 'classDetails': return Object.assign({}, state, action.payload)
+        case 'classDetailsOptions': return Object.assign({}, state, {
+            extraOptions: [state.extraOptions, action.payload]
+        })
         default: return state;
     }
 }
