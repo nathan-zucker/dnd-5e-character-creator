@@ -1,6 +1,5 @@
 import React from "react";
 import { connect } from "react-redux";
-import {ranger} from './ClassData'
 //import ToolProficiency from "./RaceFeatures/ToolProficiency";
 //import AbilityScordIncrease from "./AbilityScoreIncrease"
 
@@ -109,7 +108,7 @@ class RacialTraitsIndex extends React.Component {
     handleContinue = (e) => {
         this.dispatchInfo()
         this.setState({inputNeeded: -1})
-
+        this.props.sendPackage('submitSubClass')
     }
 
     dispatchInfo = () => {

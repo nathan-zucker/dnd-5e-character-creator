@@ -1529,9 +1529,108 @@ const warlock = {
         }
     },
     subClasses: {
-        "Archfey": {},
-        "Fiend": {},
-        "The Great Old One": {}
+        "Archfey": {
+            1: {
+                features: ["Fey Presence"],
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth", "dominate beast", "greater invisibility"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth", "dominate beast", "greater invisibility", "dominate person", "seeming"]
+                }
+            },
+            6: {
+                features: ["Misty Escape"]
+            },
+            10: {
+                features: ["Beguiling Defenses"]
+            },
+            14: {
+                features: ["Dark Delirium"]
+            }
+        },
+        "Fiend": {
+            1: {
+                features: ["Dark One's Blessing"],
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire", "flame strike", "hallow"]
+                }
+            },
+            6: {
+                features: ["Dark One's Own Luck"]
+            },
+            10: {
+                features: ["Fiendish Resilience"]
+            },
+            14: {
+                features: ["Hurl Through Hell"]
+            }
+        },
+        "The Great Old One": {
+            1: {
+                features: ["Awakened Mind"],
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending", "dominate beast", "Evard's black tentacles"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending", "dominate beast", "Evard's black tentacles", "dominate person", "telekinesis"]
+                }
+            }
+        }
     },
     subClasses2: {}
 }
@@ -1598,14 +1697,118 @@ const wizard = {
         }
     },
     subClasses: {
-        "Abjuration": {},
-        "Conjuration": {},
-        "Divination": {},
-        "Enchantment": {},
-        "Evocation": {},
-        "Illusion": {},
-        "Necromancy": {},
-        "Transmutation": {}
+        "Abjuration": {
+            2: {
+                features: ["Abjuration Savant", "Arcane Ward"]
+            },
+            6: {
+                features: ["Projected Ward"]
+            },
+            10: {
+                features: ["Improved Abjuration"]
+            },
+            14: {
+                features: ["Spell Resistance"]
+            }
+        },
+        "Conjuration": {
+            2: {
+                features: ["Conjuration Savant", "Minor Conjuration"]
+            },
+            6: {
+                features: ["Benign Transposition"]
+            },
+            10: {
+                features: ["Focused Conjuration"]
+            },
+            14: {
+                features: ["Durable Summons"]
+            }
+        },
+        "Divination": {
+            2: {
+                features: ["Divination Savant", "Portent"]
+            },
+            6: {
+                features: ["Expert Divination"]
+            },
+            10: {
+                features: ["The Third Eye"]
+            },
+            14: {
+                features: ["Greater Portent"]
+            }
+        },
+        "Enchantment": {
+            2: {
+                features: ["Enchantment Savant", "Hypnotic Gaze"]
+            },
+            6: {
+                features: ["Instinctive Charm"]
+            },
+            10: {
+                features: ["Split Enchantment"]
+            },
+            14: {
+                features: ["Alter Memories"]
+            }
+        },
+        "Evocation": {
+            2: {
+                features: ["Evocation Savant", "Sculpt Spells"]
+            },
+            6: {
+                features: ["Potent Cantrip"]
+            },
+            10: {
+                features: ["Empowered Evocation"]
+            },
+            14: {
+                features: ["Overchannel"]
+            }
+        },
+        "Illusion": {
+            2: {
+                features: ["Illusion Savant", "Improved Minor Illusion"]
+            },
+            6: {
+                features: ["Malleable Illusions"]
+            },
+            10: {
+                features:  ["Illusory Self"]
+            },
+            14: {
+                features: ["Illusory Reality"]
+            }
+        },
+        "Necromancy": {
+            2: {
+                features: ["Necromancy Savant", "Grim Harvest"]
+            },
+            6: {
+                features: ["Undead Thralls"]
+            },
+            10: {
+                features: ["Injured to Undeath"]
+            },
+            14: {
+                features: ["Command Undead"]
+            }
+        },
+        "Transmutation": {
+            2: {
+                features: ["Transmutation Savant", "Minor Alchemy"]
+            },
+            6: {
+                features: ["Transmuter's Stone"]
+            },
+            10: {
+                features: ["Shapechanger"]
+            },
+            14: {
+                features: ["Master Transmuter"]
+            }
+        }
     },
     subClasses2: {}
 }

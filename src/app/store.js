@@ -6,6 +6,8 @@ const progressReducer = (state = [], action) => {
         case 'submitBaseStats': return [...state, 'baseStats'];
         case 'submitRace': return [...state, 'race'];
         case 'submitClassLevel': return [...state, 'classLevel'];
+        case 'submitSubClass': return [...state, 'subClass'];
+        case 'submitBackgroud': return [...state, 'background']
         default: return state;
     }
 }

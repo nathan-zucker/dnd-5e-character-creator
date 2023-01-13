@@ -9,7 +9,7 @@ import DisplayRace from './Components/DisplayRace';
 import Class from './Components/Class';
 import { DisplayClass } from './Components/DisplayClass';
 import RacialTraitsIndex from './Components/RacialTraitsIndex';
-
+import Background from './Background';
 
 function App() {
   const state = useSelector((state)=>state);
@@ -28,14 +28,19 @@ function App() {
           <BaseStats />
           {state.progress.includes('race') ? <DisplayBaseStats /> : null}
           <RacialTraitsIndex />
-          
+          <Background />
           
           <h2>{}</h2>
   {/*
-          <h2>background</h2>
-          <h2>saving throws</h2>
-          <h2>skills</h2>
-          <h2>equipment</h2>
+          ALIGNMENT
+
+          BACKGROUND
+
+          SKILLS
+
+          LANGUAGES
+
+          EQUIPMENT
   */}
         </div>
       </div>
