@@ -100,8 +100,14 @@ class Class extends React.Component {
         delete classDetails.savingThrows
 
         if (classDetails.hasOwnProperty("spellCasting")){
-            this.props.dispatch("updateSpells", classDetails.spellCasting)
+            this.props.dispatch("updateSpells", classDetails.spellCasting);
+            delete classDetails.spellCasting;
         }
+        if (classDetails.hasOwnProperty("equipment")) {
+            this.props.dispatch('addEquipmentArray', classDetails.equipment);
+            delete classDetails.equipment;
+        }
+        
 
         this.props.dispatchFeatures(output.features)
         this.props.dispatchHitDie(output.hitDie)

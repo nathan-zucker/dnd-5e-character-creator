@@ -4,24 +4,7 @@ import { connect } from "react-redux";
 //import AbilityScordIncrease from "./AbilityScoreIncrease"
 
 /*
-const languagesIndex = [
-    "Common",
-    "Dwarvish",
-    "Elvish",
-    "Giant",
-    "Gnomish",
-    "Goblin",
-    "Halfling",
-    "Orc",
-    "Abyssal",
-    "Celestial",
-    "Draconic",
-    "Deep Speech",
-    "Infernal",
-    "Primordial",
-    "Sylvan",
-    "Undercommon"
-]
+
 */
 
 class RacialTraitsIndex extends React.Component {
@@ -286,7 +269,7 @@ const mapStateToProps = state => {
     })
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         sendPackage: (type, payload) => { dispatch(sendPackage(type, payload)) }
     }

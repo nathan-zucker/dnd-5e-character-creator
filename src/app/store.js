@@ -7,7 +7,7 @@ const progressReducer = (state = [], action) => {
         case 'submitRace': return [...state, 'race'];
         case 'submitClassLevel': return [...state, 'classLevel'];
         case 'submitSubClass': return [...state, 'subClass'];
-        case 'submitBackgroud': return [...state, 'background']
+        case 'submitBackground': return [...state, 'background']
         default: return state;
     }
 }
@@ -80,6 +80,18 @@ const classDetailsReducer = (state = {}, action) => {
     }
 }
 
+const backgroundReducer = (state = {}, action) => {
+    switch(action.type){
+        case 'updateBackground': return Object.assign({}, state, {
+            background: action.payload
+        });
+        case 'backgroundVariantOptions': return Object.assign({}, state, {
+            variants: action.payload
+        })
+        default: return state;
+    }
+}
+
 const featureReducer = (state = [], action) => {
     switch(action.type) {
         case 'clearFeatures': return [];
@@ -137,6 +149,12 @@ const skillReducer = (state = {picks: 0, proficiencies: []}, action) => {
         case 'addSkillProficiency': return Object.assign({}, state, {
             proficiencies: [...state.proficiencies, action.payload]
         });
+        case 'addSkillProficiencyArray': return Object.assign({}, state, {
+            proficiencies: [...state.proficiencies, ...action.payload]
+        });
+        case 'updateSkillProficiencies': return Object.assign({}, state, {
+            proficiencies: action.payload
+        })
         case 'addSkillPick': return Object.assign({}, state, {
             picks: state.picks + action.payload
         })
@@ -160,7 +178,8 @@ const armorReducer = (state = [], action) => {
 
 const toolReducer = (state = [], action) => {
     switch(action.type){
-        case 'toolProficiency': return [...state, action.payload]
+        case 'toolProficiency': return [...state, action.payload];
+        case 'toolProficiencyArray': return [...state, ...action.payload];
         default: return state;
     }
 }
@@ -172,7 +191,11 @@ const languageReducer = (state = {picks: 0, languages: []}, action) => {
         });
         case 'addLanguages': return Object.assign({}, state, {
             languages: [...state.languages, ...action.payload]
-        })
+        });
+        case 'updateLanguages': return Object.assign({}, state, {
+            languages: action.payload,
+            picks: 0
+        });
         default: return state;
     }
 }
@@ -180,6 +203,21 @@ const languageReducer = (state = {picks: 0, languages: []}, action) => {
 const spellReducer = (state = {}, action) => {
     switch(action.type){
         case 'updateSpells': return action.payload;
+        default: return state;
+    }
+}
+
+const equipmentReducer = (state = [], action) => {
+    switch(action.type){
+        case 'addEquipmentArray': return [...state, ...action.payload];
+        case 'updateEquipment': return action.payload;
+        default: return state;
+    }
+}
+
+const alignmentReducer = (state = '', action) => {
+    switch(action.type){
+        case 'setAlignment': return action.payload;
         default: return state;
     }
 }
@@ -202,6 +240,9 @@ const store = configureStore({
         spellCasting: spellReducer,
         armor: armorReducer,
         tools: toolReducer,
+        equipment: equipmentReducer,
+        background: backgroundReducer,
+        alignment: alignmentReducer,
     }
 });
 

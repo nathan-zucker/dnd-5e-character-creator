@@ -5,7 +5,7 @@ const barbarian = {
         hitDie: 12,
         primaryAbility: "Strength",
         savingThrows: ["Strength", "Constitution"],
-        skills: [2, ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]],
+        skills: [2, ["Animal Handling (Wis)", "Athletics (Str)", "Intimidation (Cha)", "Nature (Int)", "Perception (Wis)", "Survival (Wis)"]],
         armor: ['light', 'medium', 'shields'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -181,7 +181,7 @@ const cleric = {
         hitDie: 8,
         primaryAbility: ['Wisdom'],
         savingThrows: ['Wisdom', 'Charisma'],
-        skills: [2, ["History", "Insight", "Medicine", "Persuasion", "Religion"]],
+        skills: [2, ["History (Int)", "Insight (Wis)", "Medicine (Wis)", "Persuasion (Cha)", "Religion (Int)"]],
         armor: ['light', 'medium', 'shields', '*non-metal'],
         weapons: ['simple'],
         equipment: [
@@ -487,7 +487,7 @@ const druid = {
         hitDie: 8,
         primaryAbility: ["Wisdom"],
         savingThrows: ["Intelligence", "Wisdom"],
-        skills: [2, ["Arcana", "Animal Handling", "Insight", "Perception", "Religion", "Survival"]],
+        skills: [2, ["Arcana (Int)", "Animal Handling (Wis)", "Insight (Wis)", "Perception (Wis)", "Religion (Int)", "Survival (Wis)"]],
         armor: ['light', 'medium', 'shield'],
         weapons: ['club', 'dagger', 'dart', 'javelin', 'mace', 'quarterstaff', 'scimitar', 'sickle', 'sling', 'spear'],
         tools: ["Herbalism Kit"],
@@ -676,7 +676,7 @@ const fighter = {
         hitDie: 10,
         primaryAbility: ['Strength/Dexterity'],
         savingThrows: ["Strength", "Constitution"],
-        skills: [2, ['Acrobatics', "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"]],
+        skills: [2, ['Acrobatics (Dex)', "Animal Handling (Wis)", "Athletics (Str)", "History (Int)", "Insight (Wis)", "Intimidation (Cha)", "Perception (Wis)", "Survival (Wis)"]],
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -852,7 +852,7 @@ const monk = {
         hitDie: 8,
         primaryAbility: ["Dexterity", "Wisdom"],
         savingThrows: ["Strength", "Dexterity"],
-        skills: [2, ["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"]],
+        skills: [2, ["Acrobatics (Dex)", "Athletics (Str)", "History (Int)", "Insight (Wis)", "Religion (Int)", "Stealth (Dex)"]],
         armor: [],
         weapons: ['simple', 'shortsword'],
         tools: [1, ["artisan's tools", "musical instrument"]],
@@ -941,7 +941,7 @@ const paladin = {
         hitDie: 10,
         primaryAbility: ['Strength', 'Charisma'],
         savingThrows: ['Wisdom', 'Charisma'],
-        skills: [2, ["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"]],
+        skills: [2, ["Athletics (Str)", "Insight (Wis)", "Intimidation (Cha)", "Medicine (Wis)", "Persuasion (Cha)", "Religion (Int)"]],
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -1144,7 +1144,7 @@ const ranger = {
         hitDie: 10,
         primaryAbility: ["Dexterity", "Wisdom"],
         savingThrows: ['Strength', "Dexterity"],
-        skills: [3, ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"]],
+        skills: [3, ["Animal Handling (Wis)", "Athletics (Str)", "Insight (Wis)", "Investigation (Int)", "Nature (Int)", "Perception (Wis)", "Stealth (Dex)", "Survival (Wis)"]],
         armor: ['light', 'medium'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -1247,7 +1247,7 @@ const rogue = {
         hitDie: 8,
         primaryAbility: ['Dexterity'],
         savingThrows: ["Dexterity", "Intelligence"],
-        skills: [4, ["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"]],
+        skills: [4, ["Acrobatics (Dex)", "Athletics (Str)", "Deception (Cha)", "Insight (Wis)", "Intimidation (Cha)", "Investigation (Int)", "Perception (Wis)", "Performance (Cha)", "Persuasion (Cha)", "Sleight of Hand (Dex)", "Stealth (Dex)"]],
         armor: ['light', 'medium'],
         weapons: ['simple', 'hand crossbow', 'longsword', 'rapier', 'shortsword'],
         tools: ["thieves's tools"],
@@ -1358,7 +1358,7 @@ const sorcerer = {
         savingThrows: ['Constitution', 'Charisma'],
         armor: [],
         weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
-        skills: [2, ["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"]],
+        skills: [2, ["Arcana (Int)", "Deception (Cha)", "Insight (Wis)", "Intimidation (Cha)", "Persuasion (Cha)", "Religion (Int)"]],
         equipment: [
             ["light crossbow & 20 bolts", "any simple weapon"],
             ["component pouch", "arcane focus"],
@@ -1467,7 +1467,7 @@ const warlock = {
         hitDie: 8,
         primaryAbility: "Charisma",
         savingThrows: ["Wisdom", "Charisma"],
-        skills: [2, ["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"]],
+        skills: [2, ["Arcana (Int)", "Deception (Cha)", "History (Int)", "Intimidation (Cha)", "Investigation (Int)", "Nature (Int)", "Religion (Int)"]],
         armor: ["light"],
         weapons: ['simple'],
         equipment: [
@@ -1641,7 +1641,7 @@ const wizard = {
         hitDie: 6,
         primaryAbility: "Intelligence",
         savingThrows: ["Intelligence", "Wisdom"],
-        skills: [2, ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]],
+        skills: [2, ["Arcana (Int)", "History (Int)", "Insight (Wis)", "Investigation (Int)", "Medicine (Wis)", "Religion (Int)"]],
         armor: [],
         weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
         equipment: [
