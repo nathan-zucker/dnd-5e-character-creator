@@ -4,32 +4,16 @@ import { connect } from "react-redux";
 //import AbilityScordIncrease from "./AbilityScoreIncrease"
 
 /*
-const languagesIndex = [
-    "Common",
-    "Dwarvish",
-    "Elvish",
-    "Giant",
-    "Gnomish",
-    "Goblin",
-    "Halfling",
-    "Orc",
-    "Abyssal",
-    "Celestial",
-    "Draconic",
-    "Deep Speech",
-    "Infernal",
-    "Primordial",
-    "Sylvan",
-    "Undercommon"
-]
+
 */
 
 class RacialTraitsIndex extends React.Component {
     constructor(props){
         super(props)
         this.state = {
-            inputNeeded: -1,
-            inputAcquired: [],
+            hidden: false,
+            inputNeeded: 0,
+            inputAcquired: 0,
             subClass: undefined,
             savedInfo: [],
             selectors: 0
@@ -37,16 +21,17 @@ class RacialTraitsIndex extends React.Component {
     }
 
     componentDidUpdate(){
-        const numSelectors = document.getElementsByClassName("subClassSelector").length
-        this.countSelectors(numSelectors)
+        const selectorButtons = document.getElementsByClassName("subClassSubmit")
         
+        this.countSelectors(selectorButtons.length)
     }
 
     countSelectors = (num) => {
         if(this.state.selectors === num) {
             return null
         } else {
-            this.setState({selectors: num, inputNeeded: num})
+            let numRemaining = num - this.state.inputAcquired
+            this.setState({selectors: num, inputNeeded: numRemaining})
         }
     }
 
@@ -60,7 +45,8 @@ class RacialTraitsIndex extends React.Component {
             if(group === 2){
                 const subClasses2 = this.props.classDetails.subClasses2;
                 options = Object.keys(subClasses2);
-            } else {
+            }
+            else {
                 const subClasses = this.props.classDetails.subClasses;
                 options = Object.keys(subClasses);
             }
@@ -74,13 +60,13 @@ class RacialTraitsIndex extends React.Component {
                     <option>(select)</option>
                     {selectorOptions}
                 </select>
-                <button disabled={false} id={targetFeature} value={targetFeature} onClick={this.handleSubmit}>submit</button>
+                <button disabled={false} className="subClassSubmit" id={targetFeature} value={targetFeature} onClick={this.handleSubmit}>submit</button>
             </div>
         )}
     }
 
     handleSubmit = (event) => {
-        this.setState({inputNeeded: this.state.inputNeeded - 1})
+        this.setState({inputNeeded: this.state.inputNeeded - 1, inputAcquired: this.state.inputAcquired + 1})
         this.mapResults(event.target.value)
     }
 
@@ -102,9 +88,10 @@ class RacialTraitsIndex extends React.Component {
         document.getElementById(targetFeature).disabled = true;
     }
 
-    handleContinue = () => {
+    handleContinue = (e) => {
         this.dispatchInfo()
-
+        this.setState({inputNeeded: -1})
+        this.props.sendPackage('submitSubClass')
     }
 
     dispatchInfo = () => {
@@ -170,7 +157,7 @@ class RacialTraitsIndex extends React.Component {
                     break;
 
                     default:
-                    this.props.sendPackage(infoType, infoPayload);
+                    this.props.sendPackage('classDetailsOptions', infoPayload);
                     console.log("dispatched ",infoType, infoPayload);
 
                 }
@@ -179,6 +166,41 @@ class RacialTraitsIndex extends React.Component {
             }
         })
     }
+
+    /*
+    extraSelector = (parent, targetFeature) => {
+        if(!this.props.features.includes(targetFeature)){
+            return null;
+        } 
+        else {
+            const selectorOptions = parent.options.map((e, i)=>
+                <option value={e} key={i}>{e}</option>
+            );
+            return (
+                <div className="subClassSelector" >
+                    <h3>Select {targetFeature}:</h3>
+                    <select onChange={this.handleSubClassChange}>
+                        <option>(select)</option>
+                        {selectorOptions}
+                    </select>
+                    <button disabled={false} className="extraSelectorSubmit" id={targetFeature} value={targetFeature} onClick={this.handleSubmit(2)}>submit</button>
+                </div>
+            )
+        }
+    }
+
+    mapFeatures = () => {
+        const obj = {
+            features: this.state.subClass
+        }
+        this.setState({savedInfo: [...this.state.savedInfo, obj] })
+    }
+
+    submitFeature = () => {
+        this.setState({inputNeeded: this.state.inputNeeded - 1, inputAcquired: this.state.inputAcquired + 1})
+        this.mapFeatures()
+    }
+    */
 
     render(){
         let features = this.props.features;
@@ -200,10 +222,14 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Bard College")}
                     {this.subClassSelector("Divine Domain")}
                     {this.subClassSelector("Druid Circle")}
+                    {this.subClassSelector("Circle of the Land", 2)}
+
                     {this.subClassSelector("Martial Archetype")}
                     {this.subClassSelector("Monastic Tradition")}
                     {this.subClassSelector("Sacred Oath")}
                     {this.subClassSelector("Ranger Archetype")}
+                    
+
                     {this.subClassSelector("Rogueish Archetype")}
                     {this.subClassSelector("Pact Magic")}
                     {this.subClassSelector("Arcane Tradition")}
@@ -243,7 +269,7 @@ const mapStateToProps = state => {
     })
 }
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
     return {
         sendPackage: (type, payload) => { dispatch(sendPackage(type, payload)) }
     }

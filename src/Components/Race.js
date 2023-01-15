@@ -358,7 +358,8 @@ class Race extends React.Component {
             size: 'Medium',
             speed: 30,
             darkVision: true,
-            languages: ['Common', 'Elvish', 'PICKONE'],
+            languages: ['Common', 'Elvish'],
+            languagePicks: 1,
             features: ['Fey Ancestry', 'Skill Verstility'],
             actions: [
                 { //Skill Versatility
@@ -390,7 +391,7 @@ class Race extends React.Component {
             actions: [
                 {
                     type: 'addSkillProficiency',
-                    payload: 'Intimidation'
+                    payload: 'Intimidation (Cha)'
                 }
             ]
         })

@@ -9,6 +9,9 @@ import DisplayRace from './Components/DisplayRace';
 import Class from './Components/Class';
 import { DisplayClass } from './Components/DisplayClass';
 import RacialTraitsIndex from './Components/RacialTraitsIndex';
+import Background from './Background';
+import Skills from './Skills';
+import Equipment from './Equipment';
 
 
 function App() {
@@ -28,14 +31,21 @@ function App() {
           <BaseStats />
           {state.progress.includes('race') ? <DisplayBaseStats /> : null}
           <RacialTraitsIndex />
-          
-          
+          <Background />
+          <Skills />
+          <Equipment />
+
           <h2>{}</h2>
-  {/*
-          <h2>background</h2>
-          <h2>saving throws</h2>
-          <h2>skills</h2>
-          <h2>equipment</h2>
+   {/*
+
+          EQUIPMENT
+
+    ARMOR CLASS
+
+    WEAPONS / ATTACKS
+
+    SPELL CASTING
+
   */}
         </div>
       </div>

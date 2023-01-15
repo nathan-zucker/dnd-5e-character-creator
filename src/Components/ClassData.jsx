@@ -5,7 +5,7 @@ const barbarian = {
         hitDie: 12,
         primaryAbility: "Strength",
         savingThrows: ["Strength", "Constitution"],
-        skills: [2, ["Animal Handling", "Athletics", "Intimidation", "Nature", "Perception", "Survival"]],
+        skills: [2, ["Animal Handling (Wis)", "Athletics (Str)", "Intimidation (Cha)", "Nature (Int)", "Perception (Wis)", "Survival (Wis)"]],
         armor: ['light', 'medium', 'shields'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -181,7 +181,7 @@ const cleric = {
         hitDie: 8,
         primaryAbility: ['Wisdom'],
         savingThrows: ['Wisdom', 'Charisma'],
-        skills: [2, ["History", "Insight", "Medicine", "Persuasion", "Religion"]],
+        skills: [2, ["History (Int)", "Insight (Wis)", "Medicine (Wis)", "Persuasion (Cha)", "Religion (Int)"]],
         armor: ['light', 'medium', 'shields', '*non-metal'],
         weapons: ['simple'],
         equipment: [
@@ -240,13 +240,13 @@ const cleric = {
                 spellCasting: {clericSpells: ["command", "identify"]}
             },
             2: {
-                features: ["Channel Divinity: Knowledge of the Ages"]
+                spellCasting: {ChannelDivinity: ["Knowledge of the Ages"]}
             },
             3: {
                 spellCasting: {clericSpells: ["command", "identify", "augury", "suggestion"]}
             },
             5: {
-                spells: ["nondetection", "speak with dead"]
+                spellCasting: {clericSpells: ["command", "identify", "augury", "suggestion", "nondetection", "speak with dead"]}
             },
             6: {
                 features: ["Channel Divinity: Read Thoughts"]
@@ -267,16 +267,16 @@ const cleric = {
         "Life": {
             1: {
                 features: ["Disciple of Life"],
-                spells: ["bless", "cure wounds"]
+                spellCasting: {clericSpells: ["bless", "cure wounds"]}
             },
             2: {
-                features: ["Channel Divinity: Preserve Life"]
+                spellCasting: {ChannelDivinity: ['Preserve Life']}
             },
             3: {
-                spells: ["lesser restoration", "spiritual weapon"]
+                spellCasting: {clericSpells: ["bless", "cure wounds", "lesser restoration", "spiritual weapon"]}
             },
             5: {
-                spells: ["beacon of hope", "revivify"]
+                spellCasting: {clericSpells: ["bless", "cure wounds", "lesser restoration", "spiritual weapon", "beacon of hope", "revivify"]}
             },
             6: {
                 features: ["Blessed Healer"]
@@ -297,16 +297,20 @@ const cleric = {
         "Light": {
             1: {
                 features: ["Bonus Cantrip Light", "Warding Flare"],
-                spells: ["burning hands", "faerie fire"]
+                spellCasting: {
+                    clericSpells: ["burning hands", "faerie fire"]
+                }
             },
             2: {
-                features: ["Channel Divinity: Radiance of the Dawn"]
+                spellCasting: { channelDivinity: ["Radiance of the Dawn"] }
             },
             3: {
-                spells: ["flaming sphere", "scorching ray"]
+                spellCasting: { clericSpells: ["burning hands", "faerie fire", "flaming sphere", "scorching ray"]}
             },
             5: {
-                spells: ["daylight", "fireball"]
+                spellCasting: {
+                    clericSpells: ["burning hands", "faerie fire", "flaming sphere", "scorching ray", "daylight", "fireball"]
+                }
             },
             6: {
                 features: ["Improved Flare"]
@@ -324,16 +328,24 @@ const cleric = {
         "Nature": {
             1: {
                 features: ["Acolyte of Nature", "Bonus Proficiency Nature"],
-                spells: ["animal friendship", "speak with animals"]
+                spellCasting: {
+                    clericSpells: ["animal friendship", "speak with animals"]
+                }
             },
             2: {
-                features: ["Channel Divinity: Charm Animals and Plants"]
+                spellCasting: {
+                    channelDivinity: ["Charm Animals and Plants"]
+                }
             },
             3: {
-                spells: ["barkskin", "spike growth"]
+                spellCasting: {
+                    clericSpells: ["animal friendship", "speak with animals", "barkskin", "spike growth"]
+                }
             },
             5: {
-                spells: ["plant growth", "wind wall"]
+                spellCasting: {
+                    clericSpells: ["animal friendship", "speak with animals", "barkskin", "spike growth", "plant growth", "wind wall"]
+                }
             },
             6: {
                 features: ["Dampen Elements"]
@@ -354,16 +366,24 @@ const cleric = {
         "Tempest": {
             1: {
                 features: ["Bonus Proficiencies Tempest", "Wrath of the Storm"],
-                spells: ["fog cloud", "thunderwave"]
+                spellCasting: {
+                    clericSpells: ["fog cloud", "thunderwave"]
+                }
             },
             2: {
-                features: ["Channel Divinity: Destructive Wrath"]
+                spellCasting: {
+                    channelDivinity: ["Destructive Wrath"]
+                }
             },
             3: {
-                spells: ["gust of wind", "shatter"]
+                spellCasting: {
+                    clericSpells: ["fog cloud", "thunderwave", "gust of wind", "shatter"]
+                }
             },
             5: {
-                spells: ["call lightning", "sleet storm"]
+                spellCasting: {
+                    clericSpells: ["fog cloud", "thunderwave", "gust of wind", "shatter", "call lightning", "sleet storm"]
+                }
             },
             6: {
                 features: ["Thunderbolt Strike"]
@@ -384,16 +404,24 @@ const cleric = {
         "Trickery": {
             1: {
                 features: ["Blessing of the Trickster"],
-                spells: ["charm person", "disguise self"]
+                spellCasting: {
+                    clericSpells: ["charm person", "disguise self"]
+                }
             },
             2: {
-                features: ["Channel Divinity: Invoke Duplicity"]
+                spellcasting: {
+                    channelDivinity: ["Invoke Duplicity"]
+                }
             },
             3: {
-                spells: ["mirror image", "pass without trace"]
+                spellCasting: {
+                    clericSpells: ["charm person", "disguise self", "mirror image", "pass without trace"]
+                }
             },
             5: {
-                spells: ["blink", "dispel magic"]
+                spellCasting: {
+                    clericSpells: ["charm person", "disguise self", "mirror image", "pass without trace", "blink", "dispel magic"]
+                }
             },
             6: {
                 features: ["Channel Divinity: Cloak of the Shadows"]
@@ -414,16 +442,24 @@ const cleric = {
         "War": {
             1: {
                 features: ["Bonus Proficiencies War", "War Priest"],
-                spells: ["divine favor", "shield of faith"]
+                spellCasting: {
+                    clericSpells: ["divine favor", "shield of faith"]
+                }
             },
             2: {
-                features: ["Channel Divinity: Cloud Strike"]
+                spellCasting: {
+                    channelDivinity: ["Cloud Strike"]
+                }
             },
             3: {
-                spells: ["magic weapon", "spiritual weapon"]
+                spellCasting: {
+                    clericSpells: ["divine favor", "shield of faith", "magic weapon", "spiritual weapon"]
+                }
             },
             5: {
-                spells: ["crusader's mantle", "spirit guardians"]
+                spellcasting: {
+                    clericSpells: ["divine favor", "shield of faith", "magic weapon", "spiritual weapon", "crusader's mantle", "spirit guardians"]
+                }
             },
             6: {
                 features: ["Channel Divinity: War God's Blessing"]
@@ -451,7 +487,7 @@ const druid = {
         hitDie: 8,
         primaryAbility: ["Wisdom"],
         savingThrows: ["Intelligence", "Wisdom"],
-        skills: [2, ["Arcana", "Animal Handling", "Insight", "Perception", "Religion", "Survival"]],
+        skills: [2, ["Arcana (Int)", "Animal Handling (Wis)", "Insight (Wis)", "Perception (Wis)", "Religion (Int)", "Survival (Wis)"]],
         armor: ['light', 'medium', 'shield'],
         weapons: ['club', 'dagger', 'dart', 'javelin', 'mace', 'quarterstaff', 'scimitar', 'sickle', 'sling', 'spear'],
         tools: ["Herbalism Kit"],
@@ -502,10 +538,136 @@ const druid = {
         }
     },
     subClasses: {
-        "Circle of the Land": {},
-        "Circle of the Moon": {}
+        "Circle of the Land": {
+            2: {
+                features: ["Circle of the Land", "Natural Recovery"],
+                spellCasting: {
+                    cantripsKnown: 1
+                }
+            },
+            6: {
+                features: ["Land's Stride"]
+            },
+            10: {
+                features: ["Nature's Ward"]
+            },
+            14: {
+                features: ["Nature's Sanctuary"]
+            }
+        },
+        "Circle of the Moon": {
+            2: {
+                features: ["Combat Wild Shape", "Circle Forms"]
+            },
+            6: {
+                features: ["Improved Circle Forms", "Primal Strike"]
+            },
+            10: {
+                features: ["Elemental Wild Shape"]
+            },
+            14: {
+                features: ["Thousand Forms"]
+            }
+        }
     },
-    subClasses2: {}
+    subClasses2: {
+        "Arctic": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["hold person", "spike growth"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["hold person", "spike growth", "hold person", "spike growth"]
+                }
+            }
+        },
+        "Coast": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["mirror image", "misty step"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["mirror image", "misty step", "water breathing", "water walk"]
+                }
+            }
+        },
+        "Desert": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["blur", "silence"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["blur", "silence", "create food and water", "protection from energy"]
+                }
+            }
+        },
+        "Forest": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["barkskin", "spider climb"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["barkskin", "spider climb", "call lightning", "plant growth"]
+                }
+            }
+        },
+        "Grassland": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["invisibility", "pass without trace"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["invisibility", "pass without trace", "daylight", "haste"]
+                }
+            }
+        },
+        "Mountain": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["spider climb", "spike growth"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["spider climb", "spike growth", "lightning bolt", "meld into stone"]
+                }
+            }
+        },
+        "Swamp": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["darkness", "Melf's acid arrow"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["darkness", "Melf's acid arrow", "water walk", "stinking cloud"]
+                }
+            }
+        },
+        "Underdark": {
+            3: {
+                spellCasting: {
+                    druidSpells: ["spider climb", "web"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    druidSpells: ["spider climb", "web", "gaseous form", "stinking cloud"]
+                }
+            }
+        }
+    }
 }
 
 const fighter = {
@@ -514,7 +676,7 @@ const fighter = {
         hitDie: 10,
         primaryAbility: ['Strength/Dexterity'],
         savingThrows: ["Strength", "Constitution"],
-        skills: [2, ['Acrobatics', "Animal Handling", "Athletics", "History", "Insight", "Intimidation", "Perception", "Survival"]],
+        skills: [2, ['Acrobatics (Dex)', "Animal Handling (Wis)", "Athletics (Str)", "History (Int)", "Insight (Wis)", "Intimidation (Cha)", "Perception (Wis)", "Survival (Wis)"]],
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -690,7 +852,7 @@ const monk = {
         hitDie: 8,
         primaryAbility: ["Dexterity", "Wisdom"],
         savingThrows: ["Strength", "Dexterity"],
-        skills: [2, ["Acrobatics", "Athletics", "History", "Insight", "Religion", "Stealth"]],
+        skills: [2, ["Acrobatics (Dex)", "Athletics (Str)", "History (Int)", "Insight (Wis)", "Religion (Int)", "Stealth (Dex)"]],
         armor: [],
         weapons: ['simple', 'shortsword'],
         tools: [1, ["artisan's tools", "musical instrument"]],
@@ -779,7 +941,7 @@ const paladin = {
         hitDie: 10,
         primaryAbility: ['Strength', 'Charisma'],
         savingThrows: ['Wisdom', 'Charisma'],
-        skills: [2, ["Athletics", "Insight", "Intimidation", "Medicine", "Persuasion", "Religion"]],
+        skills: [2, ["Athletics (Str)", "Insight (Wis)", "Intimidation (Cha)", "Medicine (Wis)", "Persuasion (Cha)", "Religion (Int)"]],
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -903,26 +1065,39 @@ const paladin = {
         "Oath of Vengeance": {
             3: {
                 features: ["Oath Spells", "Channel Divinity"],
-                oathSpells: ["bane", "hunter's mark"],
-                channelDivinity: ["Abjure Enemy", "Vow of Enmity"]
+                spellCasting: {
+                    oathSpells: ["bane", "hunter's mark"],
+                    channelDivinity: ["Abjure Enemy", "Vow of Enmity"]
+                }
+                
             },
             5: {
-                oathSpells: ["hold person", "misty step"]
+                spellCasting: {
+                    oathSpells: ["bane", "hunter's mark", "hold person", "misty step"]
+                }
+                
             },
             7: {
                 features: ["Relentless Avenger"]
             },
             9: {
-                oathSpells: ["haste", "protection from energy"]
+                spellCasting: {
+                    oathSpells: ["bane", "hunter's mark", "hold person", "misty step", "haste", "protection from energy"]
+                }
             },
             13: {
-                oathSpells: ["banishment", "dimension door"]
+                spellCasting: {
+                    oathSpells: ["bane", "hunter's mark", "hold person", "misty step", "haste", "protection from energy", "banishment", "dimension door"]
+                }
             },
             15: {
                 features: ["Soul of Vengeance"]
             },
             17: {
-                oathSpells: ["hold monster", "scrying"]
+                spellCasting: {
+                    oathSpells: ["bane", "hunter's mark", "hold person", "misty step", "haste", "protection from energy", "banishment", "dimension door", "hold monster", "scrying"]
+                }
+                
             },
             20: {
                 features: ["Avenging Angel"]
@@ -969,7 +1144,7 @@ const ranger = {
         hitDie: 10,
         primaryAbility: ["Dexterity", "Wisdom"],
         savingThrows: ['Strength', "Dexterity"],
-        skills: [3, ["Animal Handling", "Athletics", "Insight", "Investigation", "Nature", "Perception", "Stealth", "Survival"]],
+        skills: [3, ["Animal Handling (Wis)", "Athletics (Str)", "Insight (Wis)", "Investigation (Int)", "Nature (Int)", "Perception (Wis)", "Stealth (Dex)", "Survival (Wis)"]],
         armor: ['light', 'medium'],
         weapons: ['simple', 'martial'],
         equipment: [
@@ -1016,10 +1191,54 @@ const ranger = {
         }
     },
     subClasses: {
-        "Hunter": {},
-        "Beast Master": {}
+        "Hunter": {
+            3: {
+                features: ["Hunter's Prey"],
+                options: ["Colossus Slayer", "Giant Killer", "Horde Breaker"]
+            },
+            7: {
+                features: ["Defensive Tactics"],
+                options: ["Escape the Horde", "Multiattack Defense", "Steel Will"]
+            },
+            11: {
+                features: ["Multiattack"],
+                options: ["Volley", "Whirlwind Attack"]
+            },
+            15: {
+                features: ["Superior Hunter's Defense"],
+                options: ["Evasion", "Stand Against the Tide", "Uncanny Dodge"]
+            }
+        },
+        "Beast Master": {
+
+            3: {
+                features: ["Ranger's Companion"]
+            },
+            7: {
+                features: ["Exceptional Training"]
+            },
+            11: {
+                features: ["Bestial Fury"]
+            },
+            15: {
+                features: ["Share Spells"]
+            }
+        }
     },
-    subClasses2: {}
+    subClasses2: {
+        "Archery": {
+            features: ["Archery Fighting Style"]
+        },
+        "Defense": {
+            features: ["Defense Fighting Style"]
+        },
+        "Dueling": {
+            features: ["Dueling Fighting Style"]
+        },
+        "Two-Weapon Fighting": {
+            features: ["Two-Weapon Fighting Style"]
+        }
+    }
 }
 
 const rogue = {
@@ -1028,7 +1247,7 @@ const rogue = {
         hitDie: 8,
         primaryAbility: ['Dexterity'],
         savingThrows: ["Dexterity", "Intelligence"],
-        skills: [4, ["Acrobatics", "Athletics", "Deception", "Insight", "Intimidation", "Investigation", "Perception", "Performance", "Persuasion", "Sleight of Hand", "Stealth"]],
+        skills: [4, ["Acrobatics (Dex)", "Athletics (Str)", "Deception (Cha)", "Insight (Wis)", "Intimidation (Cha)", "Investigation (Int)", "Perception (Wis)", "Performance (Cha)", "Persuasion (Cha)", "Sleight of Hand (Dex)", "Stealth (Dex)"]],
         armor: ['light', 'medium'],
         weapons: ['simple', 'hand crossbow', 'longsword', 'rapier', 'shortsword'],
         tools: ["thieves's tools"],
@@ -1065,9 +1284,68 @@ const rogue = {
         features: ["Uncanny Dodge"]
     },
     subClasses: {
-        "Thief": {},
-        "Assassin": {},
-        "Arcane Trickster": {}
+        "Thief": {
+            3: {
+                features: ["Fast Hands", "Second-Story Work"]
+            },
+            9: {
+                features: ["Supreme Sneak"]
+            },
+            13: {
+                features: ["Use Magic Defense"]
+            },
+            17: {
+                features: ["Thief's Reflexes"]
+            }
+        },
+        "Assassin": {
+            3: {
+                features: ["Bonus Proficiencies Assassin", "Assassinate"]
+            },
+            9: {
+                features: ["Infiltration Expertise"]
+            },
+            13: {
+                features: ["Impostor"]
+            },
+            17: {
+                features: ["Death Strike"]
+            }
+        },
+        "Arcane Trickster": {
+            3: {
+                features: ["Spellcasting", "Mage Hand Legerdemain"],
+                spellCasting: {
+                    cantripsKnown: 3,
+                    spellsKnown: 3,
+                    slots: [2]
+                }
+            },
+            4: {
+                spellCasting: {
+                    cantripsKnown: 3,
+                    spellsKnown: 4,
+                    slots: [3]
+                }
+            },
+            5: {
+                spellCasting: {
+                    cantripsKnown: 3,
+                    spellsKnown: 4,
+                    slots: [3]
+                }
+            },
+            9: {
+                features: ["Magical Ambush"]
+            },
+            13: {
+                features: ["Versatile Trickster"]
+            },
+            17: {
+                features: ["Spell Thief"]
+            }
+
+        }
     },
     subClasses2: {}
 }
@@ -1080,7 +1358,7 @@ const sorcerer = {
         savingThrows: ['Constitution', 'Charisma'],
         armor: [],
         weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
-        skills: [2, ["Arcana", "Deception", "Insight", "Intimidation", "Persuasion", "Religion"]],
+        skills: [2, ["Arcana (Int)", "Deception (Cha)", "Insight (Wis)", "Intimidation (Cha)", "Persuasion (Cha)", "Religion (Int)"]],
         equipment: [
             ["light crossbow & 20 bolts", "any simple weapon"],
             ["component pouch", "arcane focus"],
@@ -1139,8 +1417,46 @@ const sorcerer = {
         }
     },
     subClasses: {
-        "Draconic Bloodline": {},
-        "Wild Magic": {}
+        "Draconic Bloodline": {
+            1: {
+                features: ["Draconic Ancestor", "Draconic Resilience"],
+                options: [
+                    ["Black", "Acid"], 
+                    ["Blue", "Lightning"], 
+                    ["Brass", "Fire"],
+                    ["Bronze", "Lightning"],
+                    ["Copper", "Acid"],
+                    ["Gold", "Fire"],
+                    ["Green", "Poison"],
+                    ["Red", "Fire"],
+                    ["Silver", "Cold"],
+                    ["White", "Cold"]
+                ]
+            },
+            6: {
+                features: ["Elemental Affinity"]
+            },
+            14: {
+                features: ["Dragon Wings"]
+            },
+            18: {
+                features: ["Draconic Presence"]
+            }
+        },
+        "Wild Magic": {
+            1: {
+                features: ["Wild Magic Surge", "Tides of Chaos"]
+            },
+            6: {
+                features: ["Bend Luck"]
+            },
+            14: {
+                features: ["Controlled Chaos"]
+            },
+            18: {
+                features: ["Spell Bombardment"]
+            }
+        }
     },
     subClasses2: {}
 }
@@ -1151,7 +1467,7 @@ const warlock = {
         hitDie: 8,
         primaryAbility: "Charisma",
         savingThrows: ["Wisdom", "Charisma"],
-        skills: [2, ["Arcana", "Deception", "History", "Intimidation", "Investigation", "Nature", "Religion"]],
+        skills: [2, ["Arcana (Int)", "Deception (Cha)", "History (Int)", "Intimidation (Cha)", "Investigation (Int)", "Nature (Int)", "Religion (Int)"]],
         armor: ["light"],
         weapons: ['simple'],
         equipment: [
@@ -1213,9 +1529,108 @@ const warlock = {
         }
     },
     subClasses: {
-        "Archfey": {},
-        "Fiend": {},
-        "The Great Old One": {}
+        "Archfey": {
+            1: {
+                features: ["Fey Presence"],
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth", "dominate beast", "greater invisibility"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["faerie fire", "sleep", "calm emotions, phantasmal force", "blink", "plant growth", "dominate beast", "greater invisibility", "dominate person", "seeming"]
+                }
+            },
+            6: {
+                features: ["Misty Escape"]
+            },
+            10: {
+                features: ["Beguiling Defenses"]
+            },
+            14: {
+                features: ["Dark Delirium"]
+            }
+        },
+        "Fiend": {
+            1: {
+                features: ["Dark One's Blessing"],
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["burning hands", "command", "blindness/deafness", "scorching ray", "fireball", "stinking cloud", "fire shield", "wall of fire", "flame strike", "hallow"]
+                }
+            },
+            6: {
+                features: ["Dark One's Own Luck"]
+            },
+            10: {
+                features: ["Fiendish Resilience"]
+            },
+            14: {
+                features: ["Hurl Through Hell"]
+            }
+        },
+        "The Great Old One": {
+            1: {
+                features: ["Awakened Mind"],
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter"]
+                }
+            },
+            2: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force"]
+                }
+            },
+            3: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending"]
+                }
+            },
+            4: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending", "dominate beast", "Evard's black tentacles"]
+                }
+            },
+            5: {
+                spellCasting: {
+                    warlockSpells: ["dissonant whispers", "Tasha's hideous laughter", "detect thoughts", "phantasmal force", "clairvoyance", "sending", "dominate beast", "Evard's black tentacles", "dominate person", "telekinesis"]
+                }
+            }
+        }
     },
     subClasses2: {}
 }
@@ -1226,7 +1641,7 @@ const wizard = {
         hitDie: 6,
         primaryAbility: "Intelligence",
         savingThrows: ["Intelligence", "Wisdom"],
-        skills: [2, ["Arcana", "History", "Insight", "Investigation", "Medicine", "Religion"]],
+        skills: [2, ["Arcana (Int)", "History (Int)", "Insight (Wis)", "Investigation (Int)", "Medicine (Wis)", "Religion (Int)"]],
         armor: [],
         weapons: ['dagger', 'dart', 'sling', 'quarterstaff', 'light crossbow'],
         equipment: [
@@ -1282,14 +1697,118 @@ const wizard = {
         }
     },
     subClasses: {
-        "Abjuration": {},
-        "Conjuration": {},
-        "Divination": {},
-        "Enchantment": {},
-        "Evocation": {},
-        "Illusion": {},
-        "Necromancy": {},
-        "Transmutation": {}
+        "Abjuration": {
+            2: {
+                features: ["Abjuration Savant", "Arcane Ward"]
+            },
+            6: {
+                features: ["Projected Ward"]
+            },
+            10: {
+                features: ["Improved Abjuration"]
+            },
+            14: {
+                features: ["Spell Resistance"]
+            }
+        },
+        "Conjuration": {
+            2: {
+                features: ["Conjuration Savant", "Minor Conjuration"]
+            },
+            6: {
+                features: ["Benign Transposition"]
+            },
+            10: {
+                features: ["Focused Conjuration"]
+            },
+            14: {
+                features: ["Durable Summons"]
+            }
+        },
+        "Divination": {
+            2: {
+                features: ["Divination Savant", "Portent"]
+            },
+            6: {
+                features: ["Expert Divination"]
+            },
+            10: {
+                features: ["The Third Eye"]
+            },
+            14: {
+                features: ["Greater Portent"]
+            }
+        },
+        "Enchantment": {
+            2: {
+                features: ["Enchantment Savant", "Hypnotic Gaze"]
+            },
+            6: {
+                features: ["Instinctive Charm"]
+            },
+            10: {
+                features: ["Split Enchantment"]
+            },
+            14: {
+                features: ["Alter Memories"]
+            }
+        },
+        "Evocation": {
+            2: {
+                features: ["Evocation Savant", "Sculpt Spells"]
+            },
+            6: {
+                features: ["Potent Cantrip"]
+            },
+            10: {
+                features: ["Empowered Evocation"]
+            },
+            14: {
+                features: ["Overchannel"]
+            }
+        },
+        "Illusion": {
+            2: {
+                features: ["Illusion Savant", "Improved Minor Illusion"]
+            },
+            6: {
+                features: ["Malleable Illusions"]
+            },
+            10: {
+                features:  ["Illusory Self"]
+            },
+            14: {
+                features: ["Illusory Reality"]
+            }
+        },
+        "Necromancy": {
+            2: {
+                features: ["Necromancy Savant", "Grim Harvest"]
+            },
+            6: {
+                features: ["Undead Thralls"]
+            },
+            10: {
+                features: ["Injured to Undeath"]
+            },
+            14: {
+                features: ["Command Undead"]
+            }
+        },
+        "Transmutation": {
+            2: {
+                features: ["Transmutation Savant", "Minor Alchemy"]
+            },
+            6: {
+                features: ["Transmuter's Stone"]
+            },
+            10: {
+                features: ["Shapechanger"]
+            },
+            14: {
+                features: ["Master Transmuter"]
+            }
+        }
     },
     subClasses2: {}
 }
