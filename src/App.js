@@ -12,6 +12,7 @@ import RacialTraitsIndex from './Components/RacialTraitsIndex';
 import Background from './Background';
 import Skills from './Skills';
 import Equipment from './Equipment';
+import CalculateFinalScores from './Components/CalculateFinalScores';
 
 
 function App() {
@@ -34,6 +35,7 @@ function App() {
           <Background />
           <Skills />
           <Equipment />
+          <CalculateFinalScores />
 
           <h2>{}</h2>
    {/*

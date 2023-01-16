@@ -35,6 +35,7 @@ class Equipment extends React.Component {
         return (
             this.state.choices.map((e, i)=>
             <div key={i} className="EOcontainer">
+                
                 {e.map((f, j)=>
                     <button
                     className="equipmentOption"
