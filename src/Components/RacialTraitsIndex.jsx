@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 //import ToolProficiency from "./RaceFeatures/ToolProficiency";
-//import AbilityScordIncrease from "./AbilityScoreIncrease"
+import AbilityScordIncrease from "./AbilityScoreIncrease"
 
 /*
 
@@ -217,6 +217,12 @@ class RacialTraitsIndex extends React.Component {
                     <h2>{features.join(', ')}</h2>
                     <h2>select {this.state.inputNeeded} more options! ({this.state.selectors} total) </h2>
                     <h3>confirm entry: {this.state.subClass}</h3>
+                    
+                    {this.props.features.includes('Ability Score Improvement') ? 
+                        <div>
+                            <AbilityScordIncrease picks={2} bonuses={this.props.raceDetails.abilityScoreIncrease} />
+                        </div> 
+                    : null}
 
                     {this.subClassSelector("Primal Path")}
                     {this.subClassSelector("Bard College")}
@@ -264,6 +270,7 @@ const mapStateToProps = state => {
         features: state.features,
         race: state.raceDetails.race,
         subRace: state.raceDetails.subRace,
+        raceDetails: state.raceDetails,
         spellCasting: state.spellCasting,
         progress: state.progress
     })

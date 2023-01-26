@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import SelectWeapon from "./SelectWeapon";
 
 class Equipment extends React.Component {
     constructor(props){
@@ -8,10 +9,12 @@ class Equipment extends React.Component {
             hidden: true,
             equipment: [],
             choices: [],
+            choices2: [],
             button1disabled: false
         }
     }
 
+    //SORT OUT WHICH EQUIPMENT NEEDS A CHOICE
     sortEquipment = () => {
         let choices = [];
         let equipment = [];
@@ -31,26 +34,26 @@ class Equipment extends React.Component {
         this.setState({hidden: false})
     }
 
+    //RENDER OPTIONS IN ROWS OF BUTTONS
     showChoices = () => {
         return (
             this.state.choices.map((e, i)=>
             <div key={i} className="EOcontainer">
-                {e.map((f, j)=>
-                    <button
+                {e.map((f, j)=><button
                     className="equipmentOption"
                     key={j}
                     value={f}
-                    onClick={this.chooseEquipment}>
-                        {f}
-                    </button>
-                )}
+                    onClick={this.chooseEquipment}
+                    >{f}</button>)}
             </div>
-        )
+            )
         )
     }
 
+    //MAKE A SELECTION FOR MAIN EQUIPMENT
     chooseEquipment = (event) => {
         console.log(event.target.value)
+        //REMOVE OPTIONS FROM LIST
         for (let i=0; i<this.state.choices.length; i++){
             if (this.state.choices[i].includes(event.target.value)) {
                 let choices = [...this.state.choices];
@@ -58,16 +61,73 @@ class Equipment extends React.Component {
                 this.setState({choices: choices});
             }
         }
+        //SEND CHOSEN OPTION TO LOCAL STATE
         this.setState((state)=>{
-            return {
-                equipment: [...state.equipment, event.target.value]
+            if (event.target.value.match(/(\s&\s)/)) {
+                let arr = event.target.value.split(' & ');
+                return { equipment: [...state.equipment, ...arr] }
             }
+            return { equipment: [...state.equipment, event.target.value] }
         })
     }
 
+    //SUBMIT MAIN EQUIPMENT TO REDUX
     submitEquipment = () => {
         this.props.dispatch('updateEquipment', this.state.equipment)
+        this.props.dispatch('updateProgress', 'equipment')
         this.setState({button1disabled: true})
+        this.sortWeaponChoices()
+    }
+
+    sortWeaponChoices = () => {
+        console.log('sorting')
+        let needChoice = [];
+        let equip = [...this.state.equipment];
+
+        //SORT THROUGH EQUIPMENT OPTIONS TO FIND ONES THAT NEED A CHOICE
+        for (let i=0; i<this.state.equipment.length; i++) {
+            switch(this.state.equipment[i]) {
+                case "any simple weapon":
+                case "any simple melee weapon":
+                case "any simple ranged weapon":
+                case "any martial weapon":
+                case "any martial melee weapon":
+                case "any martial ranged weapon":
+                case "any two martial weapons":
+                    needChoice.push(this.state.equipment[i])
+                    equip.splice(i, 1, '');
+                    console.log(equip)
+                    this.setState({equipment: equip});
+                    break;
+                default: console.log(this.state.equipment[i]);
+            }
+        }
+
+        //REMOVE BLANK SPACES LEFT OVER FROM SORTING
+        let finalEquip = equip.filter(e=>e !== "")
+        console.log('removed weapon selectors', finalEquip)
+        this.setState({equipment: finalEquip})
+        this.props.dispatch("updateEquipment", finalEquip)
+
+        //CHOICES2 IS THE LIST OF WEAPONS TO CHOOSE FROM
+        this.setState({choices2: needChoice})
+        return;
+    }
+
+    showSecondaryChoices = () => {
+        return this.state.choices2.map((e, i)=>{
+            switch(e){
+                case "any simple weapon": return <SelectWeapon key={i} filters={['simple']} />
+                case "any simple melee weapon": return <SelectWeapon key={i} filters={['simple', 'melee']} />
+                case "any simple ranged weapon":  return <SelectWeapon key={i} filters={['simple', 'ranged']} />
+                case "any martial weapon": return <SelectWeapon key={i} filters={['martial']} />;
+                case "any martial melee weapon": return <SelectWeapon key={i} filters={['martial', 'melee']} />
+                case "any martial ranged weapon": return <SelectWeapon key={i} filters={['martial', 'ranged']} />
+                case "any two martial weapons": return <SelectWeapon key={i} filters={['martial']} picks={2} />
+                
+                default: return null
+            }
+        })
     }
 
     render(){
@@ -76,7 +136,9 @@ class Equipment extends React.Component {
                 <div>
                     <h1>choose your equipment!</h1>
                     <h3>choices: {this.showChoices()}</h3>
-                    <h3>locked in: {this.state.equipment.join(', ')}</h3>
+                    { this.state.button1disabled ? <h3>equipment: {this.props.state.equipment.join(', ')}</h3> : <h3>equipment: {this.state.equipment.join(', ')}</h3> }
+                    <h3></h3>
+                    {/**SUBMIT BUTTON */}
                     { this.state.choices.length === 0 ? 
                         <button 
                             onClick={this.submitEquipment}
@@ -84,6 +146,10 @@ class Equipment extends React.Component {
                             confirm equipment
                         </button> 
                     : null }
+                    <div>
+                        <h3>secondary choices: {this.state.choices2} </h3>
+                        {this.showSecondaryChoices()}
+                    </div>
                 </div>
             )
         }

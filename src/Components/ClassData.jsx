@@ -12,7 +12,8 @@ const barbarian = {
             ["greataxe", "any martial melee weapon"], 
             ["two handaxes", "any simple weapon"],
             "explorer's pack", 
-            "4 javelins"
+            "4 javelins",
+            "2d4 x 10 gp"
         ]
     },
         
@@ -21,6 +22,7 @@ const barbarian = {
         features: ["Rage", "Unarmored Defense"],
         rages: 2,
         rageDamage: 2,
+        AC: [10, "Dex", "Con"]
     },
     2: {
         proficiencyBonus: 2,
@@ -96,7 +98,8 @@ const bard = {
             ["rapier", "longsword", "any simple weapon"],
             ["diplomat's pack", "entertainer's pack"],
             "leather armor",
-            "dagger"
+            "dagger",
+            "5d4 x 10 gp"
         ]
     },
     1: {
@@ -190,7 +193,8 @@ const cleric = {
             ["light crossbow & 20 bolts", "any simple weapon"],
             ["priest's pack", "explorer's pack"],
             "shield",
-            "holy symbol"
+            "holy symbol",
+            "5d4 x 10 gp"
         ]
     },
     1: {
@@ -494,7 +498,7 @@ const druid = {
         equipment: [
             ["wooden shield", "any simple weapon"],
             ["scimitar", "any simple melee weapon"],
-            "leather armor", "explorer's pack", "druidic focus"
+            "leather armor", "explorer's pack", "druidic focus", "2d4 x 10 gp"
         ]
     },
     1: {
@@ -680,10 +684,11 @@ const fighter = {
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
-            ["chaim mail", ["leather armor", "longbow & 20 arrows"]],
-            [["any martial weapon", "shield"], ["any two martial weapons"]],
+            ["chain mail", "leather armor & longbow & 20 arrows"],
+            ["any martial weapon & shield", "any two martial weapons"],
             ["light crossbow & 20 bolts", "two handaxes"],
-            ["dungeoneer's pack", "explorer's pack"]
+            ["dungeoneer's pack", "explorer's pack"],
+            "5d4 x 10 gp"
         ]
     },
     1: {
@@ -859,7 +864,8 @@ const monk = {
         equipment: [
             ["shortsword", "any simple weapon"],
             ["dungeoneer's pack", "explorer's pack"],
-            "10 darts"
+            "10 darts",
+            "5d4 gp"
         ]
     },
     1: {
@@ -867,7 +873,8 @@ const monk = {
         martialArts: "1d4",
         kiPoints: 0,
         unarmoredMovement: 0,
-        features: ["Unarmored Defense", "Martial Arts"]
+        features: ["Unarmored Defense", "Martial Arts"],
+        AC: [10, "Dex", "Wis"]
     },
     2: {
         proficiencyBonus: 2,
@@ -945,11 +952,12 @@ const paladin = {
         armor: ['shield', 'light', 'medium', 'heavy'],
         weapons: ['simple', 'martial'],
         equipment: [
-            [["any martial weapon", "shield"], "any two martial weapons"],
+            ["any martial weapon & shield", "any two martial weapons"],
             ["5 javelins", "any simple melee weapon"],
             ["priest's pack", "explorer's pack"],
             "chain mail",
-            "holy symbol"
+            "holy symbol",
+            "5d4 x 10 gp"
         ]
     },
     1: {
@@ -1151,7 +1159,8 @@ const ranger = {
             ["scale mail", "leather armor"],
             ["two shortswords", "two simple melee weapons"],
             ["dungeoneer's pack", "explorer's pack"],
-            "longbow & 20 arrows"
+            "longbow & 20 arrows",
+            "5d4 x 10 gp"
         ]
     },
     1: {
@@ -1255,7 +1264,7 @@ const rogue = {
             ["rapier", "shortsword"],
             ["shortbow & 20 arrows", "shortsword"],
             ["burglar's pack", "dungeoneer's pack", "explorer's pack"],
-            "leather armor", "two daggers", "thieve's tools"
+            "leather armor", "two daggers", "thieve's tools", "4d4 x 10 gp"
         ]
     },
     1: {
@@ -1363,7 +1372,8 @@ const sorcerer = {
             ["light crossbow & 20 bolts", "any simple weapon"],
             ["component pouch", "arcane focus"],
             ["dugeoneer's pack", "explorer's pack"],
-            "two daggers"
+            "two daggers", 
+            "3d4 x 10 gp"
         ]
     },
     1: {
@@ -1476,7 +1486,8 @@ const warlock = {
             ["scholar's pack", "dungeoneer's pack"],
             "leather armor",
             "any simple weapon",
-            "two daggers"
+            "two daggers",
+            "4d4 x 10 gp"
         ]
     },
     1: {
@@ -1648,7 +1659,8 @@ const wizard = {
             ["quarterstaff", "dagger"],
             ["component pouch", "arcane focus"],
             ["scholar's pack", "explorer's pack"],
-            "spellbook"
+            "spellbook",
+            "4d4 x 10 gp"
         ]
     },
     1: {
