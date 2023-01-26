@@ -27,17 +27,22 @@ function App() {
         <div className="main">
           <Class />
           <DisplayClass />
+          {state.progress.includes('classLevel') ? <div>
           <Race />
           <DisplayRace />
-          <BaseStats />
-          {state.progress.includes('race') ? <DisplayBaseStats /> : null}
+          </div> : null}
+          {state.progress.includes('race') ? <div>
+            <BaseStats />
+            <DisplayBaseStats />
+          </div> : null}
+          {state.progress.includes('baseStats') ? <div>
           <RacialTraitsIndex />
           <Background />
           <Skills />
           <Equipment />
           <CalculateFinalScores />
+          </div> : null}
 
-          <h2>{}</h2>
    {/*
 
           EQUIPMENT

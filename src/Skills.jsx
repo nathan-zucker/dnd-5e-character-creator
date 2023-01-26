@@ -180,10 +180,14 @@ class Skills extends React.Component {
                     <h1>Skills!</h1>
                     <h2>You are proficient in these skills: </h2>
                     <h4>{this.state.proficiencies.join(', ')}</h4>
-                    <h2>You may choose {this.state.skillPicks} more skills from the following list:</h2>
-                    <div>{this.skillOptionCards()}</div>
 
-                    { this.state.skillPicks === 0 ? 
+                    {this.state.skillPicks > 0 ? <div>
+                        <h2>You may choose {this.state.skillPicks} more skills from the following list:</h2>
+                        <div>{this.skillOptionCards()}</div>
+                    </div> : null}
+                    
+
+                    { this.state.skillPicks === 0 && this.state.proficiencies !== [] ? 
                     <button 
                         onClick={this.handleSubmit}
                         disabled={this.state.button1disabled}>
@@ -191,12 +195,15 @@ class Skills extends React.Component {
                     </button> 
                     : null}
                     <div>
-                        <h2>languages</h2>
-                        <h3>you know these languages: {this.state.languages.join(', ')}</h3>
-                        <h4>you may choose {this.state.languagePicks} more languages from the following list: </h4>
-                        <div>{this.languageOptionCards()}</div>
+                        {this.state.languagePicks > 0 ? <div>
+                            <h2>languages</h2>
+                            <h3>you know these languages: {this.state.languages.join(', ')}</h3>
+                            <h4>you may choose {this.state.languagePicks} more languages from the following list: </h4>
+                            <div>{this.languageOptionCards()}</div>
+                        </div> : null}
                         
-                        { this.state.languagePicks === 0 ? 
+                        
+                        { this.state.languagePicks === 0 && this.state.languagePicks !== [] ? 
                             <button
                                 onClick={this.submitLanguages}
                                 disabled={this.state.button2disabled}>

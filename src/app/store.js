@@ -7,7 +7,8 @@ const progressReducer = (state = [], action) => {
         case 'submitRace': return [...state, 'race'];
         case 'submitClassLevel': return [...state, 'classLevel'];
         case 'submitSubClass': return [...state, 'subClass'];
-        case 'submitBackground': return [...state, 'background']
+        case 'submitBackground': return [...state, 'background'];
+        case 'updateProgress': return [...state, action.payload];
         default: return state;
     }
 }
@@ -162,7 +163,7 @@ const skillReducer = (state = {picks: 0, proficiencies: []}, action) => {
     }
 }
 
-const weaponReducer = (state = [], action) => {
+const weaponProficiencyReducer = (state = [], action) => {
     switch(action.type){
         case 'weaponProficiency': return state.concat(action.payload)
         default: return state;
@@ -209,8 +210,17 @@ const spellReducer = (state = {}, action) => {
 
 const equipmentReducer = (state = [], action) => {
     switch(action.type){
+        case 'addEquipment': return [...state, action.payload];
         case 'addEquipmentArray': return [...state, ...action.payload];
         case 'updateEquipment': return action.payload;
+        default: return state;
+    }
+}
+
+const weaponReducer = (state = [], action) => {
+    switch(action.type){
+        case 'addWeapon': return [...state, action.payload]
+        case 'updateWeapons': return action.payload;
         default: return state;
     }
 }
@@ -236,13 +246,14 @@ const store = configureStore({
         classDetails: classDetailsReducer,
         savingThrows: savingThrowReducer,
         skillProficiencies: skillReducer,
-        weapons: weaponReducer,
+        weaponProficiencies: weaponProficiencyReducer,
         spellCasting: spellReducer,
         armor: armorReducer,
         tools: toolReducer,
         equipment: equipmentReducer,
         background: backgroundReducer,
         alignment: alignmentReducer,
+        weapons: weaponReducer,
     }
 });
 

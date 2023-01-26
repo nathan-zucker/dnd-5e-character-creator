@@ -61,7 +61,7 @@ const data = {
         skillProficiencies: ["Athletics (Str)", "Survival (Wis)"],
         toolProficiencies: ["any one musical instrument"],
         languagePicks: 1,
-        equipment: ["staff", "hinting trap", "trophy from an animal you killed", "set of traveler's clothes", "belt pouch containing 10gp"],
+        equipment: ["staff", "hunting trap", "trophy from an animal you killed", "set of traveler's clothes", "belt pouch containing 10gp"],
         features: ["Origin", "Wanderer"]
     },
     "Sage": {

@@ -1,3 +1,13 @@
+
+# TODO
+[X] level 4 ability score increase
+[X] fix equipment selections
+[X] specific equipment selections (weapons, armor)
+[] compute Hit Points
+[] compute Armor Class
+[] compute Passive Perception
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
