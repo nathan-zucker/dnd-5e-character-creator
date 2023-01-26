@@ -96,6 +96,7 @@ class Equipment extends React.Component {
                 case "any two martial weapons":
                     needChoice.push(this.state.equipment[i])
                     equip.splice(i, 1, '');
+                    console.log(equip)
                     this.setState({equipment: equip});
                     break;
                 default: console.log(this.state.equipment[i]);
@@ -104,7 +105,9 @@ class Equipment extends React.Component {
 
         //REMOVE BLANK SPACES LEFT OVER FROM SORTING
         let finalEquip = equip.filter(e=>e !== "")
+        console.log('removed weapon selectors', finalEquip)
         this.setState({equipment: finalEquip})
+        this.props.dispatch("updateEquipment", finalEquip)
 
         //CHOICES2 IS THE LIST OF WEAPONS TO CHOOSE FROM
         this.setState({choices2: needChoice})
@@ -120,7 +123,7 @@ class Equipment extends React.Component {
                 case "any martial weapon": return <SelectWeapon key={i} filters={['martial']} />;
                 case "any martial melee weapon": return <SelectWeapon key={i} filters={['martial', 'melee']} />
                 case "any martial ranged weapon": return <SelectWeapon key={i} filters={['martial', 'ranged']} />
-                case "any two martial weapons": return <div><SelectWeapon key={i} filters={['martial']} /><SelectWeapon key={i} filters={['martial']} /></div>
+                case "any two martial weapons": return <SelectWeapon key={i} filters={['martial']} picks={2} />
                 
                 default: return null
             }
@@ -133,8 +136,8 @@ class Equipment extends React.Component {
                 <div>
                     <h1>choose your equipment!</h1>
                     <h3>choices: {this.showChoices()}</h3>
-                    <h3>equipment: {this.props.state.equipment.join(', ')}</h3>
-                    
+                    { this.state.button1disabled ? <h3>equipment: {this.props.state.equipment.join(', ')}</h3> : <h3>equipment: {this.state.equipment.join(', ')}</h3> }
+                    <h3></h3>
                     {/**SUBMIT BUTTON */}
                     { this.state.choices.length === 0 ? 
                         <button 

@@ -1,6 +1,18 @@
 import React, { useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
+
+function mapWeapon (name, cost, damage, type, weight, properties) {
+    return Object.assign({}, {
+        name: name,
+        cost: cost,
+        damage: damage,
+        type: type,
+        weight: weight,
+        properties: properties
+    })
+}
+
 const weapons = {
     "simple melee": {
         "club": {
@@ -85,19 +97,78 @@ const weapons = {
         }
     },
     "simple ranged": {
-        "ranged weapon 1": {},
-        "ranged weapon 2": {}
+        "crossbow, light": {
+            name: 'crossbow, light',
+            cost: 25,
+            damage: "1d8",
+            type: "piercing",
+            weight: 5,
+            properties: ["ammunition (range 80/320)", "loading", "two-handed"]
+        },
+        "dart": {
+            name: 'dart',
+            cost: .02,
+            damage: "1d4",
+            type: 'piercing',
+            properties: ["finesse", "thrown (range 20/60)"]
+        },
+        "shortbow": {
+            name: "shortbow",
+            cost: 25,
+            damage: "1d6",
+            type: "piercing",
+            weight: 2,
+            properties: ["ammunition (range 80/320)", "two-handed"]
+        },
+        "sling": {
+            name: "sling",
+            cost: .1,
+            damage: "1d4",
+            type: "bludgeoning",
+            weight: 0,
+            properties: ["ammunition (range 30/120)"]
+        }
     },
-    "martial melee": ['list of martial melee weapons'],
-    "martial ranged": ['list of martial ranged weapons']
+    "martial melee": {
+        "battleaxe": mapWeapon("battleaxe", 10, "1d8", "slashing", 4, ["versatile (1d10)"]),
+        "flail": mapWeapon("flail", 10, "1d8", "bludgeoning", 2, []),
+        "glaive": mapWeapon("glaive", 20, "1d10", "slashing", 6, ["heavy", "reach", "two-handed"]),
+        "greataxe": mapWeapon("greataxe", 30, "1d12", "slashing", 7, ["heavy", "two-handed"]),
+        "greatsword": mapWeapon("greatsword", 50, "2d6", "slashing", 6, ["heavy", "two-handed"]),
+        "halberd": mapWeapon("halberd", 20, "1d10", "slashing", 6, ["heavy", "reach", "two-handed"]),
+        "lance": mapWeapon("lance", 10, "1d12", "piercing", 6, ["reach", "special"]),
+        "longsword": mapWeapon("longsword", 15, "1d8", "slashing", 3, ["versatile (1d10)"]),
+        "maul": mapWeapon("maul", 10, "2d6", "bludgeoning", 10, ["heavy", "two-handed"]),
+        "morningstar": mapWeapon("morningstar", 15, "1d8", "piercing", 4, []),
+        "pike": mapWeapon("pike", 5, "1d10", "piercing", 18, ["heavy", "reach", "two-handed"]),
+        "rapier": mapWeapon("rapier", 25, "1d8", "piercing", 2, ["finesse"]),
+        "scimitar": mapWeapon("scimitar", 25, "1d6", "slashing", 3, ["finesse", "light"]),
+        "shortsword": mapWeapon("shortsword", 10, "1d6", "piercing", 2, ["finesee", "light"]),
+        "trident": mapWeapon("trident", 5, "1d6", "piercing", 4, ["thrown (range 20/60)", "versatile (1d8)"]),
+        "war pick": mapWeapon("war pick", 5, "1d8", "piercing", 2, []),
+        "whip": mapWeapon("whip", 2, "1d4", "slashing", 3, ["finesse", "reach"])
+    },
+    "martial ranged": {
+        "blowgun": mapWeapon("blowgun", 10, "1", "piercing", 1, ["ammunition (range 25/100)", "loading"]),
+        "crossbow, hand": mapWeapon("crossbow, hand", 75, "1d6", "piercing", 3, ["ammunition (range 30/120)", "light", "loading"]),
+        "crossbow, heavy": mapWeapon("crossbow, heavy", 50, "1d10", "piercing", 18, ["ammunition (range 100/400)", "heavy", "loading", "two-handed"]),
+        "longbow": mapWeapon("longbow", 50, "1d8", "piercing", 2, ["ammunition (range 150/600)", "heavy", "two-handed"]),
+        "net": mapWeapon("net", 1, "", 3, ["special", "trown (range 5/15)"])
+    }
 }
 
+
+
 export default function SelectWeapon(props) {
+
+    const dispatch = useDispatch()
+    const equipment = useSelector((state)=>state.equipment)
+
     const [weaponChoices, setWeaponChoices] = useState({})
     const [hidden, hide] = useState(false)
     const [finalWeapon, finalizeWeapon] = useState('')
-    const dispatch = useDispatch()
-    const equipment = useSelector((state)=>state.equipment)
+    const [picks, setPicks] = useState(props.picks || 1)
+
     const filters = [...props.filters]
     let options = Object.keys(weapons)
     let keys = Object.keys(weaponChoices)
@@ -130,8 +201,10 @@ export default function SelectWeapon(props) {
         console.log(weaponChoices[event.target.value]);
         dispatch({type: 'addWeapon', payload: weaponChoices[event.target.value]})
         dispatch({type: 'addEquipment', payload: event.target.value})
-        finalizeWeapon(event.target.value)
-        hide(true)
+        finalWeapon === '' && finalizeWeapon(event.target.value)
+        finalWeapon !== '' && finalizeWeapon(finalWeapon + " & " + event.target.value)
+        setPicks(picks - 1)
+        picks === 1 && hide(true)
     }
 
     // GENERATE OPTIONS

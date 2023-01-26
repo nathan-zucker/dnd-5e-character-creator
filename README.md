@@ -2,10 +2,15 @@
 # TODO
 [X] level 4 ability score increase
 [X] fix equipment selections
-[X] specific equipment selections (weapons, armor)
+[X] specific equipment selections (weapons, armor) infrastructure
+[X] weapons data entry
+[X] finish weapons
+[] add feats
 [] compute Hit Points
 [] compute Armor Class
 [] compute Passive Perception
+[] determine attacks
+[] determine spellcasting ability
 
 
 # Getting Started with Create React App
