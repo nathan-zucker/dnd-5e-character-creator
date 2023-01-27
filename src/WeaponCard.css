@@ -1,0 +1,26 @@
+
+#weapon-card-container {
+    display: grid;
+    background-color: #1a1a1a;
+    color: whitesmoke;
+    height: 14rem;
+    width: 36rem;
+    text-align: left;
+  }
+table {
+    border: 2px solid rgb(179, 179, 179);
+    white-space: nowrap;
+}
+
+.box {
+    border: 2px solid rgba(245, 245, 245, 0.5);
+    width: 3rem;
+    text-align: center;
+}
+.emphasis {
+    border: 3px solid whitesmoke;
+}
+
+.arrow {
+    text-align: center;
+}

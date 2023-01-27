@@ -1,6 +1,8 @@
 import { map } from "async";
 import React from "react";
 import { connect } from "react-redux";
+import WeaponCard from "../WeaponCard";
+import { weapons, weaponList, allWeapons } from "../reference/equipment-data";
 
 const armorData = {
     "padded": {
@@ -95,6 +97,15 @@ const armorData = {
 }
 const armorTypes = Object.keys(armorData);
 
+const defaultWeapon = {
+    name: "club",
+    cost: 0.1,
+    baseDamage: "1d4",
+    type: "bludgeoning",
+    weight: 2,
+    properties: ["light"]
+}
+
 class CalculateFinalScores extends React.Component {
     constructor(props){
         super(props);
@@ -109,8 +120,6 @@ class CalculateFinalScores extends React.Component {
             AC: undefined,
             HP: undefined,
             PP: undefined,
-            attack1: undefined,
-            attack2: undefined
         }
     }
 
@@ -120,15 +129,54 @@ class CalculateFinalScores extends React.Component {
             statMods: this.props.state.baseStats.modifiers[0],
             proficiencyBonus: this.props.state.classDetails.proficiencyBonus
         })
+        this.findWeapons()
     }
 
+    // FIND WEAPONS IN EQUIPMENT
+    findWeapons = () => {
+        let allEquipment = this.props.state.equipment;
+        for (let i=0; i<allEquipment.length; i++) {
+            if (weaponList.includes(allEquipment[i])) {
+                let obj = allWeapons[allEquipment[i]]
+                if ( !this.props.weapons.includes(obj) ) {
+                    this.props.dispatchWeapon(obj)
+                }
+                console.log(obj)
+            } else if (allEquipment[i] === "two handaxes") {
+                let obj = allWeapons["handaxe"];
+                if ( !this.props.weapons.includes(obj) ) {
+                    this.props.dispatchWeapon(obj)
+                    console.log(obj)
+                }
+            }
+        }
+    }
+
+    // GENERATE WEAPON CARDS 
+    mapWeaponCard = (obj) => {
+        let {name, damage, type, properties} = obj;
+        return <WeaponCard name={name} baseDamage={damage} type={type} properties={properties} />
+    }
+// FIX HERE, BASE DAMAGE DOES NOT COME THROUGH
+    weaponCards = () => {
+        let arr = [...this.props.weapons];
+        return arr.map((e, i)=>
+            <div className="weapon-card" key={i}>
+                <WeaponCard name={e.name} baseDamage={e.damage} type={e.type} properties={e.properties} />
+            </div>
+        )
+    }
+    
+
     render(){
+        
         return(
             <div>
                 <h1>calculate scores!</h1>
                 <button onClick={this.loadComponent}>GO</button>
                 <h2>{this.state.statMods.concat(this.state.proficiencyBonus).join(', ')}</h2>
                 <h2>{this.state.equipment.join(', ')}</h2>
+                {this.weaponCards()}
             </div>
         )
     }
@@ -137,12 +185,14 @@ class CalculateFinalScores extends React.Component {
 const mapStateToProps = (state) => {
     return {
         state: state,
+        weapons: state.weapons
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch: (type, payload) => { dispatch({type: type, payload: payload}) },
+        dispatchWeapon: (weapon) => { dispatch({type: 'addWeapon', payload: weapon}) }
     }
 }
 
