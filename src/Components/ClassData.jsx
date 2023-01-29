@@ -686,7 +686,7 @@ const fighter = {
         equipment: [
             ["chain mail", "leather armor & longbow & 20 arrows"],
             ["any martial weapon & shield", "any two martial weapons"],
-            ["light crossbow & 20 bolts", "two handaxes"],
+            ["crossbow, light & 20 bolts", "two handaxes"],
             ["dungeoneer's pack", "explorer's pack"],
             "5d4 x 10 gp"
         ]

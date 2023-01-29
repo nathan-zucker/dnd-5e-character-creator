@@ -3,6 +3,7 @@ import React from "react";
 import { connect } from "react-redux";
 import WeaponCard from "../WeaponCard";
 import { weapons, weaponList, allWeapons } from "../reference/equipment-data";
+import FinalAbilityScores from "./FinalAbilityScores";
 
 const armorData = {
     "padded": {
@@ -112,6 +113,7 @@ class CalculateFinalScores extends React.Component {
         this.state={
             hidden: false,
             equipment: [],
+            weapons: [],
             statMods: [],
             proficiencyBonus: undefined,
             armor: undefined,
@@ -130,26 +132,50 @@ class CalculateFinalScores extends React.Component {
             proficiencyBonus: this.props.state.classDetails.proficiencyBonus
         })
         this.findWeapons()
+        
     }
 
     // FIND WEAPONS IN EQUIPMENT
     findWeapons = () => {
         let allEquipment = this.props.state.equipment;
+        let weapons = []
         for (let i=0; i<allEquipment.length; i++) {
             if (weaponList.includes(allEquipment[i])) {
                 let obj = allWeapons[allEquipment[i]]
-                if ( !this.props.weapons.includes(obj) ) {
-                    this.props.dispatchWeapon(obj)
-                }
-                console.log(obj)
+                weapons.push(obj)
             } else if (allEquipment[i] === "two handaxes") {
-                let obj = allWeapons["handaxe"];
-                if ( !this.props.weapons.includes(obj) ) {
-                    this.props.dispatchWeapon(obj)
-                    console.log(obj)
-                }
+                weapons.push(allWeapons["handaxe"])
+                console.log(allWeapons["handaxe"])
+            } else if (allEquipment[i]==="two daggers") {
+                let obj = allWeapons["dagger"];
+                weapons.push(obj)
             }
         }
+        console.log('from equipment: ',weapons)
+        this.setState({weapons: weapons})
+        this.removeDuplicateWeapons()
+    }
+
+    //REMOVE DUPLICATES
+    removeDuplicateWeapons = () => {
+        let arr1 = [...this.props.weapons, ...this.state.weapons]
+        let finalNames = [];
+        console.log('arr1', arr1)
+        let arr1Names = arr1.map(e=>e.name)
+
+        for (let i=0; i<arr1Names.length; i++) {
+            if (!finalNames.includes(arr1Names[i])) {
+                finalNames.push(arr1Names[i])
+            }
+        }
+        let final = [];
+        for (let i=0; i<finalNames.length; i++) {
+            final.push(allWeapons[finalNames[i]])
+            console.log(finalNames, allWeapons[finalNames[i]])
+        }
+        console.log(arr1Names)
+        console.log("final: ",final)
+        this.props.updateWeapons(final)
     }
 
     // GENERATE WEAPON CARDS 
@@ -157,7 +183,7 @@ class CalculateFinalScores extends React.Component {
         let {name, damage, type, properties} = obj;
         return <WeaponCard name={name} baseDamage={damage} type={type} properties={properties} />
     }
-// FIX HERE, BASE DAMAGE DOES NOT COME THROUGH
+
     weaponCards = () => {
         let arr = [...this.props.weapons];
         return arr.map((e, i)=>
@@ -174,9 +200,14 @@ class CalculateFinalScores extends React.Component {
             <div>
                 <h1>calculate scores!</h1>
                 <button onClick={this.loadComponent}>GO</button>
+
                 <h2>{this.state.statMods.concat(this.state.proficiencyBonus).join(', ')}</h2>
                 <h2>{this.state.equipment.join(', ')}</h2>
+
+                <FinalAbilityScores />
                 {this.weaponCards()}
+                
+                
             </div>
         )
     }
@@ -192,7 +223,8 @@ const mapStateToProps = (state) => {
 const mapDispatchToProps = (dispatch) => {
     return {
         dispatch: (type, payload) => { dispatch({type: type, payload: payload}) },
-        dispatchWeapon: (weapon) => { dispatch({type: 'addWeapon', payload: weapon}) }
+        dispatchWeapon: (weapon) => { dispatch({type: 'addWeapon', payload: weapon}) },
+        updateWeapons: (arr) => { dispatch({type: 'updateWeapons', payload: arr}) }
     }
 }
 

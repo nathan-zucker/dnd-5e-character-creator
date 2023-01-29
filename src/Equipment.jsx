@@ -119,6 +119,7 @@ class Equipment extends React.Component {
             switch(e){
                 case "any simple weapon": return <SelectWeapon key={i} filters={['simple']} />
                 case "any simple melee weapon": return <SelectWeapon key={i} filters={['simple', 'melee']} />
+                case "any two simple weapons": return <SelectWeapon key={i} filters={['simple', 'melee']} picks={2} />
                 case "any simple ranged weapon":  return <SelectWeapon key={i} filters={['simple', 'ranged']} />
                 case "any martial weapon": return <SelectWeapon key={i} filters={['martial']} />;
                 case "any martial melee weapon": return <SelectWeapon key={i} filters={['martial', 'melee']} />
