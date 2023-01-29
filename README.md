@@ -9,8 +9,13 @@
 [] compute Hit Points
 [] compute Armor Class
 [] compute Passive Perception
-[] determine attacks
+[X] determine attacks
 [] determine spellcasting ability
+[] FINAL VIS
+[X] display Ability Scores
+[X] display Weapons
+[X] display Initiative, Armor Class, and Hit Points
+[] get miscellaneous resistances
 
 
 # Getting Started with Create React App

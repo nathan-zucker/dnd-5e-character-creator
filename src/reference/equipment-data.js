@@ -78,7 +78,7 @@ const weapons = {
             properties: ["versatile (1d8)"]
         },
         "sickle": {
-            name: 'skickle',
+            name: 'sickle',
             cost: 1,
             damage: "1d4",
             type: "slashing",
@@ -221,7 +221,7 @@ const allWeapons = {
         properties: ["versatile (1d8)"]
     },
     "sickle": {
-        name: 'skickle',
+        name: 'sickle',
         cost: 1,
         damage: "1d4",
         type: "slashing",

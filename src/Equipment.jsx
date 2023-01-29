@@ -21,12 +21,13 @@ class Equipment extends React.Component {
         for (let i=0; i<this.props.state.equipment.length; i++){
             if (Array.isArray(this.props.state.equipment[i])) {
                 choices.push(this.props.state.equipment[i])
-            } 
+            }
             else {
                 equipment.push(this.props.state.equipment[i])
             }
         }
         this.setState({equipment: equipment, choices: choices});
+        console.log("equipment", equipment)
     }
 
     loadComponent = () => {

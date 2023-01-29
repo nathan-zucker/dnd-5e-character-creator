@@ -1,7 +1,7 @@
 
 
 .main {
-  text-align: center;
+  
   padding-top: 10rem;
   padding-bottom: 15em;
   min-height: 70vh;
@@ -9,4 +9,74 @@
   width: 100%;
   background-color: bisque;
   z-index: 2;
+}
+
+#final-results {
+  padding: 1rem;
+}
+
+td.box1 {
+  border: 3.5px solid black;
+  border-radius: 1rem;
+  font-size: 150%;
+  padding: 1rem;
+  width: 4rem;
+  margin: auto;
+}
+
+.data-box {
+  border: 3.5px solid black;
+  border-radius: 1rem;
+  font-size: 150%;
+  width: 4rem;
+  height: 4rem;
+  margin: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#skills-table, #saving-table, #feature-table {
+  text-align: left;
+  padding: 1rem;
+}
+
+.check-box {
+  width: 0.5rem;
+  height: 0.5rem;
+  border: 2px solid black;
+  margin: auto;
+}
+.underline {
+  width: 1.5rem;
+  border-bottom: 2px solid black;
+}
+
+.skill {
+  padding-left: 1rem;
+}
+
+#saving-table, #res-table, #eq-table {
+  padding: 0.5rem;
+}
+.subtable {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+}
+#saving-container {
+  
+  width: fit-content;
+  margin-top: 0;
+}
+#subtable2 {
+  width: fit-content;
+  height: 100%;
+  display: flex;
+}
+#subtable3 {
+  display: flex;
+  margin: 0;
+  width: fit-content;
+  padding: 0;
 }

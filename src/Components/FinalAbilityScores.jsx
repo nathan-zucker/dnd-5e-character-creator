@@ -1,6 +1,7 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import * as d3 from 'd3'
+import * as d3 from 'd3';
+import './FinalAbilityScores.css';
 
 export default function FinalAbilityScores() {
 
@@ -35,6 +36,7 @@ export default function FinalAbilityScores() {
     .data(arr)
     .enter()
     .append("rect")
+    .attr("class", "as-bar")
     .attr("width", 30)
     .attr("height", (d)=>scale(d.value))
     .attr("x", (d, i)=> i * 50)

@@ -143,12 +143,17 @@ class CalculateFinalScores extends React.Component {
             if (weaponList.includes(allEquipment[i])) {
                 let obj = allWeapons[allEquipment[i]]
                 weapons.push(obj)
-            } else if (allEquipment[i] === "two handaxes") {
+            } else if (allEquipment[i].match(/handaxe/)) {
                 weapons.push(allWeapons["handaxe"])
-                console.log(allWeapons["handaxe"])
-            } else if (allEquipment[i]==="two daggers") {
+            } else if (allEquipment[i].match(/dagger/)) {
                 let obj = allWeapons["dagger"];
                 weapons.push(obj)
+            } else if(allEquipment[i].match(/shortsword/)) {
+                weapons.push(allWeapons["shortsword"])
+            } else if (allEquipment[i].match(/javelin/)) {
+                weapons.push(allWeapons["javelin"])
+            } else if (allEquipment[i].match(/longbow/)) {
+                weapons.push(allWeapons["longbow"])
             }
         }
         console.log('from equipment: ',weapons)
@@ -193,6 +198,16 @@ class CalculateFinalScores extends React.Component {
         )
     }
     
+    // GENERATE LIST OF FEATURES
+    mapFeatures = () => {
+        let arr = [...this.props.features]
+        return arr.map((e, i)=><tr key={i}>{e}</tr>)
+    }
+
+    mapEquipment = () => {
+        let arr = [...this.props.state.equipment];
+        return arr.map((e, i)=><tr key={i}>{e}</tr>)
+    }
 
     render(){
         
@@ -204,9 +219,224 @@ class CalculateFinalScores extends React.Component {
                 <h2>{this.state.statMods.concat(this.state.proficiencyBonus).join(', ')}</h2>
                 <h2>{this.state.equipment.join(', ')}</h2>
 
-                <FinalAbilityScores />
-                {this.weaponCards()}
                 
+                
+                <table id="final-results">
+                    <thead>
+                        <td colSpan={3}>NAME</td>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <table>
+                                    <tr><td>proficiency bonus</td></tr>
+                                    <tr>
+                                        <div className="data-box">+{this.props.state.classDetails.proficiencyBonus}</div>
+                                    </tr>
+                                    <tr>passive perception</tr>
+                                    <tr><div className="data-box">+0</div></tr>
+                                </table>
+                            </td>
+                            <td>
+                                <FinalAbilityScores />
+                            </td>
+                            <td>
+                                <table>
+                                    <tr>INITIATIVE</tr>
+                                    <tr><div className="data-box">+{this.props.state.baseStats.modifiers[0][1]}</div></tr>
+                                    <tr>SPEED</tr>
+                                    <tr><div className="data-box">{this.props.state.raceDetails.speed}'</div></tr>
+                                </table>
+                            </td>
+                            
+                        </tr>
+                        <tr>
+                            <td>ARMOR CLASS</td>
+                            <td>HIT POINTS</td>
+                            <td>HIT DICE</td>
+                        </tr>
+                        <tr>
+                        <td><div className="data-box">+0</div></td>
+                        <td><div className="data-box">0</div></td>
+                        <td><div className="data-box">+0</div></td>
+                        </tr>
+                        <tr>
+                            <td colSpan={1} >
+                                <table id="skills-table">
+                                    <thead>
+                                        <td colSpan={3}>SKILLS</td>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Acrobatics (Dex)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Animal Handling (Wis)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Arcana (Int)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Athletics (Str)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Deception (Cha)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">History (Int)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Insight (Wis)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Intimidation (Cha)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Investigation (Int)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Medicine (Wis)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Nature (Int)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Perception (Wis)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Performance (Cha)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Persuasion (Cha)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Religion (Int)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Sleight of Hand (Dex)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Stealth (Dex)</td>
+                                        </tr>
+                                        <tr>
+                                            <td><div className="check-box"></div></td>
+                                            <td className="underline"></td>
+                                            <td className="skill">Survival (Wis)</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </td>
+                            <td className="subtable">
+                                <div id="saving-container">
+                                <table id="saving-table">
+                                    <thead>
+                                        <td colSpan={3}>SAVING THROWS</td>
+                                    </thead>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Strength</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Dexterity</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Constitution</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Intelligence</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Wisdom</td>
+                                    </tr>
+                                    <tr>
+                                        <td><div className="check-box"></div></td>
+                                        <td className="underline"></td>
+                                        <td className="skill">Charisma</td>
+                                    </tr>
+                                </table>
+                                </div>
+                                <div id="feature-container">
+                                    <table id="feature-table">
+                                        <thead>FEATURES</thead>
+                                        {this.mapFeatures()}
+                                    </table>
+                                </div>
+                                
+                            </td>
+                            <td colSpan={2} id="subtable2" className="subtable">
+                                
+                                <div id="subtable3">
+                                    <table id='res-table'>
+                                        <thead>RESISTANCES ETC</thead>
+                                        <tr>resistance to booba</tr>
+                                    </table>
+                                </div>
+                                <div>
+                                    <table id="eq-table">
+                                        <thead>EQUIPMENT</thead>
+                                        <tbody id="equipment-table-body">
+                                            {this.mapEquipment()}
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td colSpan={3}>{this.weaponCards()}</td>
+                        </tr>
+                        <tr>
+                            <td colSpan={3}>
+                            
+                            </td>
+                            
+                            
+
+                        </tr>
+                    </tbody>
+                </table>
                 
             </div>
         )
@@ -216,7 +446,8 @@ class CalculateFinalScores extends React.Component {
 const mapStateToProps = (state) => {
     return {
         state: state,
-        weapons: state.weapons
+        weapons: state.weapons,
+        features: state.features
     }
 }
 
