@@ -152,7 +152,7 @@ class Race extends React.Component {
                 baseFeatures: ['Keen Senses', 'Fey Ancestry', 'Trance'],
                 actions: [{ //Keen Senses
                     type: 'addSkillProficiency',
-                    payload: "Perception"
+                    payload: "Perception (Wis)"
                 }]
             }
         })

@@ -294,116 +294,131 @@ const allWeapons = {
 const weaponList = Object.keys(weapons["simple melee"]).concat(Object.keys(weapons["simple ranged"])).concat(Object.keys(weapons["martial melee"])).concat(Object.keys(weapons["martial ranged"]));
 
 
-
-const armor = {
-    "Light": {
-
-    },
-    "Medium": {
-
-    },
-    "Heavy": {
-
-    },
-    "Shield": {
-        "shield": {
-            cost: 10,
-            AC: "+2",
-            weight: 6
-        }
-    }
-}
-
 const armorData = {
-    "padded": {
+    "padded armor": {
         group: "light",
         cost: 5,
-        AC: [11, "Dex"],
+        AC: {
+            base: 11
+        },
         stealth: "disadvantage",
         weight: 8
     },
-    "leather": {
+    "leather armor": {
         group: "light",
         cost: 10,
-        AC: [11, "Dex"],
+        AC:{
+            base: 11
+        },
         weight: 10
     },
-    "studded leather": {
+    "studded leather armor": {
         group: "light",
         cost: 45,
-        AC: [12, "Dex"],
+        AC: {
+            base: 12
+        },
         weight: 13
     },
-    "hide": {
+    "hide armor": {
         group: "medium",
         cost: 10,
-        AC: [12, "Dex", "max 2"],
+        AC: {
+            base: 12,
+            maxBonus: 2
+        },
         weight: 12
     },
     "chain shirt": {
         group: "medium",
         cost: 50,
-        AC: [13, "Dex", "max 2"],
+        AC: {
+            base: 13,
+            maxBonus: 2
+        },
         weight: 20
     },
     "scale mail": {
         group: "medium",
         cost: 50,
-        AC: [14, "Dex", "max 2"],
+        AC: {
+            base: 14,
+            maxBonus: 2
+        },
         stealth: "disadvantage",
         weight: 45
     },
     "breastplate": {
         group: "medium",
         cost: 400,
-        AC: [14, "Dex", "max 2"],
+        AC: {
+            base: 14,
+            maxBonus: 2
+        },
         weight: 20
     },
     "half plate": {
         group: "medium",
         cost: 750,
-        AC: [15, "Dex", "max 2"],
+        AC: {
+            base: 15,
+            maxBonus: 2
+        },
         stealth: "disadvantage",
         weight: 40
     },
     "ring mail": {
         group: "heavy",
         cost: 30,
-        AC: 14,
-        Str: 13,
+        AC: {
+            base: 14,
+            maxBonus: 0,
+            strReq: 13
+        },
         stealth: "disadvantage",
         weight: 40
     },
     "chain mail": {
         group: "heavy",
         cost: 74,
-        AC: 16,
-        Str: 15,
+        AC: {
+            base: 16,
+            maxBonus: 0,
+            strReq: 15
+        },
         stealth: "disadvantage",
         weight: 55
     },
-    "splint": {
+    "splint armor": {
         group: "heavy",
         cost: 200,
-        AC: 17,
-        Str: 15,
+        AC: {
+            base: 17,
+            maxBonus: 0,
+            strReq: 15
+        },
         stealth: "disadvantage",
         weight: 60
     },
-    "plate": {
+    "plate armor": {
         group: "heavy",
         cost: 1500,
-        AC: 18,
-        Str: 15,
+        AC: {
+            base: 18,
+            maxBonus: 0,
+            strReq: 15
+        },
         stealth: "disadvantage",
         weight: 65
     },
     "shield": {
         group: "shield",
         cost: 10,
-        AC: "+2",
+        AC: {
+            bonus: 2
+        },
         weight: 6
     }
 }
 
-export {weapons, allWeapons, weaponList, armor}
+export {weapons, allWeapons, weaponList, armorData}

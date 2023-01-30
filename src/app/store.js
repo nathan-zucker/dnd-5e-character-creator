@@ -170,9 +170,14 @@ const weaponProficiencyReducer = (state = [], action) => {
     }
 }
 
-const armorReducer = (state = [], action) => {
+const armorReducer = (state = {proficiencies: [], armor: []}, action) => {
     switch(action.type){
-        case 'armorProficiency': return state.concat(action.payload);
+        case 'armorProficiency': return Object.assign({}, state, {
+            proficiencies: [...state.proficiencies, ...action.payload]
+        })
+        case 'updateArmor': return Object.assign({}, state, {
+            armor: action.payload
+        })
         default: return state;
     }
 }
@@ -232,6 +237,16 @@ const alignmentReducer = (state = '', action) => {
     }
 }
 
+const resistanceReducer = (state = [], action) => {
+    switch(action.type){
+        case "addResistance": 
+        if (!state.includes(action.payload)) {
+            return [...state, action.payload]
+        } else {return state}
+        default: return state;
+    }
+}
+
 const store = configureStore({
     reducer: {
         randomNumber: randomNumberReducer,
@@ -254,6 +269,7 @@ const store = configureStore({
         background: backgroundReducer,
         alignment: alignmentReducer,
         weapons: weaponReducer,
+        resistances: resistanceReducer,
     }
 });
 

@@ -14,6 +14,9 @@
 #final-results {
   padding: 1rem;
 }
+svg {
+  margin: auto;
+}
 
 td.box1 {
   border: 3.5px solid black;
@@ -47,6 +50,11 @@ td.box1 {
   border: 2px solid black;
   margin: auto;
 }
+
+.checked {
+  background-color: orangered;
+}
+
 .underline {
   width: 1.5rem;
   border-bottom: 2px solid black;
@@ -79,4 +87,22 @@ td.box1 {
   margin: 0;
   width: fit-content;
   padding: 0;
+}
+#ACetc-table {
+  margin: 0 auto;
+}
+#ACetc-table td {
+  width: fit-content;
+  text-align: center;
+}
+.data-box2 {
+  border: 3.5px solid black;
+  border-radius: 1rem;
+  font-size: 150%;
+  width: 4rem;
+  height: 4rem;
+  margin: 0 1.5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }

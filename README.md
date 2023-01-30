@@ -6,9 +6,21 @@
 [X] weapons data entry
 [X] finish weapons
 [] add feats
+
+[] roll for hit points (need con & hit dice)
 [] compute Hit Points
-[] compute Armor Class
+
+[] find armor from equipment =>
+[] find shield from equipment =>
+[] (armor, shield, stats) => compute Armor Class
+[] add functionality for unarmored defense
+
+[] proficient in perception? =>
+[] wisdom mod =>
 [] compute Passive Perception
+
+[] display proficiencies for skills and saving throws
+
 [X] determine attacks
 [] determine spellcasting ability
 [] FINAL VIS
