@@ -1,0 +1,20 @@
+#display {
+    margin: 2rem auto;
+}
+#tooltip {
+    position: absolute;
+    border: 1px solid whitesmoke;
+    padding: 0.5rem;
+    background-color: #1a1a1a;
+    color: whitesmoke;
+    width: fit-content;
+    height: fit-content;
+    visibility: hidden;
+    border-radius: 0.3rem;
+    z-index: 2;
+    top: 500px;
+    left: 400px;
+}
+#tooltip h3 {
+    margin: 0
+}

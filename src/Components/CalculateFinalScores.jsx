@@ -1,9 +1,11 @@
 import { map } from "async";
 import React from "react";
 import { connect } from "react-redux";
+import './CalculateFinalScores.css'
 import WeaponCard from "../WeaponCard";
 import { weapons, weaponList, allWeapons, armorData } from "../reference/equipment-data";
 import FinalAbilityScores from "./FinalAbilityScores";
+import FancyAbilityScores from "./FancyAbilityScores";
 
 const armorTypes = Object.keys(armorData);
 
@@ -235,7 +237,7 @@ class CalculateFinalScores extends React.Component {
                 
                 
                 <table id="final-results">
-                    <thead colSpan={3}><tr><td>NAME</td></tr></thead>
+                    <thead><tr><td colSpan={3}><h2>NAME</h2></td></tr></thead>
                     <tbody>
                         <tr>
                             <td>
@@ -257,8 +259,8 @@ class CalculateFinalScores extends React.Component {
                                     
                                 </table>
                             </td>
-                            <td>
-                                <FinalAbilityScores />
+                            <td colSpan={2}>
+                                <FancyAbilityScores />
                             </td>
                             <td>
                                 <table>
@@ -309,8 +311,8 @@ class CalculateFinalScores extends React.Component {
                             
                             <td></td>
                         </tr>
-                        <tr>
-                            <td colSpan={1} >
+                        <tr id="skills-etc">
+                            <td colSpan={1} id="skills-section" >
                                 <table id="skills-table">
                                     <thead>
                                         <tr>
