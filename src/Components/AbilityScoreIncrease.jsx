@@ -1,6 +1,7 @@
-import { type } from '@testing-library/user-event/dist/type';
+
 import React from 'react';
 import { connect } from 'react-redux';
+
 
 
 class AbilityScordIncrease extends React.Component{
@@ -9,33 +10,32 @@ class AbilityScordIncrease extends React.Component{
         this.state={
             bonuses: this.props.bonuses || [0,0,0,0,0,0],
             picks: this.props.picks,
+            source: this.props.source,
             submitted: false
         }
-        this.handleClick = this.handleClick.bind(this)
     }
 
     AllocatePoint(i){
-        
         this.props.dispatchPicks(this.state.picks-1)
-        this.setState((state)=>{
-            const bonus = state.bonuses.map(i=>i)
-            bonus[i]+=1
-            return{bonuses: bonus, picks: state.picks-1}
-        });
+        this.setState({ picks: this.state.picks - 1 })
+        const stats = [...this.props.abilityScores];
+        
+        stats[i] += 1;
+        console.log(stats)
+        this.props.dispatch("setStats", stats)
+        
+        if (this.state.picks === 1) {
+            this.setState({submitted: true})
+        }
         console.log(this.state)
     }
-
-    handleClick(){
-        this.props.dispatch('abilityScoreIncrease', this.state.bonuses)
-        this.setState({submitted: true})
-    }    
 
     render(){
         return(
             <div>
             {this.state.picks > 0 ? 
                 <div>
-                    <h1>select ability scores ({this.state.picks})</h1>
+                    <h1>select ability scores ({this.state.picks} picks remaining{ this.state.source ? <span> from {this.state.source})</span> : ")"}</h1>
                     <div>
                         <button onClick={()=>this.AllocatePoint(0)}>Strength</button>
                         <button onClick={()=>this.AllocatePoint(1)}>Dexterity</button>
@@ -60,6 +60,11 @@ const sendPoints = (bonus) => {
         payload: bonus
     })
 }
+const mapStateToProps = (state) => {
+    return {
+        abilityScores: state.baseStats.stats
+    }
+}
 
 const mapDispatchToProps = (dispatch) => {
     return{
@@ -69,4 +74,4 @@ const mapDispatchToProps = (dispatch) => {
     }
 }
 
-export default connect(null, mapDispatchToProps)(AbilityScordIncrease)
+export default connect(mapStateToProps, mapDispatchToProps)(AbilityScordIncrease)

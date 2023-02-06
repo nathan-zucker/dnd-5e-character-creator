@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 import './RollCard.css';
 import audio from './sounds/cardSelect.mp3'
+import { select } from "d3";
 
 
 class RollCard extends React.Component {
@@ -18,6 +19,9 @@ class RollCard extends React.Component {
         document.getElementById('audio').play();
         this.props.selectStat(number, index);
         this.setState({visible: false});
+        if (index === 5){
+            console.log("last card")
+        }
     }
     
     render() {

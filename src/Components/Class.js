@@ -270,7 +270,7 @@ class Class extends React.Component {
                     <div id='levels'>
                         <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
                    
-                        <label for="level-input">
+                        <label>
                             <div id="level-input">
                                 <div id="level-input-display"><h1>{this.state.level}</h1></div>
                                 <button id="level-input-increment" onClick={()=> this.state.level < 5 && this.setState({level: this.state.level + 1})}><i className="pi pi-caret-up"></i></button>
