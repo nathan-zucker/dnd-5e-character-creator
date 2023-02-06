@@ -45,11 +45,7 @@ function App() {
 
    {/*
 
-          EQUIPMENT
-
     ARMOR CLASS
-
-    WEAPONS / ATTACKS
 
     SPELL CASTING
 

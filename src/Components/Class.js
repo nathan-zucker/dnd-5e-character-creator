@@ -1,5 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
+import * as d3 from 'd3'
 import './Class.css';
 import barbarianImg from './images/barbarian.png';
 import bardImg from './images/Bard.png';
@@ -30,6 +31,12 @@ import barbarian, {
     wizard
 } from './ClassData.jsx';
 
+const colorWheel = {
+    purple: "#BFABFF",
+    yellow: "#ebffab",
+    orange: "#ffbfab",
+    green: "#abffbf",
+}
 
 class Class extends React.Component {
     constructor(props){
@@ -45,6 +52,12 @@ class Class extends React.Component {
 
     componentDidMount(){
         this.bindSounds()
+        d3.selectAll(".class-button-wrapper")
+            .style("box-shadow", "0 0 10px "+colorWheel.purple)
+
+        d3.select("h1")
+        .style("text-shadow", "0 0 11px "+colorWheel.green)
+        
     }
 
     bindSounds = () => {
@@ -67,6 +80,18 @@ class Class extends React.Component {
 
     selectClass(value) {
         this.setState(Object.assign(this.state, value))
+        d3.selectAll(".class-button-wrapper")
+            .style("box-shadow", "0 0 10px "+colorWheel.purple)
+        d3.select(`#${value.base.class.toLowerCase()}`)
+            .style("box-shadow", "0 0 15px "+colorWheel.green)
+        d3.select("h1")
+            .style("text-shadow", "0 0 11px "+colorWheel.yellow)
+        d3.select("#show-class")
+            .style("text-shadow", "0 0 6px "+colorWheel.yellow)
+        d3.select("#level-prompt")
+            .style("text-shadow", "0 0 9px "+colorWheel.green)
+        d3.select("#display-final")
+            .style("text-shadow", "0 0 6px "+colorWheel.yellow)
     }
 
     inputLevel(event) {
@@ -74,6 +99,12 @@ class Class extends React.Component {
     }
 
     handleSubmit(){
+
+        d3.selectAll("h1")
+            .style("text-shadow", "none")
+        d3.select("#display-final")
+            .style("text-shadow", "0 0 6px "+colorWheel.green)
+
         setTimeout(()=>this.setState({hidden: true}), 500);
         
         const inputClass = Object.assign({}, this.state)
@@ -131,63 +162,103 @@ class Class extends React.Component {
                 <audio id="cardFlip" src={cardFlip} preload="auto"></audio>
                 <audio id="chipHandle" src={chipHandle} preload="auto" ></audio>
                 <audio id="chipStack" src={chipStack} preload="auto" ></audio>
+                
                 <h1>Select Class</h1>
-                <button className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
-                    <img src={barbarianImg} alt='' />
-                    <h2>Barbarian</h2>
-                </button>
-                <button className='classSelector' value='bard' onClick={()=>this.selectClass(bard)} >
-                    <img src={bardImg} alt='' />
-                    <h2>Bard</h2>
-                </button>
-                <button className='classSelector' value='cleric' onClick={()=>this.selectClass(cleric)} >
-                    <img src={clericImg} alt='' />
-                    <h2>Cleric</h2>
-                </button>
-                <button className='classSelector' value='druid' onClick={()=>this.selectClass(druid)} >
-                    <img src={druidImg} alt='' />
-                    <h2>Druid</h2>
-                </button>
-                <button className='classSelector' value='fighter' onClick={()=>this.selectClass(fighter)} >
-                    <img src={fighterImg} alt='' />
-                    <h2>Fighter</h2>
-                </button>
-                <button className='classSelector' value='monk' onClick={()=>this.selectClass(monk)} >
-                    <img src={monkImg} alt='' />
-                    <h2>Monk</h2>
-                </button>
-                <button className='classSelector' value='paladin' onClick={()=>this.selectClass(paladin)} >
-                    <img src={paladinImg} alt='' />
-                    <h2>Paladin</h2>
-                </button>
-                <button className='classSelector' value='ranger' onClick={()=>this.selectClass(ranger)} >
-                    <img src={rangerImg} alt='' />
-                    <h2>Ranger</h2>
-                </button>
-                <button className='classSelector' value='rogue' onClick={()=>this.selectClass(rogue)} >
-                    <img src={rogueImg} alt='' />
-                    <h2>Rogue</h2>
-                </button>
-                <button className='classSelector' value='sorcerer' onClick={()=>this.selectClass(sorcerer)} >
-                    <img src={sorcererImg} alt='' />
-                    <h2>Sorcerer</h2>
-                </button>
-                <button className='classSelector' value='warlock' onClick={()=>this.selectClass(warlock)} >
-                    <img src={warlockImg} alt='' />
-                    <h2>Warlock</h2>
-                </button>
-                <button className='classSelector' value='wizard' onClick={()=>this.selectClass(wizard)} >
-                    <img src={wizardImg} alt='' />
-                    <h2>Wizard</h2>
-                </button>
-                <h2>class: {this.state.hasOwnProperty("base") && this.state.base.class}</h2>
+                
+                <div id="class-button-container" >
+                    
+                    <div className="class-button-wrapper" id="barbarian">
+                        <button className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
+                            <img src={barbarianImg} alt='' />
+                            <h2>Barbarian</h2>
+                        </button>
+                    </div>
+                
+                    <div className="class-button-wrapper" id="bard">
+                        <button className='classSelector' value='bard' onClick={()=>this.selectClass(bard)} >
+                            <img src={bardImg} alt='' />
+                            <h2>Bard</h2>
+                        </button>
+                    </div>
+                    <div className="class-button-wrapper" id="cleric">
+                        <button className='classSelector' value='cleric' onClick={()=>this.selectClass(cleric)} >
+                            <img src={clericImg} alt='' />
+                            <h2>Cleric</h2>
+                        </button>
+                    </div>
+    
+                    <div className="class-button-wrapper" id="druid">
+                        <button className='classSelector' value='druid' onClick={()=>this.selectClass(druid)} >
+                            <img src={druidImg} alt='' />
+                            <h2>Druid</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="fighter">
+                        <button className='classSelector' value='fighter' onClick={()=>this.selectClass(fighter)} >
+                            <img src={fighterImg} alt='' />
+                            <h2>Fighter</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="monk">
+                        <button className='classSelector' value='monk' onClick={()=>this.selectClass(monk)} >
+                            <img src={monkImg} alt='' />
+                            <h2>Monk</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="paladin">
+                        <button className='classSelector' value='paladin' onClick={()=>this.selectClass(paladin)} >
+                            <img src={paladinImg} alt='' />
+                            <h2>Paladin</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="ranger">
+                        <button className='classSelector' value='ranger' onClick={()=>this.selectClass(ranger)} >
+                            <img src={rangerImg} alt='' />
+                            <h2>Ranger</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="rogue">
+                        <button className='classSelector' value='rogue' onClick={()=>this.selectClass(rogue)} >
+                            <img src={rogueImg} alt='' />
+                            <h2>Rogue</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="sorcerer">
+                        <button className='classSelector' value='sorcerer' onClick={()=>this.selectClass(sorcerer)} >
+                            <img src={sorcererImg} alt='' />
+                            <h2>Sorcerer</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="warlock">
+                        <button className='classSelector' value='warlock' onClick={()=>this.selectClass(warlock)} >
+                            <img src={warlockImg} alt='' />
+                            <h2>Warlock</h2>
+                        </button>
+                    </div>
+                    
+                    <div className="class-button-wrapper" id="wizard">
+                        <button className='classSelector' value='wizard' onClick={()=>this.selectClass(wizard)} >
+                            <img src={wizardImg} alt='' />
+                            <h2>Wizard</h2>
+                        </button>
+                    </div>
+                
+                </div>
+                <h2 id="show-class">class: {this.state.hasOwnProperty("base") && this.state.base.class}</h2>
                     <div id='levels'>
-                    <h1>Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
+                    <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
                     <label>
                         <input type='number' id='levelInput' onChange={this.inputLevel} value={this.state.level} min="1" max="5"></input>
                         level (1-5)
                     </label>
-                    <h2>{this.state.class} {this.state.level}</h2>
+                    <h2 id="display-final">{this.state.class} {this.state.level}</h2>
                     <div>
                         <button id="continueButton" onClick={this.handleSubmit}>continue</button>
                     </div> 

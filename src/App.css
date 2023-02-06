@@ -1,15 +1,58 @@
 
+/*
+GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 
+ purple: "#BFABFF",
+    yellow: "#ebffab",
+    orange: "#ffbfab",
+    green: "#abffbf",
+*/
+#canvas1 {
+  border-radius: 2rem / 06rem;
+  max-width: 95vw;
+  background-color: rgba(23, 172, 177, 0.651);
+  box-shadow: 1px 2px 3px black;
+}
 .main {
-  
-  padding-top: 10rem;
+  margin: 13rem auto 0;
+  padding: 1rem;
   padding-bottom: 15em;
+  border: 2px solid gray;
+  border-radius: 1rem;
   min-height: 70vh;
   height: fit-content;
-  width: 100%;
-  background-color: bisque;
-  z-index: 2;
+  width: 90vw;
+  
 }
+#classSelectors {
+  text-align: center;
+}
+.classSelector:hover {
+  box-shadow: 0 0 10px #ebffab;
+  border: 1px solid #ebffab;
+}
+.classSelector:active {
+  box-shadow: 0 0 10px #abffbf;
+}
+
+button img, button h2 {
+  z-index: 0;
+}
+
+#class-button-container {
+  display: grid;
+  width: fit-content;
+  margin: auto;
+  grid-template-columns: repeat(4, 1fr);
+  column-gap: 1rem;
+  row-gap: 1rem;
+}
+
+#race-container {
+  width: fit-content;
+  margin: 3rem auto;
+}
+
 
 #final-results {
   background-color: #1a1a1a;

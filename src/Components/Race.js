@@ -6,6 +6,14 @@ import { connect } from "react-redux"
 import selectorAudio from './sounds/selector1.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
+import { select, selectAll } from "d3";
+
+const colorWheel = {
+    purple: "#BFABFF",
+    yellow: "#ebffab",
+    orange: "#ffbfab",
+    green: "#abffbf",
+}
 
 const defaultState = {
     hidden: false,
@@ -57,6 +65,12 @@ class Race extends React.Component {
 
     componentDidMount(){
         this.bindSounds()
+        select("#race-prompt")
+            .style("text-shadow", "0 0 6px "+colorWheel.green)
+        select("#race-container").selectAll(".radio").selectAll("input")
+            .style("box-shadow", "0 0 7px "+colorWheel.purple)
+            .style("background-color", colorWheel.purple)
+            .style("fill", colorWheel.purple)
     }
 
     componentDidUpdate(){
@@ -438,13 +452,13 @@ class Race extends React.Component {
     render(){
         if (this.state.hidden === false) {
             return(
-                <div>
+                <div id='race-container'>
                     <audio id="radioAudio" src={selectorAudio} preload="auto" ></audio>
                     <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
                     <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>
-                    <h1>Select Race</h1>
+                    <h1 id="race-prompt">Select Race</h1>
                     {this.props.details.finalized === false ?
-                    <div id='container'>
+                    <div>
                         
                         <div className='radio'>
                             <label>
