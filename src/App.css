@@ -10,6 +10,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 #canvas1 {
   border-radius: 2rem / 06rem;
   max-width: 95vw;
+  max-height: 17vh;
   background-color: rgba(23, 172, 177, 0.651);
   box-shadow: 1px 2px 3px black;
 }
@@ -24,6 +25,9 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   width: 90vw;
   
 }
+
+/*  CLASS   */
+
 #classSelectors {
   text-align: center;
 }
@@ -47,12 +51,102 @@ button img, button h2 {
   column-gap: 1rem;
   row-gap: 1rem;
 }
+#level-section {
+  visibility: hidden;
+  opacity: 0;
+}
+#levelInput {
+  text-align: center;
+  font-size: 2em;
+  padding: 0.25em;
+  max-width: 1.5em;
+  border-radius: 0.25em;
+  background-color: rgb(70, 70, 70);
+  color: whitesmoke;
+  border: 2px solid whitesmoke;
+  box-shadow: 1px 2px 2px black;
+}
+#level-input {
+  width: fit-content;
+  height: fit-content;
+  margin: 1em auto;
+  display: grid;
+  grid-template-columns: repeat(3, 50px);
+  row-gap: 0px;
+  column-gap: 0px;
+  background-color: gray;
+  border-radius: 0.5em;
+}
+#level-input-display {
+  background-color: #1a1a1a;
+  grid-row: 1/3;
+  grid-column: 1/3;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 120%;
+  border: 2px solid whitesmoke;
+  border-radius: 0.5em 0 0 0.5em;
+  border-right-color: transparent;
+}
+#level-input button {
+  font-size: 2.5em;
+  text-align: center;
+  padding: 0;
+}
+#level-input button:hover {
+  box-shadow: 0 0 6px #ebffab;
+}
+#level-input-increment {
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  grid-row: 1/2;
+  grid-column: 3/4;
+  border: 2px solid whitesmoke;
+  border-radius: 0 0.2em 0 0;
+}
+#level-input-increment i {
+  transform: translate(0,1px)
+}
+#level-input-decrement i {
+  transform: translate(0,5px)
+}
+#level-input-decrement {
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  grid-row: 2/3;
+  grid-column: 3/4;
+  border: 2px solid whitesmoke;
+  border-radius: 0 0 0.2em 0;
+}
+#continue-button-classlevel {
+  transition: 200ms;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  font-size: 1.5em;
+  border: 3px solid whitesmoke;
+  padding: 0.25em;
+  border-radius: 0.35em;
+}
+#continue-button-classlevel:hover {
+  background-color: #abffbf30;
+  transition: 200ms;
+  transform: scale(1.1);
+  box-shadow: 0 0 7px #abffbf;
+}
+#display-class-level {
+  text-shadow: 0 0 6px #BFABFF;
+}
+/*  RACE  */
 
 #race-container {
   width: fit-content;
   margin: 3rem auto;
 }
 
+
+
+/*  END DISPLAY  */
 
 #final-results {
   background-color: #1a1a1a;

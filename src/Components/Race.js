@@ -8,6 +8,7 @@ import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
 import { select, selectAll } from "d3";
 
+
 const colorWheel = {
     purple: "#BFABFF",
     yellow: "#ebffab",

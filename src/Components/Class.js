@@ -30,6 +30,7 @@ import barbarian, {
     warlock,
     wizard
 } from './ClassData.jsx';
+import 'primeicons/primeicons.css';
 
 const colorWheel = {
     purple: "#BFABFF",
@@ -44,6 +45,7 @@ class Class extends React.Component {
         this.state = {
             hidden: false,
             level: 1,
+            base: {class: ''}
         }
         this.selectClass = this.selectClass.bind(this)
         this.inputLevel = this.inputLevel.bind(this)
@@ -51,7 +53,7 @@ class Class extends React.Component {
     }
 
     componentDidMount(){
-        this.bindSounds()
+        //this.bindSounds()
         d3.selectAll(".class-button-wrapper")
             .style("box-shadow", "0 0 10px "+colorWheel.purple)
 
@@ -60,6 +62,7 @@ class Class extends React.Component {
         
     }
 
+    /*
     bindSounds = () => {
         let buttons = document.querySelectorAll(".classSelector")
         let buttonsArray = Array.prototype.slice.call(buttons)
@@ -68,15 +71,19 @@ class Class extends React.Component {
                 document.getElementById('cardFlip').play()
             })
         })
+        
         document.getElementById('levelInput').addEventListener(('click'), ()=>{
             const e = document.getElementById('chipHandle')
             e.currentTime =0
             e.play()
         })
-        document.getElementById("continueButton").addEventListener(('click'), ()=>{
+        
+        document.getElementById("continue-button-classlevel").addEventListener(('click'), ()=>{
             document.getElementById("chipStack").play()
         })
     }
+    */
+    
 
     selectClass(value) {
         this.setState(Object.assign(this.state, value))
@@ -84,14 +91,21 @@ class Class extends React.Component {
             .style("box-shadow", "0 0 10px "+colorWheel.purple)
         d3.select(`#${value.base.class.toLowerCase()}`)
             .style("box-shadow", "0 0 15px "+colorWheel.green)
-        d3.select("h1")
-            .style("text-shadow", "0 0 11px "+colorWheel.yellow)
+        //d3.select("h1")
+          //  .style("text-shadow", "0 0 11px "+colorWheel.yellow)
+        d3.select("#level-section")
+            .style("visibility", "visible")
+            .transition()
+            .style("opacity", 1)
         d3.select("#show-class")
-            .style("text-shadow", "0 0 6px "+colorWheel.yellow)
+            .style("text-shadow", "0 0 4px "+colorWheel.purple)
         d3.select("#level-prompt")
-            .style("text-shadow", "0 0 9px "+colorWheel.green)
+            .style("text-shadow", "0 0 6px "+colorWheel.green)
         d3.select("#display-final")
             .style("text-shadow", "0 0 6px "+colorWheel.yellow)
+        d3.select("#level-input")
+            .style("box-shadow", "0 0 7px "+colorWheel.green)
+            .style("text-shadow", "0 0 4px "+colorWheel.green)
     }
 
     inputLevel(event) {
@@ -251,17 +265,22 @@ class Class extends React.Component {
                     </div>
                 
                 </div>
-                <h2 id="show-class">class: {this.state.hasOwnProperty("base") && this.state.base.class}</h2>
+                <div id="level-section">
+                    <h2 id="show-class">class: {this.state.hasOwnProperty("base") && this.state.base.class}</h2>
                     <div id='levels'>
-                    <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
-                    <label>
-                        <input type='number' id='levelInput' onChange={this.inputLevel} value={this.state.level} min="1" max="5"></input>
-                        level (1-5)
-                    </label>
-                    <h2 id="display-final">{this.state.class} {this.state.level}</h2>
-                    <div>
-                        <button id="continueButton" onClick={this.handleSubmit}>continue</button>
-                    </div> 
+                        <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
+                   
+                        <label for="level-input">
+                            <div id="level-input">
+                                <div id="level-input-display"><h1>{this.state.level}</h1></div>
+                                <button id="level-input-increment" onClick={()=> this.state.level < 5 && this.setState({level: this.state.level + 1})}><i className="pi pi-caret-up"></i></button>
+                                <button id="level-input-decrement" onClick={()=> this.state.level > 1 && this.setState({level: this.state.level - 1})}><i className="pi pi-caret-down"></i></button>
+                            </div>
+                        </label>
+                        <div>
+                            { this.state.base.class !== '' ? <button id="continue-button-classlevel" onClick={this.handleSubmit}>continue</button> : null}
+                        </div> 
+                    </div>
                 </div>
             </div>
             

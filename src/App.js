@@ -13,6 +13,18 @@ import Background from './Background';
 import Skills from './Skills';
 import Equipment from './Equipment';
 import CalculateFinalScores from './Components/CalculateFinalScores';
+//import PrimeReact from 'primereact/api';
+//import { Ripple } from 'primereact/ripple';
+//theme
+//import "primereact/resources/themes/lara-light-indigo/theme.css";     
+    
+//core
+//import "primereact/resources/primereact.min.css";
+
+//icons
+//import "primeicons/primeicons.css";  
+//PrimeReact.ripple = true;
+//PrimeReact.appendTo = 'self';
 
 
 function App() {
@@ -50,6 +62,7 @@ function App() {
     SPELL CASTING
 
   */}
+        
         </div>
       </div>
   );
