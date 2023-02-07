@@ -1,5 +1,13 @@
-import React from "react";
+import { select, selectAll } from "d3";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+
+const colorWheel = {
+    purple: "#BFABFF",
+    yellow: "#ebffab",
+    orange: "#ffbfab",
+    green: "#abffbf",
+}
 
 export const DisplayBaseStats = () => {
     const stats = useSelector((state)=>state.baseStats.stats)
@@ -8,18 +16,33 @@ export const DisplayBaseStats = () => {
     //const progress = useSelector((state)=>state.progress)
     
     let display = null;
+
+    useEffect(()=>{
+        const index = stats.length;
+        const nodeList = selectAll(".statDisplay")._groups[0];
+        console.log(nodeList)
+        
+        for (let i=0; i<nodeList.length; i++) {
+            select(nodeList[i])
+                .style("text-shadow", "0 0 2px "+colorWheel.purple)
+        }
+        
+        select(nodeList[index])
+            .style("text-shadow", "0 0 6px "+colorWheel.green)
+    })
     
     if(stats !== null && mods === undefined){
 
+        display = ([
+            ['Strength: ', stats[0] || null, "+",bonus[0]], 
+            ['Dexterity: ', stats[1] || null, "+",bonus[1]], 
+            ['Constitution: ', stats[2] || null, "+",bonus[2]], 
+            ['Intelligence: ', stats[3] || null, "+",bonus[3]], 
+            ['Wisdom: ', stats[4] || null, "+",bonus[4]], 
+            ['Charisma: ', stats[5] || null, "+",bonus[5]]
+        ]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
 
-            display = ([
-                ['Strength: ', stats[0] || null, "+",bonus[0]], 
-                ['Dexterity: ', stats[1] || null, "+",bonus[1]], 
-                ['Constitution: ', stats[2] || null, "+",bonus[2]], 
-                ['Intelligence: ', stats[3] || null, "+",bonus[3]], 
-                ['Wisdom: ', stats[4] || null, "+",bonus[4]], 
-                ['Charisma: ', stats[5] || null, "+",bonus[5]]
-            ]).map((i)=><div key={i} className='statDisplay'><h3>{i.join('')}</h3></div>)
+
         
     } else if (mods !== undefined) {
         

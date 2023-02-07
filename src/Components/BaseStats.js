@@ -9,6 +9,14 @@ import dieShuffle from './sounds/dieShuffle2.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
 import AbilityScordIncrease from "./AbilityScoreIncrease";
+import { select, selectAll } from "d3";
+
+const colorWheel = {
+  purple: "#BFABFF",
+  yellow: "#ebffab",
+  orange: "#ffbfab",
+  green: "#abffbf",
+}
 
 class BaseStats extends React.Component {
   constructor(props) {
@@ -32,11 +40,21 @@ class BaseStats extends React.Component {
 
   componentDidMount(){
     this.bindSounds()
+    select("#rollDice")
+      .style("border", "2px solid "+colorWheel.green)
+      .style("box-shadow", "0 0 4px "+colorWheel.green)
   }
 
   componentDidUpdate(){
     if(this.state.hidden === false){
       this.bindSounds()
+    }
+    if (this.state.Rolls.length === 6) {
+      select("#rollDice")
+      .style("border", "2px solid "+colorWheel.orange)
+      .style("box-shadow", "none")
+      .attr("class", "reset-button")
+
     }
   }
 
@@ -128,6 +146,10 @@ class BaseStats extends React.Component {
       diceRolls: 0,
       rollsAccepted: false,
     });
+    select("#rollDice")
+      .style("border", "2px solid "+colorWheel.green)
+      .style("box-shadow", "0 0 4px "+colorWheel.green)
+      .attr("class", "submit-button")
   }
 
   acceptRolls() {
@@ -154,7 +176,7 @@ class BaseStats extends React.Component {
       
 
       return (
-        <div>
+        <div id="base-stats-submitted">
           <h2>scores locked in!</h2>
           <div id="rollCardContainer">{rollCards}</div>
           <BaseStatList rolls={rolls} stats={this.state.stats}/>
@@ -164,36 +186,38 @@ class BaseStats extends React.Component {
     
     else {
     return (
-      <div>
+      <div id="enter-rolls" >
         <audio id="dieShuffle" src={dieShuffle} preload="auto" ></audio>
         <audio id="dieThrow" src={dieThrow} preload="auto" ></audio>
         <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
         <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>
 
-        <Dice numbers={this.state.preRoll} />
-        <h1>Base Stats</h1>
-        <h3>Let's Roll!</h3>
-        <button onClick={this.standardArray}>Standard Array</button>
-        <br />
-        <input
-          type="number"
-          onChange={this.handleChange}
-          value={input || ""}
-        ></input>
-        <button id="rollDice" onClick={this.roll}>ROLL!</button>
-        <br />
-        <br />
-        {this.state.Rolls.length < 6 ? (
-          <button id="submitScore" type="submit" onClick={this.submitRoll}>
-            SUBMIT
-          </button>
-        ) : null}
-        <h3>{input}</h3>
-        {rollsAccepted === false ? <ul>{rawRolls}</ul> : null}
+        <Dice numbers={this.state.preRoll} id="dice" />
         
-        <button id="submitButton" onClick={this.acceptRolls}>ACCEPT</button>
+        <div id="enter-rolls-display" >
+          <h1>Base Stats</h1>
+          <h3>Let's Roll!</h3>
+          <button id="rollDice" className="submit-button" onClick={this.roll}>ROLL DICE!</button>
+          <br/>
 
-        <button id="resetButton" onClick={this.resetRolls}>RESET</button>
+          <h3>...or input your own rolls</h3>
+          <input
+            type="number"
+            onChange={this.handleChange}
+            value={input || ""}
+          ></input>
+          {this.state.Rolls.length < 6 ? (
+            <button id="submitScore" type="submit" onClick={this.submitRoll}>
+              SUBMIT
+            </button>
+          ) : null}
+          {rollsAccepted === false ? <ul>{rawRolls}</ul> : null}
+          <br/>
+          <button id="resetButton" className="reset-button" onClick={this.resetRolls}>RESET</button>
+          <button id="submitButton" className="submit-button" onClick={this.acceptRolls}>ACCEPT</button>
+          <br/><button onClick={this.standardArray}>Standard Array</button>
+        </div>
+        
         
       </div>
     )

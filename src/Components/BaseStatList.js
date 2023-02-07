@@ -1,3 +1,4 @@
+import { selectAll } from "d3";
 import React from "react";
 import { connect } from "react-redux";
 import AbilityScoreIncrease from "./AbilityScoreIncrease";
@@ -9,6 +10,7 @@ class BaseStatList extends React.Component {
         this.state = {
             rolls: [...props.rolls],
             baseStats: this.props.stats,
+            hidden: false,
             nextStat: () => {
                 if (this.props.stats.length === 0) {return 'Strength'}
                 if (this.props.stats.length === 1) {return 'Dexterity'}
@@ -20,6 +22,13 @@ class BaseStatList extends React.Component {
             }
         }
     }
+
+    componentDidUpdate(){
+        const displayElements = selectAll(".statDisplay")
+        console.log("found AS display", displayElements)
+    
+    }
+
     getModifiers = () => {
         const stats = this.props.stats;
         const mods = this.props.bonus;
@@ -45,16 +54,20 @@ class BaseStatList extends React.Component {
     
     render() {
         let next = this.state.nextStat()
-        return(
-            <div>
-                <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
-                {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
-
-                {this.props.stats.length >= 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?
-                <button id="submit-as-button" onClick={this.handleSubmit}>next</button> : null}
-                { this.props.picks > 0 ? <AbilityScoreIncrease picks={this.props.picks} bonuses={this.props.bonus} /> : null}
-            </div>
-        )
+        if (this.state.hidden === false) {
+            return(
+                <div id="prompt-stat">
+                    <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
+                    {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
+    
+                    {this.props.stats.length >= 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?
+                    <button id="submit-as-button" className="submit-button" onClick={this.handleSubmit}>next</button> : null}
+                    { this.props.picks > 0 ? <AbilityScoreIncrease picks={this.props.picks} bonuses={this.props.bonus} /> : null}
+                </div>
+            )
+        } else {
+            return null
+        }
     }
 }
 

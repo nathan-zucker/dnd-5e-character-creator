@@ -130,7 +130,7 @@ button img, button h2 {
   padding: 0.25em;
   border-radius: 0.35em;
 }
-#continue-button-classlevel:hover {
+#continue-button-classlevel:hover, .submit-button:hover {
   background-color: #abffbf30;
   transition: 200ms;
   transform: scale(1.1);
@@ -142,8 +142,88 @@ button img, button h2 {
 /*  RACE  */
 
 #race-container {
-  width: fit-content;
+  text-align: center;
+  border: 1px solid red;
+  width: 400px;
+  padding: 1em;
   margin: 3rem auto;
+}
+.race-button {
+  transition: 500ms;
+  transition-delay: 200ms;
+  font-size: 1.25em;
+  width: 6em;
+  padding: 0.25em;
+  margin-top: 0.5em;
+  border-radius: 0.25em;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  border: 2px solid #BFABFF;
+  box-shadow: 0 0 6px #BFABFF;
+}
+.race-button:hover {
+  transition: 100ms;
+  box-shadow: none;
+  border: 2px solid #ebffab;
+  box-shadow: 0 0 7px #ebffab;
+  transform: scale(1.1);
+}
+.subRace {
+  margin: 0.25em 0.5em 0.5em
+}
+.reset-button {
+  margin: 0.5em;
+  transition: 200ms;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  font-size: 1.5em;
+  border: 3px solid whitesmoke;
+  padding: 0.25em;
+  border-radius: 0.35em;
+}
+.reset-button:hover {
+  transform: scale(0.9);
+  border: 2px solid #ffbfab;
+  box-shadow: 0 0 6px #ffbfab;
+}
+.submit-button {
+  margin: 0.5em;
+  transition: 200ms;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  font-size: 1.5em;
+  border: 3px solid whitesmoke;
+  padding: 0.25em;
+  border-radius: 0.35em;
+}
+
+/*  ABILITY SCORES  */
+#enter-rolls {
+  border: 1px solid blue;
+}
+#enter-rolls-display {
+  width: 400px;
+  margin: auto;
+  text-align: center;
+  padding: 1em;
+}
+#displayBaseStats {
+  font-size: 1.5em;
+  width: 400px;
+  margin: auto;
+  text-align: center;
+}
+#prompt-stat {
+  display: flex;
+  justify-content: center;
+}
+#submit-as-button {
+  border: 2px solid #abffbf;
+  box-shadow: 0 0 3px #abffbf;
+}
+#rollCardContainer {
+  width: fit-content;
+  margin: auto;
 }
 
 
