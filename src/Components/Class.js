@@ -53,7 +53,6 @@ class Class extends React.Component {
     }
 
     componentDidMount(){
-        //this.bindSounds()
         d3.selectAll(".class-button-wrapper")
             .style("box-shadow", "0 0 10px "+colorWheel.purple)
 
@@ -62,37 +61,12 @@ class Class extends React.Component {
         
     }
 
-    /*
-    bindSounds = () => {
-        let buttons = document.querySelectorAll(".classSelector")
-        let buttonsArray = Array.prototype.slice.call(buttons)
-        buttonsArray.forEach((e)=>{
-            e.addEventListener(('click'), () => {
-                document.getElementById('cardFlip').play()
-            })
-        })
-        
-        document.getElementById('levelInput').addEventListener(('click'), ()=>{
-            const e = document.getElementById('chipHandle')
-            e.currentTime =0
-            e.play()
-        })
-        
-        document.getElementById("continue-button-classlevel").addEventListener(('click'), ()=>{
-            document.getElementById("chipStack").play()
-        })
-    }
-    */
-    
-
     selectClass(value) {
         this.setState(Object.assign(this.state, value))
         d3.selectAll(".class-button-wrapper")
             .style("box-shadow", "0 0 10px "+colorWheel.purple)
         d3.select(`#${value.base.class.toLowerCase()}`)
             .style("box-shadow", "0 0 15px "+colorWheel.green)
-        //d3.select("h1")
-          //  .style("text-shadow", "0 0 11px "+colorWheel.yellow)
         d3.select("#level-section")
             .style("visibility", "visible")
             .transition()
@@ -181,7 +155,7 @@ class Class extends React.Component {
                 
                 <div id="class-button-container" >
                     
-                    <div className="class-button-wrapper" id="barbarian">
+                    <div className="class-button-wrapper p-ripple" id="barbarian">
                         <button className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
                             <img src={barbarianImg} alt='' />
                             <h2>Barbarian</h2>

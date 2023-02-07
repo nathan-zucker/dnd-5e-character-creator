@@ -96,10 +96,16 @@ button img, button h2 {
   text-align: center;
   padding: 0;
 }
-#level-input button:hover {
+#level-input-increment:hover {
   box-shadow: 0 0 6px #ebffab;
+  text-shadow: 0 0 4px #ebffab;
+}
+#level-input-decrement:hover {
+  box-shadow: 0 0 6px #ebffab;
+  text-shadow: 0 0 4px #ebffab;
 }
 #level-input-increment {
+  width: 50px;
   background-color: #1a1a1a;
   color: whitesmoke;
   grid-row: 1/2;
@@ -108,10 +114,11 @@ button img, button h2 {
   border-radius: 0 0.2em 0 0;
 }
 #level-input-increment i {
-  transform: translate(0,1px)
+  font-size: 1em;
+  transform: translate(0, 7px)
 }
 #level-input-decrement i {
-  transform: translate(0,5px)
+  font-size: 1em;
 }
 #level-input-decrement {
   background-color: #1a1a1a;
