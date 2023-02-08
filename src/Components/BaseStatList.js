@@ -31,9 +31,9 @@ class BaseStatList extends React.Component {
 
     getModifiers = () => {
         const stats = this.props.stats;
-        const mods = this.props.bonus;
-        const combined = stats.map((e, i)=>e+mods[i]);
-        const modifiers = combined.map(e=>Math.floor((e-10)/2));
+       
+        const modifiers = stats.map(e=>Math.floor((e-10)/2));
+       
         const dressedModifiers = modifiers.map(e=>{
             switch(e>=0){
               case true: return "(+"+e+")";
@@ -42,7 +42,6 @@ class BaseStatList extends React.Component {
             }
           })
         this.props.dispatch("ASmodifiers", [modifiers, dressedModifiers])
-        this.props.dispatch("setStats", combined)
         return [modifiers, dressedModifiers]
       }
 

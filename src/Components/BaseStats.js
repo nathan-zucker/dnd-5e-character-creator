@@ -46,7 +46,7 @@ class BaseStats extends React.Component {
   }
 
   componentDidUpdate(){
-    if(this.state.hidden === false){
+    if(this.state.hidden === false && this.props.count < 6){
       this.bindSounds()
     }
     if (this.state.Rolls.length === 6) {
@@ -85,7 +85,7 @@ class BaseStats extends React.Component {
   }
 
   handleChange(event) {
-    this.setState({ input: event.target.value });
+    this.setState({ input: parseInt(event.target.value) });
   }
 
   roll() {
@@ -155,6 +155,7 @@ class BaseStats extends React.Component {
   acceptRolls() {
     this.setState({ rollsAccepted: true });
     //this.props.dispatch("ASmodifiers", mods)
+    this.props.dispatch("updateProgress", "rolls")
     setTimeout(()=>this.setState({hidden: true}), 1000)
   }
 
@@ -171,10 +172,12 @@ class BaseStats extends React.Component {
     ));
     
     
+    if (this.props.count === 6 && this.props.progress.includes("baseStats")) {
+      console.log('returning')
+      return;
+    }
 
     if(this.state.hidden === true){
-      
-
       return (
         <div id="base-stats-submitted">
           <h2>rolls locked in!</h2>
@@ -198,7 +201,7 @@ class BaseStats extends React.Component {
         
         
         <div id="enter-rolls-display" className="input-card" >
-          <h1>Base Stats</h1>
+          <h1>Ability Scores</h1>
           <h3>Let's Roll!</h3>
           <button id="rollDice" className="submit-button" onClick={this.roll}>ROLL DICE!</button>
           <br/>
@@ -233,6 +236,7 @@ const mapStateToProps = (state) => {
     details: state.raceDetails,
     stats: state.baseStats,
     progress: state.progress,
+    count: state.baseStats.count
   };
 };
 

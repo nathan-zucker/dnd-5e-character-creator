@@ -17,9 +17,13 @@ class RollCard extends React.Component {
 
     handleClick = (number) => {
         //document.getElementById('audio').play();
+        // INCLUDES RACE BONUSES
         const index = this.props.count;
-        console.log("stat", number, index)
-        this.props.selectStat(number, index);
+        const bonus = this.props.raceBonuses[index];
+        const value = number + bonus
+
+        console.log("stat", value, index)
+        this.props.selectStat(value, index);
         this.setState({visible: false});
         if (index === 6){
             console.log("last card")
@@ -43,7 +47,8 @@ class RollCard extends React.Component {
 }
 const mapStateToProps = (state) => {
     return {
-        count: state.baseStats.count
+        count: state.baseStats.count,
+        raceBonuses: state.raceDetails.abilityScoreIncrease,
     }
 }
 

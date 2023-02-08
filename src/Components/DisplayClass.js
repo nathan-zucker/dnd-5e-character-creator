@@ -6,8 +6,8 @@ export const DisplayClass = () => {
     const progress = useSelector(state=>state.progress)
     
     return(
-        <div>
-            {progress.includes("classLevel") ? <h1 id="display-class-level">Level {classLevel[1]} {classLevel[0]}</h1> : null}
+        <div id="display-class-level">
+            {progress.includes("classLevel") ? <h1>Level {classLevel[1]} {classLevel[0]}</h1> : null}
         </div>
     )
 }

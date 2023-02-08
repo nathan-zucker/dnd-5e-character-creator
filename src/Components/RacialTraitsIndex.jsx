@@ -223,7 +223,7 @@ class RacialTraitsIndex extends React.Component {
         
         else {
             return(
-                <div id="subClass-selections">
+                <div id="subClass-selections" className="input-card">
                     <h1>these are your features</h1>
                     <h2>{features.join(', ')}</h2>
                     <h2>select {this.state.inputNeeded} more options! ({this.state.selectors} total) </h2>

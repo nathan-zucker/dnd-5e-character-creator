@@ -27,13 +27,14 @@ function FancyAbilityScores() {
   const backgroundColor = "#1a1a1a"
   const w = 400;
   const h = 400;
-  const padding = 30;
+  const padding = 25;
   const f = (2 * Math.PI) / 6
   const s = 11;
 
   useEffect(()=>{
     d3.select("#display").selectAll("svg").remove()
     getCoordinatePairs(stats)
+    console.log("fancy header",stats)
   },[stats])
 
   function getCoordinatePairs(data){
@@ -114,11 +115,13 @@ function FancyAbilityScores() {
       .attr("height", h + 2* padding)
       .attr("id", "chart")
 
+    /*
     chart.append("rect")
       .attr("id", "background")
       .attr("width", w + 2 * padding)
       .attr("height", h + 2* padding)
       .attr("fill", backgroundColor)
+    */
 
     chart.append("circle")
       .attr("id", "origin")

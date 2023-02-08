@@ -27,7 +27,10 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   box-shadow: 1px 2px 3px black;
 }
 .main {
-  margin: 20vh auto 0;
+  position: absolute;
+  top: 20vh;
+  left: 50%;
+  transform: translate(-50%, 0);
   padding: 1rem;
   padding-bottom: 15em;
   border: 2px solid gray;
@@ -158,6 +161,10 @@ button img, button h2 {
 }
 #display-class-level {
   text-shadow: 0 0 6px #BFABFF;
+  width: fit-content;
+  position: relative;
+  top: 0;
+  left: 3rem;
 }
 /*  RACE  */
 
@@ -222,10 +229,23 @@ button img, button h2 {
 /*  ABILITY SCORES  */
 
 #displayBaseStats {
-  font-size: 1.5em;
-  width: 400px;
+  width: fit-content;
   margin: auto;
   text-align: center;
+}
+#base-stats-submitted {
+  border: 1px solid aqua;
+}
+#displayBaseStats-alt {
+  width: fit-content;
+  height: fit-content;
+  margin: -200px auto -100px;
+  transform: scale(0.55);
+  pointer-events: none;
+  font-size: 25px;
+}
+#displayBaseStats text {
+  font-size: 1.25em;
 }
 #prompt-stat {
   display: flex;
@@ -247,17 +267,6 @@ button img, button h2 {
 }
 
 /*  FEATURES & SUBCLASS  */
-#subClass-selections {
-  padding-top: 2em;
-  width: 400px;
-  text-align: center;
-  margin: auto;
-  box-shadow: #BFABFF;
-  border: 2px solid #BFABFF;
-}
-#background-alignment-container {
-  padding-bottom: 2.5rem;
-}
 
 /*  END DISPLAY  */
 
