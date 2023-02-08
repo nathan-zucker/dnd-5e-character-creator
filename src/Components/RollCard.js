@@ -15,36 +15,42 @@ class RollCard extends React.Component {
         }
     }
 
-    handleClick = (number, index) => {
-        document.getElementById('audio').play();
+    handleClick = (number) => {
+        //document.getElementById('audio').play();
+        const index = this.props.count;
+        console.log("stat", number, index)
         this.props.selectStat(number, index);
         this.setState({visible: false});
-        if (index === 5){
+        if (index === 6){
             console.log("last card")
         }
     }
     
     render() {
         const number = this.state.number;
-        const index = this.state.index;
         if (this.state.visible === true) {
             return(
-                <button className='rollCards' onClick={()=>this.handleClick(number, index)}>
+                <button className='rollCards' onClick={()=>this.handleClick(number)}>
                     <h2 className='number'>{number}</h2>
                     <audio id="audio" src={audio} preload="auto"></audio>
                 </button>
             );
         } else {
-            return <audio id="audio" src={audio} preload="auto"></audio>;
+            return;
         }
         
+    }
+}
+const mapStateToProps = (state) => {
+    return {
+        count: state.baseStats.count
     }
 }
 
 const mapDispatchToProps = (dispatch) => {
     return {
-        selectStat: (e, i) => { dispatch({type: 'selectStat', payload: e, index: i}) }
+        selectStat: (e, i) => { dispatch({type: 'selectStat', payload: {value: e, index: i}}) }
     }
 }
 
-export default connect(null, mapDispatchToProps)(RollCard)
+export default connect(mapStateToProps, mapDispatchToProps)(RollCard)

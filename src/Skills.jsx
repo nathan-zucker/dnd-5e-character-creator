@@ -1,3 +1,4 @@
+import { selectAll } from "d3";
 import React from "react";
 import {connect} from "react-redux";
 
@@ -46,6 +47,7 @@ class Skills extends React.Component {
         super(props);
         this.state = {
             hidden: true,
+            finalized: false,
             proficiencies: [],
             skillPicks: 0,
             skillOptions: [],
@@ -55,6 +57,10 @@ class Skills extends React.Component {
             languageOptions: [],
             button2disabled: false
         }
+    }
+
+    componentDidUpdate(){
+
     }
 
     loadComponent = () => {
@@ -131,8 +137,10 @@ class Skills extends React.Component {
                     proficiencies: [...state.proficiencies, event.target.value]
                 }
             })
-        } else {
-            console.log('no more skill picks!')
+        } 
+        if (this.state.skillPicks <= 1) {
+            selectAll(".skillOption")
+                .attr("disabled", "true")
         }
     }
 
@@ -148,26 +156,44 @@ class Skills extends React.Component {
                 }
             });
         }
-        else{
-            console.log('no more language picks!')
+        if (this.state.languagePicks <= 1) {
+            selectAll(".languageOption")
+                .attr("disabled", "true")
         }
     }
 
     submitLanguages = () => {
         this.props.dispatch('updateLanguages', this.state.languages);
         this.setState({button2disabled: true});
+
+        if (this.state.skillPicks + this.state.languagePicks === 0 ) {
+            console.log("end skill lang")
+            this.props.dispatch("updateProgress", "skills")
+            this.setState({finalized: true})
+        }
     }
 
     handleSubmit = () => {
         this.props.dispatch('updateSkillProficiencies', this.state.proficiencies);
         this.setState({button1disabled: true})
+        
+        if (this.state.skillPicks + this.state.languagePicks === 0 ) {
+            console.log("end skill lang")
+            this.props.dispatch("updateProgress", "skills")
+            this.setState({finalized: true})
+        }
     }
 
     render(){
 
+        if (this.state.finalized === true || !this.props.state.progress.includes("alignment")) {
+            return null
+        }
+
         if (this.state.hidden === true) {
             return (
-                <div>
+                <div id="prompt-skills" className="input-card">
+                    <h1>skills</h1>
                     <button onClick={this.loadComponent}>Begin!</button>
                 </div>
             )
@@ -176,12 +202,11 @@ class Skills extends React.Component {
         else {
 
             return(
-                <div>
-                    <h1>Skills!</h1>
+                <div id="skills-container" className="input-card">
                     <h2>You are proficient in these skills: </h2>
                     <h4>{this.state.proficiencies.join(', ')}</h4>
 
-                    {this.state.skillPicks > 0 ? <div>
+                    {this.state.skillPicks > 0 || this.state.proficiencies !== [] ? <div>
                         <h2>You may choose {this.state.skillPicks} more skills from the following list:</h2>
                         <div>{this.skillOptionCards()}</div>
                     </div> : null}
@@ -195,15 +220,15 @@ class Skills extends React.Component {
                     </button> 
                     : null}
                     <div>
-                        {this.state.languagePicks > 0 ? <div>
-                            <h2>languages</h2>
-                            <h3>you know these languages: {this.state.languages.join(', ')}</h3>
+                        {this.state.languagePicks > 0 || this.props.state.languages.picks !== 0 ? <div>
+                            <h2>you know these languages: </h2>
+                            <h3>{this.state.languages.join(', ')}</h3>
                             <h4>you may choose {this.state.languagePicks} more languages from the following list: </h4>
                             <div>{this.languageOptionCards()}</div>
                         </div> : null}
                         
                         
-                        { this.state.languagePicks === 0 && this.state.languagePicks !== [] ? 
+                        { this.state.languagePicks === 0 && this.props.state.languages.picks !== 0 ? 
                             <button
                                 onClick={this.submitLanguages}
                                 disabled={this.state.button2disabled}>

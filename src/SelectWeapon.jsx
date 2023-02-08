@@ -226,7 +226,7 @@ export default function SelectWeapon(props) {
     }
     else {
         return (
-            <div>
+            <div className='weapon-selector'>
                 <h2>select weapon component</h2>
                 <button onClick={()=>sortOptions()}>start</button>
                 filters: {filters.join(', ')} <br></br>

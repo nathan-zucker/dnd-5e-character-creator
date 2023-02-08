@@ -1,6 +1,8 @@
 #display {
     margin: 2rem auto;
 }
+
+
 #tooltip {
     position: absolute;
     border: 1px solid whitesmoke;

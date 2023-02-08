@@ -1,3 +1,4 @@
+import { selectAll } from "d3";
 import React from "react";
 import { connect } from "react-redux";
 //import ToolProficiency from "./RaceFeatures/ToolProficiency";
@@ -12,7 +13,7 @@ class RacialTraitsIndex extends React.Component {
         super(props)
         this.state = {
             hidden: false,
-            inputNeeded: 0,
+            inputNeeded: -1,
             inputAcquired: 0,
             subClass: undefined,
             savedInfo: [],
@@ -20,9 +21,19 @@ class RacialTraitsIndex extends React.Component {
         }
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
+        console.log("loading extra choices")
         const selectorButtons = document.getElementsByClassName("subClassSubmit")
-        
+        console.log("subclass buttons",selectorButtons.length)
+        if (selectorButtons.length === 0) {
+            this.props.sendPackage('submitSubClass')
+        }
+        this.countSelectors(selectorButtons.length)
+    }
+
+    componentDidUpdate(){
+        console.log("loading extra choices")
+        const selectorButtons = document.getElementsByClassName("subClassSubmit")
         this.countSelectors(selectorButtons.length)
     }
 
@@ -206,13 +217,13 @@ class RacialTraitsIndex extends React.Component {
         let features = this.props.features;
         
         
-        if (!this.props.progress.includes("baseStats")) {
+        if (!this.props.progress.includes("baseStats") || this.props.progress.includes("subClass") ) {
             return null
         }
         
         else {
             return(
-                <div>
+                <div id="subClass-selections">
                     <h1>these are your features</h1>
                     <h2>{features.join(', ')}</h2>
                     <h2>select {this.state.inputNeeded} more options! ({this.state.selectors} total) </h2>

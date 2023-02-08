@@ -177,7 +177,7 @@ class BaseStats extends React.Component {
 
       return (
         <div id="base-stats-submitted">
-          <h2>scores locked in!</h2>
+          <h2>rolls locked in!</h2>
           <div id="rollCardContainer">{rollCards}</div>
           <BaseStatList rolls={rolls} stats={this.state.stats}/>
         </div>
@@ -192,9 +192,12 @@ class BaseStats extends React.Component {
         <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
         <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>
 
-        <Dice numbers={this.state.preRoll} id="dice" />
+        <div id="dice-container">
+          <Dice numbers={this.state.preRoll} id="dice" />
+        </div>
         
-        <div id="enter-rolls-display" >
+        
+        <div id="enter-rolls-display" className="input-card" >
           <h1>Base Stats</h1>
           <h3>Let's Roll!</h3>
           <button id="rollDice" className="submit-button" onClick={this.roll}>ROLL DICE!</button>

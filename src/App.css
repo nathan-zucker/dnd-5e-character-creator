@@ -7,6 +7,18 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
     orange: "#ffbfab",
     green: "#abffbf",
 */
+
+.input-card {
+  text-align: center;
+  width: 400px;
+  padding: 1em;
+  padding-bottom: 2em;
+  margin: 1em auto;
+  border: 3px solid #abffbf;
+  border-radius: 10em / 2em ;
+  box-shadow: 0 0 6px #abffbf, inset 0 0 10px #BFABFF;
+}
+
 #canvas1 {
   border-radius: 2rem / 06rem;
   max-width: 95vw;
@@ -68,6 +80,7 @@ button img, button h2 {
   border: 2px solid whitesmoke;
   box-shadow: 1px 2px 2px black;
 }
+
 #level-input {
   width: fit-content;
   height: fit-content;
@@ -150,10 +163,12 @@ button img, button h2 {
 
 #race-container {
   text-align: center;
-  border: 1px solid red;
   width: 400px;
   padding: 1em;
   margin: 3rem auto;
+  border: 3px solid #abffbf;
+  border-radius: 10em / 2em ;
+  box-shadow: 0 0 6px #abffbf, inset 0 0 10px #BFABFF;
 }
 .race-button {
   transition: 500ms;
@@ -205,15 +220,7 @@ button img, button h2 {
 }
 
 /*  ABILITY SCORES  */
-#enter-rolls {
-  border: 1px solid blue;
-}
-#enter-rolls-display {
-  width: 400px;
-  margin: auto;
-  text-align: center;
-  padding: 1em;
-}
+
 #displayBaseStats {
   font-size: 1.5em;
   width: 400px;
@@ -233,7 +240,24 @@ button img, button h2 {
   margin: auto;
 }
 
+/*  EQUIPMENT  */
 
+#equipment-container {
+
+}
+
+/*  FEATURES & SUBCLASS  */
+#subClass-selections {
+  padding-top: 2em;
+  width: 400px;
+  text-align: center;
+  margin: auto;
+  box-shadow: #BFABFF;
+  border: 2px solid #BFABFF;
+}
+#background-alignment-container {
+  padding-bottom: 2.5rem;
+}
 
 /*  END DISPLAY  */
 

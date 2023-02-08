@@ -11,22 +11,22 @@ class BaseStatList extends React.Component {
             rolls: [...props.rolls],
             baseStats: this.props.stats,
             hidden: false,
-            nextStat: () => {
-                if (this.props.stats.length === 0) {return 'Strength'}
-                if (this.props.stats.length === 1) {return 'Dexterity'}
-                if (this.props.stats.length === 2) {return 'Constitution'}
-                if (this.props.stats.length === 3) {return 'Intelligence'}
-                if (this.props.stats.length === 4) {return 'Wisdom'}
-                if (this.props.stats.length === 5) {return 'Charisma'} 
-                else{return null}
-            }
+            count: 6
         }
+    }
+    /*
+    componentDidMount(){
+        const displayElements = selectAll(".statDisplay")._groups[0]
     }
 
     componentDidUpdate(){
-        const displayElements = selectAll(".statDisplay")
-        console.log("found AS display", displayElements)
-    
+    }
+    */
+    nextStat = () => {
+        const statNames = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
+        const index = this.props.count;
+        console.log(statNames[index]);
+        return(statNames[index]);
     }
 
     getModifiers = () => {
@@ -47,20 +47,21 @@ class BaseStatList extends React.Component {
       }
 
     handleSubmit = () => {
-        document.getElementById("submitAudio").play()
-        this.props.picks === 0 && setTimeout(()=>this.props.submitStats(), 500)
-        this.getModifiers()
+        if (this.props.picks === 0 && this.state.count === 6) {
+            document.getElementById("submitAudio").play()
+            setTimeout(()=>this.props.submitStats(), 500)
+            this.getModifiers()
+        }
     }
     
     render() {
-        let next = this.state.nextStat()
         if (this.state.hidden === false) {
             return(
                 <div id="prompt-stat">
                     <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
-                    {this.props.stats.length < 6 ? <h1>Choose your {next} score!</h1> : null}
+                    {this.props.count < 6 ? <h1>Choose your <span className="highlight">{this.nextStat()}</span> score!</h1> : null}
     
-                    {this.props.stats.length >= 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?
+                    {this.props.count === 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?
                     <button id="submit-as-button" className="submit-button" onClick={this.handleSubmit}>next</button> : null}
                     { this.props.picks > 0 ? <AbilityScoreIncrease picks={this.props.picks} bonuses={this.props.bonus} /> : null}
                 </div>
@@ -76,7 +77,8 @@ const mapStateToProps = state => {
         stats: state.baseStats.stats,
         picks: state.baseStats.picks,
         bonus: state.raceDetails.abilityScoreIncrease,
-        progress: state.progress
+        progress: state.progress,
+        count: state.baseStats.count
     }
 }
 

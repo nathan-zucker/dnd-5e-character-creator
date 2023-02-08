@@ -25,10 +25,14 @@ const randomNumberReducer = (state = 0, action) => {
     }
 }
 
-const baseStatReducer = (state = {picks: 0, stats: []}, action) => {
+const baseStatReducer = (state = {count: 0, picks: 0, stats: [5,5,5,5,5,5], modifiers: [ [0,0,0,0,0,0], ['','','','','',''] ]}, action) => {
     switch(action.type){
-        case 'selectStat': return  Object.assign({}, state, {
-                stats: [...state.stats, action.payload]
+        case 'selectStat':
+            let newStats = [...state.stats];
+            newStats[action.payload.index] = action.payload.value
+            return  Object.assign({}, state, {
+                stats: newStats,
+                count: state.count + 1
             });
         case 'addAbilityScorePick': return Object.assign({}, state, {
             picks: state.picks + action.payload

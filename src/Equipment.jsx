@@ -1,3 +1,4 @@
+import { selectAll } from "d3";
 import React from "react";
 import { connect } from "react-redux";
 import SelectWeapon from "./SelectWeapon";
@@ -10,8 +11,16 @@ class Equipment extends React.Component {
             equipment: [],
             choices: [],
             choices2: [],
-            button1disabled: false
+            button1disabled: false,
+            finalized: false,
         }
+    }
+
+    componentDidUpdate(){
+        const weaponSelectors = selectAll(".weapon-selector")._groups[0]
+        if (!this.state.hidden && this.state.button1disabled && weaponSelectors.length === 0)
+        this.setState({ finalized: true, hidden: true })
+
     }
 
     //SORT OUT WHICH EQUIPMENT NEEDS A CHOICE
@@ -27,7 +36,7 @@ class Equipment extends React.Component {
             }
         }
         this.setState({equipment: equipment, choices: choices});
-        console.log("equipment", equipment)
+        //console.log("equipment", equipment)
     }
 
     loadComponent = () => {
@@ -133,9 +142,21 @@ class Equipment extends React.Component {
     }
 
     render(){
-        if (this.state.hidden === false) {
+        if (!this.props.state.progress.includes("skills") || this.state.finalized) {
+            return null
+        }
+
+        if (this.state.hidden === true) {
+            return (
+                <div id="prompt-equipment" className="input-card">
+                    <h2>equipment</h2>
+                    <button onClick={this.loadComponent}>go to equipment</button>
+                </div>
+            )
+        } 
+        else {
             return(
-                <div>
+                <div id="equipment-container" className="input-card">
                     <h1>choose your equipment!</h1>
                     <h3>choices: {this.showChoices()}</h3>
                     { this.state.button1disabled ? <h3>equipment: {this.props.state.equipment.join(', ')}</h3> : <h3>equipment: {this.state.equipment.join(', ')}</h3> }
@@ -145,7 +166,7 @@ class Equipment extends React.Component {
                         <button 
                             onClick={this.submitEquipment}
                             disabled={this.state.button1disabled}>
-                            confirm equipment
+                            NEXT
                         </button> 
                     : null }
                     <div>
@@ -154,17 +175,9 @@ class Equipment extends React.Component {
                     </div>
                 </div>
             )
-        }
-        else {
-            return (
-                <div>
-                    <h2>equipment</h2>
-                    <button onClick={this.loadComponent}>go to equipment</button>
-                </div>
-            )
-        }
-        
+        }    
     }
+
 }
 
 const mapStateToProps = (state) => {

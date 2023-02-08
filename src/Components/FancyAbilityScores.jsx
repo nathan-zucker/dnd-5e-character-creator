@@ -15,11 +15,12 @@ console.log(pickColor(5))
 
 
 function FancyAbilityScores() {
+
+  const baseStats = useSelector((state) => state.baseStats)
     
   const stats = useSelector((state)=>state.baseStats.stats)
   const mods = useSelector((state)=>state.baseStats.modifiers[1])
   
-
 
   const statNames = [ "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" ]
 
@@ -28,12 +29,12 @@ function FancyAbilityScores() {
   const h = 400;
   const padding = 30;
   const f = (2 * Math.PI) / 6
-  const s = 9;
+  const s = 11;
 
   useEffect(()=>{
     d3.select("#display").selectAll("svg").remove()
     getCoordinatePairs(stats)
-  },[])
+  },[stats])
 
   function getCoordinatePairs(data){
     let numberArr = [...data]

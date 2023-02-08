@@ -102,7 +102,7 @@ class Background extends React.Component {
             selection: undefined,
             alignment: 'none',
             button1disabled: false,
-            button2disabled: false,
+            button2disabled: true,
         }
     }
 
@@ -114,6 +114,8 @@ class Background extends React.Component {
         this.props.dispatch('submitBackground')
         //DISABLE BUTTON AFTER INPUT
         this.setState({button1disabled: true})
+        // ENABLE ALIGNMENT BUTTON
+        this.setState({ button2disabled: false })
 
         //GRAB DATA FROM BACKGROUNDS TABLE
         console.log(data[this.state.selection])
@@ -148,7 +150,9 @@ class Background extends React.Component {
 
     submitAlignment = () => {
         this.props.dispatch('setAlignment', this.state.alignment)
+        this.props.dispatch("updateProgress", "alignment")
         this.setState({button2disabled: true})
+        this.setState({ hidden: true })
     }
 
     render(){
@@ -163,20 +167,18 @@ class Background extends React.Component {
         
         else {
             return (
-                <div>
+                <div id="background-alignment-container" className="input-card">
 
-                    <div>
+                    <div id="background-container">
                         <h2>now choose your Background</h2>
                         <select onChange={this.handleChange} value={this.state.selection}>
                             <option>(select)</option>
                             {options}
                         </select>
-                        {this.state.selection !== undefined && 
-                        <h2>you chose: {this.state.selection}</h2>}
                         <button disabled={this.state.button1disabled} onClick={this.handleSubmit}>submit</button>    
                     </div>
                     
-                    <div>
+                    <div id="alignment-container">
                         <h2>choose your Alignment</h2>
                         <select 
                             value={this.state.alignment}
@@ -190,9 +192,6 @@ class Background extends React.Component {
                             submit
                         </button>
                     </div>
-                    
-
-                    <h2>progress: {this.props.progress.join(', ')}</h2>
                 </div>
             )
         }
