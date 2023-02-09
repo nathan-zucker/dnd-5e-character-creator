@@ -7,7 +7,6 @@ import selectorAudio from './sounds/selector1.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
 import { select, selectAll } from "d3";
-import { Button } from 'primereact/button'
 
 
 const colorWheel = {
@@ -567,8 +566,6 @@ class Race extends React.Component {
                     
                     <div>
                         <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
-                        <h2>Race Bonus (stats): {this.props.details.abilityScoreIncrease}</h2>
-                        <h3>features</h3>
                         <button id="race-reset-button" className="reset-button" onClick={this.handleReset}>RESET</button>
                         <button id="race-submit-button" className="submit-button" onClick={this.handleSubmit}>SUBMIT</button>
                     </div>

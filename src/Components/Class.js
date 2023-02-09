@@ -53,12 +53,13 @@ class Class extends React.Component {
     }
 
     componentDidMount(){
+        /*
         d3.selectAll(".class-button-wrapper")
             .style("box-shadow", "0 0 10px "+colorWheel.purple)
 
         d3.select("h1")
         .style("text-shadow", "0 0 11px "+colorWheel.green)
-        
+        */
     }
 
     selectClass(value) {
@@ -87,12 +88,12 @@ class Class extends React.Component {
     }
 
     handleSubmit(){
-
+        /*
         d3.selectAll("h1")
             .style("text-shadow", "none")
         d3.select("#display-final")
             .style("text-shadow", "0 0 6px "+colorWheel.green)
-
+        */
         setTimeout(()=>this.setState({hidden: true}), 500);
         
         const inputClass = Object.assign({}, this.state)
@@ -244,13 +245,13 @@ class Class extends React.Component {
                     <div id='levels'>
                         <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
                    
-                        <label>
+                        
                             <div id="level-input">
                                 <div id="level-input-display"><h1>{this.state.level}</h1></div>
-                                <button id="level-input-increment" onClick={()=> this.state.level < 5 && this.setState({level: this.state.level + 1})}><i className="pi pi-caret-up"></i></button>
-                                <button id="level-input-decrement" onClick={()=> this.state.level > 1 && this.setState({level: this.state.level - 1})}><i className="pi pi-caret-down"></i></button>
+                                <div id="level-increment"><button onClick={()=> this.state.level < 5 && this.setState({level: this.state.level + 1})}><i className="pi pi-caret-up"></i></button></div>
+                                <div id="level-decrement"><button onClick={()=> this.state.level > 1 && this.setState({level: this.state.level - 1})}><i className="pi pi-caret-down"></i></button></div>
                             </div>
-                        </label>
+                        
                         <div>
                             { this.state.base.class !== '' ? <button id="continue-button-classlevel" onClick={this.handleSubmit}>continue</button> : null}
                         </div> 
