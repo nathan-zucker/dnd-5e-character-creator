@@ -1,5 +1,4 @@
 import React from "react";
-import "./BaseStats.css";
 import RollCard from "./RollCard";
 import BaseStatList from "./BaseStatList";
 import { connect } from "react-redux";
@@ -29,6 +28,7 @@ class BaseStats extends React.Component {
       diceRolls: 0,
       modifiers: undefined,
       rollsAccepted: false,
+      submitDisabled: true,
     };
     this.handleChange = this.handleChange.bind(this);
     this.roll = this.roll.bind(this);
@@ -145,6 +145,7 @@ class BaseStats extends React.Component {
       Rolls: [],
       diceRolls: 0,
       rollsAccepted: false,
+      submitDisabled: true
     });
     select("#rollDice")
       .style("border", "2px solid "+colorWheel.green)
@@ -156,20 +157,25 @@ class BaseStats extends React.Component {
     this.setState({ rollsAccepted: true });
     //this.props.dispatch("ASmodifiers", mods)
     this.props.dispatch("updateProgress", "rolls")
-    setTimeout(()=>this.setState({hidden: true}), 1000)
+    setTimeout(()=>this.setState({hidden: true}), 600)
   }
 
   
 
   render() {
 
-    const rolls = this.state.Rolls;
-    const rawRolls = this.state.Rolls.map((i, key) => <li key={key}>{i}</li>);
+    const rolls = this.state.Rolls.sort((a, b) => b - a );
+    console.log(rolls, this.state.Rolls)
+    const rawRolls = rolls.map((i, key) => <li key={key}>{i}</li>);
     const input = this.state.input;
     const rollsAccepted = this.state.rollsAccepted;
-    const rollCards = this.state.Rolls.map((e, i) => (
+    const rollCards = rolls.map((e, i) => (
       <RollCard value={e} key={i} index={i} />
     ));
+
+    if (rolls.length == 6 && this.state.submitDisabled === true) {
+      this.setState({submitDisabled: false})
+    }
     
     
     if (this.props.count === 6 && this.props.progress.includes("baseStats")) {
@@ -180,7 +186,6 @@ class BaseStats extends React.Component {
     if(this.state.hidden === true){
       return (
         <div id="base-stats-submitted">
-          <h2>rolls locked in!</h2>
           <div id="rollCardContainer">{rollCards}</div>
           <BaseStatList rolls={rolls} stats={this.state.stats}/>
         </div>
@@ -220,7 +225,7 @@ class BaseStats extends React.Component {
           {rollsAccepted === false ? <ul>{rawRolls}</ul> : null}
           <br/>
           <button id="resetButton" className="reset-button" onClick={this.resetRolls}>RESET</button>
-          <button id="submitButton" className="submit-button" onClick={this.acceptRolls}>ACCEPT</button>
+          <button id="submitButton" className="submit-button" disabled={this.state.submitDisabled} onClick={this.acceptRolls}>ACCEPT</button>
           <br/><button onClick={this.standardArray}>Standard Array</button>
         </div>
         

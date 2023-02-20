@@ -53,21 +53,28 @@ class Class extends React.Component {
     }
 
     componentDidMount(){
-        /*
-        d3.selectAll(".class-button-wrapper")
-            .style("box-shadow", "0 0 10px "+colorWheel.purple)
-
-        d3.select("h1")
-        .style("text-shadow", "0 0 11px "+colorWheel.green)
-        */
+        if (window.innerWidth <= 600) {
+            console.log('small screen')
+            d3.selectAll(".class-button-wrapper")
+             .style("transform", "scale(0.5) translate( -50%, -50% )")
+             .style("width", "4em")
+             .style("height", "4.5em")
+            d3.select("#classSelectors")
+            .style("height", "fit-content")
+        }
     }
 
     selectClass(value) {
+        console.log(value.base.class.toLowerCase())
         this.setState(Object.assign(this.state, value))
-        d3.selectAll(".class-button-wrapper")
-            .style("box-shadow", "0 0 10px "+colorWheel.purple)
+        d3.selectAll(".classSelector")
+            .style("box-shadow", "none")
+            .style("background-color", "gray")
         d3.select(`#${value.base.class.toLowerCase()}`)
-            .style("box-shadow", "0 0 15px "+colorWheel.green)
+            .style("background-color", colorWheel.green)
+            .style("box-shadow", "0 0 6px "+colorWheel.green)
+            .style("box-shadow", "inset 0 0 4px "+colorWheel.green)
+            .style("overflow", "show")
         d3.select("#level-section")
             .style("visibility", "visible")
             .transition()
@@ -94,7 +101,8 @@ class Class extends React.Component {
         d3.select("#display-final")
             .style("text-shadow", "0 0 6px "+colorWheel.green)
         */
-        setTimeout(()=>this.setState({hidden: true}), 500);
+
+        //setTimeout(()=>this.setState({hidden: true}), 1500);
         
         const inputClass = Object.assign({}, this.state)
         delete inputClass.hidden
@@ -143,9 +151,6 @@ class Class extends React.Component {
 
 
     render(){
-        if(this.state.hidden === true){
-            return null
-        } else{
         return(
             <div id='classSelectors'>
                 <audio id="cardFlip" src={cardFlip} preload="auto"></audio>
@@ -156,84 +161,84 @@ class Class extends React.Component {
                 
                 <div id="class-button-container" >
                     
-                    <div className="class-button-wrapper p-ripple" id="barbarian">
-                        <button className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
+                    <div className="class-button-wrapper p-ripple">
+                        <button id="barbarian" className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
                             <img src={barbarianImg} alt='' />
                             <h2>Barbarian</h2>
                         </button>
                     </div>
                 
-                    <div className="class-button-wrapper" id="bard">
-                        <button className='classSelector' value='bard' onClick={()=>this.selectClass(bard)} >
+                    <div className="class-button-wrapper">
+                        <button id="bard" className='classSelector' value='bard' onClick={()=>this.selectClass(bard)} >
                             <img src={bardImg} alt='' />
                             <h2>Bard</h2>
                         </button>
                     </div>
-                    <div className="class-button-wrapper" id="cleric">
-                        <button className='classSelector' value='cleric' onClick={()=>this.selectClass(cleric)} >
+                    <div className="class-button-wrapper">
+                        <button id="cleric" className='classSelector' value='cleric' onClick={()=>this.selectClass(cleric)} >
                             <img src={clericImg} alt='' />
                             <h2>Cleric</h2>
                         </button>
                     </div>
     
-                    <div className="class-button-wrapper" id="druid">
-                        <button className='classSelector' value='druid' onClick={()=>this.selectClass(druid)} >
+                    <div className="class-button-wrapper">
+                        <button id="druid" className='classSelector' value='druid' onClick={()=>this.selectClass(druid)} >
                             <img src={druidImg} alt='' />
                             <h2>Druid</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="fighter">
-                        <button className='classSelector' value='fighter' onClick={()=>this.selectClass(fighter)} >
+                    <div className="class-button-wrapper">
+                        <button id="fighter" className='classSelector' value='fighter' onClick={()=>this.selectClass(fighter)} >
                             <img src={fighterImg} alt='' />
                             <h2>Fighter</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="monk">
-                        <button className='classSelector' value='monk' onClick={()=>this.selectClass(monk)} >
+                    <div className="class-button-wrapper">
+                        <button id="monk" className='classSelector' value='monk' onClick={()=>this.selectClass(monk)} >
                             <img src={monkImg} alt='' />
                             <h2>Monk</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="paladin">
-                        <button className='classSelector' value='paladin' onClick={()=>this.selectClass(paladin)} >
+                    <div className="class-button-wrapper">
+                        <button id="paladin" className='classSelector' value='paladin' onClick={()=>this.selectClass(paladin)} >
                             <img src={paladinImg} alt='' />
                             <h2>Paladin</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="ranger">
-                        <button className='classSelector' value='ranger' onClick={()=>this.selectClass(ranger)} >
+                    <div className="class-button-wrapper">
+                        <button id="ranger" className='classSelector' value='ranger' onClick={()=>this.selectClass(ranger)} >
                             <img src={rangerImg} alt='' />
                             <h2>Ranger</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="rogue">
-                        <button className='classSelector' value='rogue' onClick={()=>this.selectClass(rogue)} >
+                    <div className="class-button-wrapper">
+                        <button id="rogue" className='classSelector' value='rogue' onClick={()=>this.selectClass(rogue)} >
                             <img src={rogueImg} alt='' />
                             <h2>Rogue</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="sorcerer">
-                        <button className='classSelector' value='sorcerer' onClick={()=>this.selectClass(sorcerer)} >
+                    <div className="class-button-wrapper">
+                        <button id="sorcerer" className='classSelector' value='sorcerer' onClick={()=>this.selectClass(sorcerer)} >
                             <img src={sorcererImg} alt='' />
                             <h2>Sorcerer</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="warlock">
-                        <button className='classSelector' value='warlock' onClick={()=>this.selectClass(warlock)} >
+                    <div className="class-button-wrapper">
+                        <button id="warlock" className='classSelector' value='warlock' onClick={()=>this.selectClass(warlock)} >
                             <img src={warlockImg} alt='' />
                             <h2>Warlock</h2>
                         </button>
                     </div>
                     
-                    <div className="class-button-wrapper" id="wizard">
-                        <button className='classSelector' value='wizard' onClick={()=>this.selectClass(wizard)} >
+                    <div className="class-button-wrapper">
+                        <button id="wizard" className='classSelector' value='wizard' onClick={()=>this.selectClass(wizard)} >
                             <img src={wizardImg} alt='' />
                             <h2>Wizard</h2>
                         </button>
@@ -260,7 +265,7 @@ class Class extends React.Component {
             </div>
             
         )
-        }
+        
     }
 }
 

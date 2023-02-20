@@ -1,6 +1,6 @@
 import React from "react";
 import { connect } from "react-redux";
-import './RollCard.css';
+//import './RollCard.css';
 import audio from './sounds/cardSelect.mp3'
 import { select } from "d3";
 
@@ -34,7 +34,7 @@ class RollCard extends React.Component {
         const number = this.state.number;
         if (this.state.visible === true) {
             return(
-                <button className='rollCards' onClick={()=>this.handleClick(number)}>
+                <button className='rollCard' onClick={()=>this.handleClick(number)}>
                     <h2 className='number'>{number}</h2>
                     <audio id="audio" src={audio} preload="auto"></audio>
                 </button>

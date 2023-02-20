@@ -11,7 +11,8 @@ class AbilityScordIncrease extends React.Component{
             bonuses: this.props.bonuses || [0,0,0,0,0,0],
             picks: this.props.picks,
             source: this.props.source,
-            submitted: false
+            submitted: false,
+            hidden: true,
         }
     }
 
@@ -31,10 +32,19 @@ class AbilityScordIncrease extends React.Component{
     }
 
     render(){
+
+        if (this.state.hidden) {
+            return (
+                <div className='prompt-AS-increase'>
+                    <button onClick={()=>this.setState({hidden: false})}>ABILITY SCORE INCREASE</button>
+                </div>
+            )
+        }
+
         return(
             <div>
             {this.state.picks > 0 ? 
-                <div>
+                <div className='ability-score-increase'>
                     <h1>select ability scores ({this.state.picks} picks remaining{ this.state.source ? <span> from {this.state.source})</span> : ")"}</h1>
                     <div>
                         <button onClick={()=>this.AllocatePoint(0)}>Strength</button>

@@ -465,9 +465,9 @@ class Race extends React.Component {
     }
 
     render(){
-        if (this.state.hidden === false) {
+        if (this.state.hidden === false || this.state.hidden === true) {
             return(
-                <div id='race-container'>
+                <div id='race-container' className="input-card">
                     <audio id="radioAudio" src={selectorAudio} preload="auto" ></audio>
                     <audio id="resetAudio" src={resetAudio} preload="auto" ></audio>
                     <audio id="submitAudio" src={submitAudio} preload="auto" ></audio>

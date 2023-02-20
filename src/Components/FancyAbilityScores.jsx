@@ -21,15 +21,28 @@ function FancyAbilityScores() {
   const stats = useSelector((state)=>state.baseStats.stats)
   const mods = useSelector((state)=>state.baseStats.modifiers[1])
   
+  
 
   const statNames = [ "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" ]
 
   const backgroundColor = "#1a1a1a"
-  const w = 400;
-  const h = 400;
-  const padding = 25;
+  
+  const screenWidth = document.documentElement.clientWidth
+  console.log(screenWidth)
+  let w;
+
+  if (screenWidth <= 900) { w = screenWidth * 0.75 }
+  else { w = screenWidth / 3 }
+  const h = w;
+  const padding = screenWidth * 0.05;
   const f = (2 * Math.PI) / 6
-  const s = 11;
+  let s;
+  if (screenWidth >= 600) {
+    s = 11;
+  } else {
+    s = 11 * ( screenWidth / 600 );
+  }
+  console.log( w , h)
 
   useEffect(()=>{
     d3.select("#display").selectAll("svg").remove()

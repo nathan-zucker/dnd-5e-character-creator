@@ -7,6 +7,7 @@
     padding: 0;
     width: 100%;
     height: 20%;
+    overflow: hidden;
 }
 
 #image1 {

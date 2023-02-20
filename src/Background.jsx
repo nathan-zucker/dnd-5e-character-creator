@@ -152,7 +152,7 @@ class Background extends React.Component {
         this.props.dispatch('setAlignment', this.state.alignment)
         this.props.dispatch("updateProgress", "alignment")
         this.setState({button2disabled: true})
-        this.setState({ hidden: true })
+        setTimeout(()=>{ this.setState({ hidden: true }) }, 600)
     }
 
     render(){

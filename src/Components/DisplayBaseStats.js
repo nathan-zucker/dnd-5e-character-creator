@@ -19,6 +19,9 @@ export const DisplayBaseStats = () => {
     const [hidden, hide] = useState(false)
     
     const progress = useSelector((state)=>state.progress)
+
+    const scale = (window.screen.width / 1500)
+    console.log(scale)
     
     let display = null;
 
@@ -41,13 +44,16 @@ export const DisplayBaseStats = () => {
             select(nodeList[index])
                 .style("text-shadow", "0 0 6px "+colorWheel.green)
             
+            select("#displayBaseStats")
+                .attr("transform", "scale(.025)")
+            
         }
     })
 
     if(hidden && progress.includes("baseStats")){
         return (
             <div id="displayBaseStats-alt">
-                <FancyAbilityScores />
+                {/* <FancyAbilityScores /> */}
             </div>
         )
     }  

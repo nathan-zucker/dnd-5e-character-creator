@@ -1,7 +1,11 @@
 
 import './App.css';
 import Header from './Header.jsx';
+import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { select } from 'd3';
+
+
 import  BaseStats  from './Components/BaseStats'
 import  Race  from './Components/Race';
 import { DisplayBaseStats } from './Components/DisplayBaseStats';
@@ -13,56 +17,66 @@ import Background from './Background';
 import Skills from './Skills';
 import Equipment from './Equipment';
 import CalculateFinalScores from './Components/CalculateFinalScores';
-import PrimeReact from 'primereact/api';
-//import { Ripple } from 'primereact/ripple';
-//theme
-import "primereact/resources/themes/lara-light-indigo/theme.css";     
-    
-//core
-import "primereact/resources/primereact.min.css";
-
-//icons
-import "primeicons/primeicons.css";  
-PrimeReact.ripple = true;
-//PrimeReact.appendTo = 'self';
 
 
 function App() {
+
+  const stateProgress = useSelector((state)=>state.progress)
+  const [progress, setProgress] = useState('')
+
   const state = useSelector((state)=>state);
+
   console.log(state, 'i am the state')
+
+  const breakpoints = ['classLevel', 'race', 'rolls', 'baseStats', 'alignment', 'skills', 'equipment']
+  const delay1 = 300
+  const delay2 = 300
+
+  useEffect(()=>{
+    if ( breakpoints.includes(stateProgress[stateProgress.length - 1]) ) {  
+      setTimeout(()=>{  
+        select("#content")
+        .transition()
+        .style("opacity", 0)
+      
+        setTimeout(()=>{
+        setProgress([...progress, stateProgress[stateProgress.length - 1]])
+        select("#content")
+          .transition()
+          .style("opacity", 1)
+        }, delay2)
+      }, delay1 )
+    }
+  },[stateProgress])
+
   return (
       <div className="App">
         <div className="canvas">
           <Header />
         </div>
-        
-        <div className="main">
-          <Class />
-          <DisplayClass />
-          {state.progress.includes('classLevel') ? <div>
-          <Race />
-          <DisplayRace />
-          </div> : null}
-          {state.progress.includes('race') ? <div>
-            <BaseStats />
-            <DisplayBaseStats />
-          </div> : null}
-          {state.progress.includes('baseStats') ? <div>
-          <RacialTraitsIndex />
-          <Background />
-          <Skills />
-          <Equipment />
-          <CalculateFinalScores />
-          </div> : null}
+        <div className='main'>
+          <div id="content">
+            
+            { !progress.includes('classLevel') ? <Class /> : null }
+            { !progress.includes('classLevel') ? <DisplayClass /> : null }
+            
+            { progress.includes('classLevel') && !progress.includes('race') ? <Race /> : null }
+            { progress.includes('classLevel') ? <DisplayRace /> : null }
+            
+            { progress.includes('race') ? <BaseStats /> : null }
 
-   {/*
+            { progress.includes('rolls') ? <DisplayBaseStats /> : null }
+            
+            { progress.includes('baseStats') ? <RacialTraitsIndex /> : null }
+            { progress.includes('baseStats') ? <Background /> : null }
 
-    ARMOR CLASS
+            { progress.includes('alignment') ? <Skills /> : null }
 
-    SPELL CASTING
+            { progress.includes('skills') ? <Equipment /> : null }
 
-  */}
-        
+            { progress.includes('equipment') ? <CalculateFinalScores /> : null }
+
+          </div>
         </div>
       </div>
   );

@@ -8,15 +8,50 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
     green: "#abffbf",
 */
 
+
 .input-card {
   text-align: center;
-  width: 400px;
+  width: 80vw;
+  max-width: 400px;
   padding: 1em;
   padding-bottom: 2em;
   margin: 1em auto;
   border: 3px solid #abffbf;
   border-radius: 10em / 2em ;
   box-shadow: 0 0 6px #abffbf, inset 0 0 10px #BFABFF;
+}
+
+.reset-button {
+  margin: 0.5em;
+  transition: 200ms;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  font-size: 1.5em;
+  border: 3px solid whitesmoke;
+  padding: 0.25em;
+  border-radius: 0.35em;
+}
+.reset-button:hover {
+  transform: scale(0.9);
+  border: 2px solid #ffbfab;
+  box-shadow: 0 0 6px #ffbfab;
+}
+.submit-button {
+  margin: 0.5em;
+  transition: 150ms;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  font-size: 1.5em;
+  border: 3px solid whitesmoke;
+  padding: 0.25em;
+  border-radius: 0.35em;
+}
+
+.submit-button:disabled:hover {
+  transform: scale(0.9);
+  border: 2px solid #ffbfab;
+  box-shadow: 0 0 6px #ffbfab;
+  background-color: #1a1a1a;
 }
 
 #canvas1 {
@@ -31,6 +66,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   top: 20vh;
   left: 50%;
   transform: translate(-50%, 0);
+  overflow-x: hidden;
   padding: 1rem;
   padding-bottom: 15em;
   border: 2px solid gray;
@@ -43,13 +79,26 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 /*  CLASS   */
+.classSelector {
+  width: 9em;
+  height: 10em;
+  padding-top: .7em;
+  margin: 4px;
+  box-shadow: 0 0 5px #BFABFF;
+}
+img {
+  z-index: 0;
+  width: 5em;
+}
+
 
 #classSelectors {
   text-align: center;
 }
 .classSelector:hover {
+  box-shadow: inset 0 0 10px #ebffab;
   box-shadow: 0 0 10px #ebffab;
-  border: 1px solid #ebffab;
+  border: 2px solid whitesmoke;
   background-color: #fffef5;
 }
 .classSelector:active {
@@ -61,12 +110,11 @@ button img, button h2 {
 }
 
 #class-button-container {
-  display: grid;
-  width: fit-content;
+  max-width: 550px;
+  display: flex;
   margin: auto;
-  grid-template-columns: repeat(4, 1fr);
-  column-gap: 1rem;
-  row-gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
 }
 #level-section {
   visibility: hidden;
@@ -168,12 +216,12 @@ button img, button h2 {
 
 #race-container {
   text-align: center;
-  width: 400px;
   padding: 1em;
   margin: 3rem auto;
   border: 3px solid #abffbf;
   border-radius: 10em / 2em ;
   box-shadow: 0 0 6px #abffbf, inset 0 0 10px #BFABFF;
+  transition: 1000ms;
 }
 .race-button {
   transition: 500ms;
@@ -198,33 +246,51 @@ button img, button h2 {
 .subRace {
   margin: 0.25em 0.5em 0.5em
 }
-.reset-button {
-  margin: 0.5em;
-  transition: 200ms;
-  background-color: #1a1a1a;
-  color: whitesmoke;
-  font-size: 1.5em;
-  border: 3px solid whitesmoke;
-  padding: 0.25em;
-  border-radius: 0.35em;
-}
-.reset-button:hover {
-  transform: scale(0.9);
-  border: 2px solid #ffbfab;
-  box-shadow: 0 0 6px #ffbfab;
-}
-.submit-button {
-  margin: 0.5em;
-  transition: 200ms;
-  background-color: #1a1a1a;
-  color: whitesmoke;
-  font-size: 1.5em;
-  border: 3px solid whitesmoke;
-  padding: 0.25em;
-  border-radius: 0.35em;
-}
 
 /*  ABILITY SCORES  */
+
+.ability-score-increase {
+}
+.ability-score-increase button {
+  width: 7em;
+  height: 2em;
+  margin: 2px;
+  border: 1px solid whitesmoke;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
+}
+
+.ability-score-increase button:hover {
+  box-shadow: 0 0 6px #ebffab, inset 0 0 6px #ebffab;
+}
+
+
+#ability-score-container{
+  height: fit-content;
+}
+
+.rollCard {
+  width: min(12vw, 6em);
+  height: min(12vw, 6em);
+  margin: max(2px, 1vw);
+  display: inline-flex;
+  border: 1px solid whitesmoke;
+  border-radius: 1vw;
+  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
+}
+
+.rollCard h2 {
+  margin: auto;
+}
+
+.rollCard:hover {
+  box-shadow: 0 0 6px #ebffab, inset 0 0 6px #ebffab;
+}
+
+#prompt-stat {
+  width: 100%;
+  text-align: center;
+}
 
 #displayBaseStats {
   width: fit-content;
@@ -232,22 +298,18 @@ button img, button h2 {
   text-align: center;
 }
 #base-stats-submitted {
-  border: 1px solid aqua;
 }
 #displayBaseStats-alt {
-  width: fit-content;
-  height: fit-content;
-  margin: -200px auto -100px;
-  transform: scale(0.55);
+  transform: scale(0.55) translate( 0, -50% );
   pointer-events: none;
   font-size: 25px;
 }
+
+#display {
+}
+
 #displayBaseStats text {
   font-size: 1.25em;
-}
-#prompt-stat {
-  display: flex;
-  justify-content: center;
 }
 #submit-as-button {
   border: 2px solid #abffbf;

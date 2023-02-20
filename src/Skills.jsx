@@ -169,7 +169,7 @@ class Skills extends React.Component {
         if (this.state.skillPicks + this.state.languagePicks === 0 ) {
             console.log("end skill lang")
             this.props.dispatch("updateProgress", "skills")
-            this.setState({finalized: true})
+            setTimeout(()=>{ this.setState({finalized: true}) }, 600)
         }
     }
 
@@ -180,7 +180,7 @@ class Skills extends React.Component {
         if (this.state.skillPicks + this.state.languagePicks === 0 ) {
             console.log("end skill lang")
             this.props.dispatch("updateProgress", "skills")
-            this.setState({finalized: true})
+            setTimeout(()=>{ this.setState({finalized: true}) }, 600)
         }
     }
 
