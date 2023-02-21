@@ -43,6 +43,15 @@ class BaseStats extends React.Component {
     select("#rollDice")
       .style("border", "2px solid "+colorWheel.green)
       .style("box-shadow", "0 0 4px "+colorWheel.green)
+    
+    const scrollTop = select("#enter-rolls")._groups[0][0].clientHeight - 0.75 * (window.innerHeight);    
+    setTimeout(()=>{
+      window.scroll({
+        top: scrollTop,
+        behavior: "smooth"
+      })
+    },0)
+
   }
 
   componentDidUpdate(){
@@ -59,6 +68,7 @@ class BaseStats extends React.Component {
   }
 
   bindSounds = () => {
+    /*
     document.getElementById('rollDice').addEventListener(("click"), ()=>{
       
     });
@@ -68,6 +78,7 @@ class BaseStats extends React.Component {
     document.getElementById('submitButton').addEventListener(("click"), ()=>{
       document.getElementById('submitAudio').play()
   })
+    */
   }
 
   getRandomDieNumber() {
@@ -157,7 +168,15 @@ class BaseStats extends React.Component {
     this.setState({ rollsAccepted: true });
     //this.props.dispatch("ASmodifiers", mods)
     this.props.dispatch("updateProgress", "rolls")
-    setTimeout(()=>this.setState({hidden: true}), 600)
+    setTimeout(()=>{
+      this.setState({hidden: true})
+      
+      const scrollHeight2 = 0.19 * window.innerHeight;
+      window.scroll({
+        top: scrollHeight2,
+        behavior: "smooth"
+      })
+    }, 400)
   }
 
   

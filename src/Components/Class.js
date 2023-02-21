@@ -56,12 +56,16 @@ class Class extends React.Component {
         if (window.innerWidth <= 600) {
             console.log('small screen')
             d3.selectAll(".class-button-wrapper")
-             .style("transform", "scale(0.5) translate( -50%, -50% )")
+             .style("transform", "scale(0.6) translate( -40%, -40% )")
              .style("width", "4em")
              .style("height", "4.5em")
             d3.select("#classSelectors")
             .style("height", "fit-content")
         }
+        window.scroll({
+            top: 0,
+            behavior: "smooth"
+        })
     }
 
     selectClass(value) {
@@ -75,6 +79,7 @@ class Class extends React.Component {
             .style("box-shadow", "0 0 6px "+colorWheel.green)
             .style("box-shadow", "inset 0 0 4px "+colorWheel.green)
             .style("overflow", "show")
+
         d3.select("#level-section")
             .style("visibility", "visible")
             .transition()
@@ -88,7 +93,17 @@ class Class extends React.Component {
         d3.select("#level-input")
             .style("box-shadow", "0 0 7px "+colorWheel.green)
             .style("text-shadow", "0 0 4px "+colorWheel.green)
-    }
+        
+        const scrollDistance = (d3.select("#classSelectors")._groups[0][0].offsetHeight) - 200;
+
+        setTimeout(()=>{
+            window.scroll({
+                top: scrollDistance,
+                behavior: "smooth"
+            })
+        }, 200)
+    
+        }
 
     inputLevel(event) {
         this.setState({level: event.target.value})

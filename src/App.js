@@ -29,7 +29,7 @@ function App() {
   console.log(state, 'i am the state')
 
   const breakpoints = ['classLevel', 'race', 'rolls', 'baseStats', 'alignment', 'skills', 'equipment']
-  const delay1 = 300
+  const delay1 = 100
   const delay2 = 300
 
   useEffect(()=>{
@@ -40,10 +40,10 @@ function App() {
         .style("opacity", 0)
       
         setTimeout(()=>{
-        setProgress([...progress, stateProgress[stateProgress.length - 1]])
-        select("#content")
-          .transition()
-          .style("opacity", 1)
+          setProgress([...progress, stateProgress[stateProgress.length - 1]])
+          select("#content")
+            .transition()
+            .style("opacity", 1)
         }, delay2)
       }, delay1 )
     }

@@ -48,7 +48,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 .submit-button:disabled:hover {
-  transform: scale(0.9);
+  transform: scaleY(0.95);
   border: 2px solid #ffbfab;
   box-shadow: 0 0 6px #ffbfab;
   background-color: #1a1a1a;
@@ -80,15 +80,18 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 
 /*  CLASS   */
 .classSelector {
-  width: 9em;
-  height: 10em;
+  width: min(12vw, 12vh);
+  height: min(14vw, 14vh);
   padding-top: .7em;
   margin: 4px;
   box-shadow: 0 0 5px #BFABFF;
 }
 img {
   z-index: 0;
-  width: 5em;
+  width: min(6vw, 6vh);
+}
+.classSelector h2 {
+  font-size: min(2vw, 2vh);
 }
 
 
@@ -224,8 +227,8 @@ button img, button h2 {
   transition: 1000ms;
 }
 .race-button {
-  transition: 500ms;
-  transition-delay: 200ms;
+  transition: 700ms;
+  transition-delay: 300ms;
   font-size: 1.25em;
   width: 6em;
   padding: 0.25em;
@@ -248,6 +251,25 @@ button img, button h2 {
 }
 
 /*  ABILITY SCORES  */
+
+.prompt-AS-increase button {
+  transition: 100ms;
+  font-size: min(3vw, 3vh);
+  padding: 4px 12px;
+  border-radius: 7px;
+  border: 2px solid whitesmoke;
+  box-shadow: 0 0 6px #abffbf, inset  0 0 6px #abffbf;
+  background-color: #1a1a1a;
+  color: whitesmoke;
+  text-shadow: 0 0 3px #abffbf;
+
+}
+
+.prompt-AS-increase button:hover {
+  transition: 150ms;
+  transform: scale(1.05);
+  background-color: #abffbf7e;
+}
 
 .ability-score-increase {
 }

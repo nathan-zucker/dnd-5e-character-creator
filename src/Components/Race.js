@@ -20,6 +20,7 @@ const defaultState = {
     hidden: false,
     race: '',
     subRace: '',
+    requireSubrace: true,
     abilityScoreIncrease: undefined,
     age: undefined,
     alignment: undefined,
@@ -30,6 +31,7 @@ const defaultState = {
     baseFeatures: undefined,
     features: [],
     finalized: false,
+    submitDisabled: true,
     actions: []
 }
 
@@ -68,15 +70,49 @@ class Race extends React.Component {
         this.bindSounds()
         select("#race-prompt")
             .style("text-shadow", "0 0 6px "+colorWheel.green)
+
+        const scrollHeight = (select(".main")._groups[0][0].offsetTop) + 50;
+
+        setTimeout(()=>{
+            window.scroll({
+                top: scrollHeight,
+                behavior: "smooth"
+            })
+        },0)
     }
 
     componentDidUpdate(){
         if(this.state.hidden === false){
-            console.log("updating")
-            this.bindSounds()
             const allButtons = selectAll(".race-button")._groups[0];
             //console.log("button value: ", allButtons[0].value, ", subrace: ", this.state.subRace)
+            //console.log(this.state.requireSubrace, this.state.subRace)
+            if (this.state.submitDisabled === true) {    
+                if ( this.state.race !== '' && (this.state.requireSubrace === false || this.state.subRace !== '' ) ) {
+                    this.setState({submitDisabled: false})
+
+                    let a = window.innerHeight;
+                    let b = select("#race-container")._groups[0][0].offsetHeight;
+                    let c = select(".main")._groups[0][0].offsetHeight;
+                    let d = c - b;
+
+                    const scrollTop = c - a - ( 0.5 * d );
+
+                    console.log(select(".main")._groups[0][0].offsetHeight)
+                    setTimeout(()=>{
+                        window.scroll({
+                            top: scrollTop,
+                            behavior: "smooth"
+                        })
+                    },150)
+                }
+            }
+
             for (let i=0; i<allButtons.length; i++) {
+                if (this.state.subRace === ''){
+                    selectAll(".subRace")
+                        .style("border", "2px solid "+colorWheel.purple)
+                        .style("box-shadow", "0 0 6px "+colorWheel.purple)
+                }
                 if ( this.state.race === allButtons[i].value || this.state.subRace === allButtons[i].value ) {
                     select(allButtons[i])
                         .style("box-shadow", "none")
@@ -85,8 +121,7 @@ class Race extends React.Component {
                 } else {
                     select(allButtons[i])
                         .style("box-shadow", "none")
-                        .style("border", "2px solid "+colorWheel.purple)
-                        .style("box-shadow", "0 0 6px "+colorWheel.purple)
+                        .style("border", "2px solid "+colorWheel.orange)
                 }
             }
         
@@ -113,9 +148,9 @@ class Race extends React.Component {
 
     Dwarf() {
         this.setState(defaultState);
-        this.setState((state)=>{
-            return {
+        this.setState({
                 race: 'Dwarf',
+                requireSubrace: true,
                 abilityScoreIncrease: [0,0,2,0,0,0],
                 age: 50,
                 alignment: ['Lawful', 'Good'],
@@ -125,8 +160,7 @@ class Race extends React.Component {
                 darkVision: true,
                 baseFeatures: ['Dwarven Resilience', 'Dwarven Combat Training', 'Tool Proficiency', 'Stonecunning']
             }
-            
-        })
+        )
     }
 
     HillDwarf() {
@@ -173,6 +207,7 @@ class Race extends React.Component {
         this.setState((state)=>{
             return{
                 race: 'Elf',
+                requireSubrace: true,
                 age: 100,
                 alignment: ['chaotic', 'good'],
                 size: 'Medium',
@@ -249,6 +284,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Halfling',
+            requireSubrace: true,
             abilityScoreIncrease: [0,2,0,0,0,0],
             alignment: ['lawful', 'good'],
             size: 'Small',
@@ -282,6 +318,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Human',
+            requireSubrace: false,
             abilityScoreIncrease: [1,1,1,1,1,1],
             age: 18,
             size: 'Medium',
@@ -333,6 +370,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Dragonborn',
+            requireSubrace: true,
             abilityScoreIncrease: [2,0,0,0,0,1],
             age: 15,
             size: 30,
@@ -345,6 +383,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Gnome',
+            requireSubrace: true,
             abilityScoreIncrease: [0,0,0,2,0,0],
             age: 40,
             size: 'Small',
@@ -384,6 +423,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Half Elf',
+            requireSubrace: false,
             abilityScoreIncrease: [0,0,0,0,0,2],
             size: 'Medium',
             speed: 30,
@@ -412,6 +452,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Half Orc',
+            requireSubrace: true,
             abilityScoreIncrease: [2,0,1,0,0,0],
             size: 'Medium',
             speed: 30,
@@ -431,6 +472,7 @@ class Race extends React.Component {
         this.setState(defaultState);
         this.setState({
             race: 'Tiefling',
+            requireSubrace: false,
             abilityScoreIncrease: [0,0,0,1,0,2],
             size: 'Medium',
             speed: 30,
@@ -567,7 +609,7 @@ class Race extends React.Component {
                     <div>
                         <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
                         <button id="race-reset-button" className="reset-button" onClick={this.handleReset}>RESET</button>
-                        <button id="race-submit-button" className="submit-button" onClick={this.handleSubmit}>SUBMIT</button>
+                        <button id="race-submit-button" className="submit-button" disabled={this.state.submitDisabled} onClick={this.handleSubmit}>SUBMIT</button>
                     </div>
                     
                 </div>
