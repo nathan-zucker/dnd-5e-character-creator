@@ -95,7 +95,7 @@ class Race extends React.Component {
                     let c = select(".main")._groups[0][0].offsetHeight;
                     let d = c - b;
 
-                    const scrollTop = c - a - ( 0.5 * d );
+                    const scrollTop = c - a - d + 300;
 
                     console.log(select(".main")._groups[0][0].offsetHeight)
                     setTimeout(()=>{
@@ -104,6 +104,7 @@ class Race extends React.Component {
                             behavior: "smooth"
                         })
                     },150)
+                    
                 }
             }
 

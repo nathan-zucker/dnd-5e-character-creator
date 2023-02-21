@@ -176,88 +176,66 @@ class Class extends React.Component {
                 
                 <div id="class-button-container" >
                     
-                    <div className="class-button-wrapper p-ripple">
                         <button id="barbarian" className='classSelector' value='barbarian' onClick={()=>this.selectClass(barbarian)} >
                             <img src={barbarianImg} alt='' />
                             <h2>Barbarian</h2>
                         </button>
-                    </div>
+                    
                 
-                    <div className="class-button-wrapper">
                         <button id="bard" className='classSelector' value='bard' onClick={()=>this.selectClass(bard)} >
                             <img src={bardImg} alt='' />
                             <h2>Bard</h2>
                         </button>
-                    </div>
-                    <div className="class-button-wrapper">
+                    
                         <button id="cleric" className='classSelector' value='cleric' onClick={()=>this.selectClass(cleric)} >
                             <img src={clericImg} alt='' />
                             <h2>Cleric</h2>
                         </button>
-                    </div>
     
-                    <div className="class-button-wrapper">
                         <button id="druid" className='classSelector' value='druid' onClick={()=>this.selectClass(druid)} >
                             <img src={druidImg} alt='' />
                             <h2>Druid</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="fighter" className='classSelector' value='fighter' onClick={()=>this.selectClass(fighter)} >
                             <img src={fighterImg} alt='' />
                             <h2>Fighter</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="monk" className='classSelector' value='monk' onClick={()=>this.selectClass(monk)} >
                             <img src={monkImg} alt='' />
                             <h2>Monk</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="paladin" className='classSelector' value='paladin' onClick={()=>this.selectClass(paladin)} >
                             <img src={paladinImg} alt='' />
                             <h2>Paladin</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="ranger" className='classSelector' value='ranger' onClick={()=>this.selectClass(ranger)} >
                             <img src={rangerImg} alt='' />
                             <h2>Ranger</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="rogue" className='classSelector' value='rogue' onClick={()=>this.selectClass(rogue)} >
                             <img src={rogueImg} alt='' />
                             <h2>Rogue</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="sorcerer" className='classSelector' value='sorcerer' onClick={()=>this.selectClass(sorcerer)} >
                             <img src={sorcererImg} alt='' />
                             <h2>Sorcerer</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="warlock" className='classSelector' value='warlock' onClick={()=>this.selectClass(warlock)} >
                             <img src={warlockImg} alt='' />
                             <h2>Warlock</h2>
                         </button>
-                    </div>
                     
-                    <div className="class-button-wrapper">
                         <button id="wizard" className='classSelector' value='wizard' onClick={()=>this.selectClass(wizard)} >
                             <img src={wizardImg} alt='' />
                             <h2>Wizard</h2>
                         </button>
-                    </div>
                 
                 </div>
                 <div id="level-section">

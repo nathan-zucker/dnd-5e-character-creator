@@ -1,19 +1,18 @@
 
 import './Header.css'
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 
 const Header = () => {
+
+    const [scaleX, setScaleX] = useState(1)
+    const [scaleY, setScaleY] = useState(0.2)
+    
   useEffect(()=>{
       const canvas = document.getElementById('canvas1');
       const ctx = canvas.getContext('2d');
       canvas.width = window.innerWidth;
       canvas.height = window.innerHeight;
-      const scaleX = 1;
-      const scaleY = .2;
-  
       
-      
-  
       class Particle {
           constructor(effect, x, y, color){
               this.effect = effect;

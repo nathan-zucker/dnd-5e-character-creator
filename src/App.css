@@ -8,6 +8,9 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
     green: "#abffbf",
 */
 
+#header-container {
+  overflow: cover;
+}
 
 .input-card {
   text-align: center;
@@ -55,11 +58,12 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 #canvas1 {
+  border: 1px solid whitesmoke;
+  box-shadow: 0 0 10px #00ffff;
   border-radius: 2rem / 06rem;
   max-width: 95vw;
   max-height: 17vh;
-  background-color: rgba(23, 172, 177, 0.651);
-  box-shadow: 1px 2px 3px black;
+  background-color: #00ffff81;
 }
 .main {
   position: absolute;
@@ -71,7 +75,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   padding-bottom: 15em;
   border: 2px solid gray;
   border-radius: 1rem;
-  box-shadow: 1px 1px 4px black;
+  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
   min-height: 70vh;
   height: fit-content;
   width: 90vw;
@@ -79,19 +83,26 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 /*  CLASS   */
+
 .classSelector {
-  width: min(12vw, 12vh);
-  height: min(14vw, 14vh);
+  width: min( max(12vw, 12vh), 120px );
+  height: min( max(14vw, 14vh), 140px );
   padding-top: .7em;
   margin: 4px;
   box-shadow: 0 0 5px #BFABFF;
+  border: 1px solid whitesmoke;
+  border-radius: 3px;
+  background-color: whitesmoke;
+  color: #1a1a1a;
 }
 img {
   z-index: 0;
-  width: min(6vw, 6vh);
+  width: max(6vw, 6vh);
+  max-width: 60px;
 }
 .classSelector h2 {
-  font-size: min(2vw, 2vh);
+  font-size: min( max(1.7vw, 1.7vh), 22px );
+
 }
 
 
@@ -113,10 +124,12 @@ button img, button h2 {
 }
 
 #class-button-container {
+  width: fit-content;
   max-width: 550px;
   display: flex;
   margin: auto;
   justify-content: center;
+  align-items: center;
   flex-wrap: wrap;
 }
 #level-section {
