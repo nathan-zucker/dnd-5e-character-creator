@@ -4,6 +4,9 @@ import Header from './Header.jsx';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { select } from 'd3';
+import "primereact/resources/themes/lara-light-indigo/theme.css"; 
+import "primereact/resources/primereact.min.css";
+import "primeicons/primeicons.css";
 
 
 import  BaseStats  from './Components/BaseStats'
@@ -17,6 +20,7 @@ import Background from './Background';
 import Skills from './Skills';
 import Equipment from './Equipment';
 import CalculateFinalScores from './Components/CalculateFinalScores';
+import ProgressBar from './ProgressBar';
 
 
 function App() {
@@ -53,6 +57,9 @@ function App() {
       <div className="App">
         <div className="canvas">
           <Header />
+        </div>
+        <div className='progress-bar'>
+          <ProgressBar />
         </div>
         <div className='main'>
           <div id="content">

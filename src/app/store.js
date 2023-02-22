@@ -67,10 +67,15 @@ const raceReducer = (state = [], action) => {
     }
 }
 
-const classLevelReducer = (state = [[undefined]], action) => {
+const classLevelReducer = (state = [["none", 0], ""], action) => {
+    let newState = [...state];
     switch(action.type) {
-        case 'classLevel': return [action.payload]; 
-        case 'subClass': return state.push(action.payload)
+        case 'classLevel':
+            newState[0] = action.payload;
+            return newState; 
+        case 'subClass':
+            newState[1] = action.payload;
+        return newState;
         default: return state;
     }
 }

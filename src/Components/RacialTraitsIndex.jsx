@@ -100,6 +100,8 @@ class RacialTraitsIndex extends React.Component {
     }
 
     handleContinue = (e) => {
+        // DISPATCH SUBCLASS SELECTION
+        this.props.sendPackage("subClass", this.state.subClass)
         this.dispatchInfo()
         this.setState({inputNeeded: -1})
         this.props.sendPackage('submitSubClass')
