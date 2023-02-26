@@ -500,7 +500,7 @@ class Race extends React.Component {
         this.props.dispatch('addFeatureArray', this.state.features)
         this.props.dispatch("race", this.state.race)
         this.props.dispatch("subRace", this.state.subRace)
-
+        //this.props.dispatch("statBonus", this.state.abilityScoreIncrease)
         this.props.updateProgress()
     }
 

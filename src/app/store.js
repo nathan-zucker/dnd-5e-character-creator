@@ -25,27 +25,33 @@ const randomNumberReducer = (state = 0, action) => {
     }
 }
 
-const baseStatReducer = (state = {count: 0, picks: 0, stats: [5,5,5,5,5,5], modifiers: [ [0,0,0,0,0,0], ['','','','','',''] ]}, action) => {
+const baseStatReducer = (state = {count: 0, picks: 0,  stats: [0,0,0,0,0,0], modifiers: [ [0,0,0,0,0,0], ['','','','','',''] ]}, action) => {
     switch(action.type){
+        case "setRolls": return Object.assign({}, state, {
+            rolls: action.payload
+        })
+        case "RacialBonuses": return Object.assign({}, state, {
+            stats: action.abilityScoreIncrease,
+        })
         case 'selectStat':
-            let newStats = [...state.stats];
-            newStats[action.payload.index] = action.payload.value
-            return  Object.assign({}, state, {
-                stats: newStats,
-                count: state.count + 1
-            });
+            let newState = [...state];
+            newState.stats[newState.count] += action.payload;
+            newState.count += 1;
+            return newState;
         case 'addAbilityScorePick': return Object.assign({}, state, {
             picks: state.picks + action.payload
-        });
-        case 'ASmodifiers': return Object.assign({}, state, {
-            modifiers: action.payload
         });
         case 'ASIpick': return Object.assign({}, state, {
             picks: action.payload
         })
+        case 'ASmodifiers': return Object.assign({}, state, {
+            modifiers: action.payload
+        });
+
         case "setStats": return Object.assign({}, state, {
             stats: action.payload
         })
+
         default: return state;
     }
 }

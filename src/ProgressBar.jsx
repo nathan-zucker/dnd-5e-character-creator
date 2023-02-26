@@ -3,8 +3,12 @@ import { useSelector } from "react-redux";
 import { select, selectAll } from "d3";
 
 
-
 function ProgressBar() {
+    const AS = useSelector((state)=>state.baseStats.stats)
+    AS.sort((a, b)=>b-a)
+    //console.error(AS)
+
+
     const progress = useSelector((state)=>state.progress)
     const [ blocks, setBlocks ] = useState(<div>no progress yet</div>)
     const [ blocksList, setBlocksList ] = useState([])
@@ -24,25 +28,18 @@ function ProgressBar() {
         
         if (breakpoints.includes(progress[progress.length - 1]) && !blocksList.includes(progress[progress.length - 1])) {
             setBlocksList([...blocksList, progress[progress.length - 1]])
-            console.log("progress is happening", progress[progress.length - 1], [...blocksList, progress[progress.length - 1]])
         }
     },[progress])
 
-    useEffect(()=>{
-        getBlocks()
-    },[blocksList, progress])
-
 
     function getBlocks() {
-        console.log(blocksList)
         const newBlocks = blocksList.map((e,i)=>{
             let data = blocksData[i];
-            console.log(data)
             return (
                 
                 <div className="progress-block" key={i} >
                     <h3>{data[1]} {data[0]}</h3>
-                    <div className="progress-tooltip">
+                    <div className="progress-tooltip" >
                         <h4>{data[2][0]}</h4>
                         <p>{data[2][1]}</p>
                     </div>
@@ -54,25 +51,35 @@ function ProgressBar() {
         setBlocks(newBlocks)
     }
 
+    useEffect(()=>{
+        getBlocks()
+    },[blocksList, progress])
+
     function showTooltip(e) {
         select(e.srcElement).select(".progress-tooltip")
+            .attr("visible", true)
             .transition()
             .style("opacity", 1)
     }
 
     function hideTooltip(e) {
         selectAll(".progress-tooltip")
+            .attr("visible", false)
             .transition()
             .style("opacity", 0)
+    }
+    function toggleTooltip(e) {
+        //console.log(e)
     }
 
     useEffect(()=>{
         selectAll(".progress-block")
         .on("mouseover", e => showTooltip(e) )
         .on("mouseout", e => hideTooltip(e) )
+        .on("click", e => toggleTooltip(e) )
     },[blocks])
 
-    console.log(blocks, blocksData)
+    //console.log(blocks, blocksData)
 
     return (
         <div id="progress-bar">     

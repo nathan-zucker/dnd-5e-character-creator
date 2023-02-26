@@ -110,6 +110,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 .progress-tooltip {
+  pointer-events: none;
   border: 1px solid orangered;
   background-color: gray;
   position: absolute;

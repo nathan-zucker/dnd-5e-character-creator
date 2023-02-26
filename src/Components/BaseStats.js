@@ -8,6 +8,7 @@ import dieShuffle from './sounds/dieShuffle2.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
 import AbilityScordIncrease from "./AbilityScoreIncrease";
+import AbilityScores from "./AbilityScores";
 import { select, selectAll } from "d3";
 
 const colorWheel = {
@@ -58,12 +59,18 @@ class BaseStats extends React.Component {
     if(this.state.hidden === false && this.props.count < 6){
       this.bindSounds()
     }
+    if (this.state.rollsAccepted === true && !this.props.progress.includes("rolls")) {
+      this.props.updateProgress("rolls");
+    }
     if (this.state.Rolls.length === 6) {
       select("#rollDice")
       .style("border", "2px solid "+colorWheel.orange)
       .style("box-shadow", "none")
       .attr("class", "reset-button")
 
+    }
+    if (this.state.Rolls.length == 6 && this.state.submitDisabled === true) {
+      this.setState({submitDisabled: false})
     }
   }
 
@@ -165,10 +172,11 @@ class BaseStats extends React.Component {
   }
 
   acceptRolls() {
-    this.setState({ rollsAccepted: true });
+    
+    this.setState({ rollsAccepted: true});
     //this.props.dispatch("ASmodifiers", mods)
-    this.props.dispatch("updateProgress", "rolls")
     setTimeout(()=>{
+      //this.props.updateProgress("rolls")
       this.setState({hidden: true})
       
       const scrollHeight2 = 0.19 * window.innerHeight;
@@ -183,18 +191,14 @@ class BaseStats extends React.Component {
 
   render() {
 
-    const rolls = this.state.Rolls.sort((a, b) => b - a );
-    console.log(rolls, this.state.Rolls)
+    const rolls = [...this.state.Rolls];
+    //console.log(rolls, this.state.Rolls)
     const rawRolls = rolls.map((i, key) => <li key={key}>{i}</li>);
     const input = this.state.input;
     const rollsAccepted = this.state.rollsAccepted;
-    const rollCards = rolls.map((e, i) => (
+    const rollCards = rolls.sort((a, b) => b - a ).map((e, i) => (
       <RollCard value={e} key={i} index={i} />
     ));
-
-    if (rolls.length == 6 && this.state.submitDisabled === true) {
-      this.setState({submitDisabled: false})
-    }
     
     
     if (this.props.count === 6 && this.props.progress.includes("baseStats")) {
@@ -259,8 +263,8 @@ const mapStateToProps = (state) => {
   return {
     details: state.raceDetails,
     stats: state.baseStats,
-    progress: state.progress,
-    count: state.baseStats.count
+    count: state.baseStats.count,
+    progress: state.progress
   };
 };
 
@@ -269,7 +273,7 @@ const mapDispatchToProps = (dispatch) => {
     submitStats: () => {
       dispatch({ type: "submitBaseStats" });
     },
-    dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
+    updateProgress: (string) => dispatch( { type: 'updateProgress', payload: string } )
   };
 };
 

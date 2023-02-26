@@ -1,61 +1,39 @@
-import React from "react";
-import { connect } from "react-redux";
+import React, { useState, useEffect } from "react";
+import { connect, useSelector, useDispatch } from "react-redux";
 //import './RollCard.css';
 import audio from './sounds/cardSelect.mp3'
 import { select } from "d3";
 
 
-class RollCard extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            number: props.value,
-            index: props.index,
-            visible: true
-        }
+
+function RollCard(props) {
+    const number = props.value
+    const index = props.index
+    //const bonuses = useSelector((state)=>state.raceDetails.abilityScoreIncrease)
+    const [visible, setVisibility] = useState(true)
+    const dispatch = useDispatch()
+
+    function handleClick() {
+
+        dispatch({ type: "selectStat", payload: { value: number, index: index } })
+        console.error(select(`#roll-card-${index}`))
+        select(`#roll-card-${index}`)
+            .style("pointer-events", "none")
+            .transition()
+            .style("opacity", 0)
+        setTimeout(()=>{ setVisibility(false) },0)
     }
 
-    handleClick = (number) => {
-        //document.getElementById('audio').play();
-        // INCLUDES RACE BONUSES
-        const index = this.props.count;
-        const bonus = this.props.raceBonuses[index];
-        const value = number + bonus
+    if (visible) {
+        return (
+            <div className='rollCard' id={`roll-card-${index}`} onClick={()=>handleClick()}>
+                <h2 className='number'>{number}</h2>
+            </div>
+        )
+    } else {
+        return null;
+    }
 
-        console.log("stat", value, index)
-        this.props.selectStat(value, index);
-        this.setState({visible: false});
-        if (index === 6){
-            console.log("last card")
-        }
-    }
-    
-    render() {
-        const number = this.state.number;
-        if (this.state.visible === true) {
-            return(
-                <button className='rollCard' onClick={()=>this.handleClick(number)}>
-                    <h2 className='number'>{number}</h2>
-                    <audio id="audio" src={audio} preload="auto"></audio>
-                </button>
-            );
-        } else {
-            return;
-        }
-        
-    }
-}
-const mapStateToProps = (state) => {
-    return {
-        count: state.baseStats.count,
-        raceBonuses: state.raceDetails.abilityScoreIncrease,
-    }
 }
 
-const mapDispatchToProps = (dispatch) => {
-    return {
-        selectStat: (e, i) => { dispatch({type: 'selectStat', payload: {value: e, index: i}}) }
-    }
-}
-
-export default connect(mapStateToProps, mapDispatchToProps)(RollCard)
+export default RollCard

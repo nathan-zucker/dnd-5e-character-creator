@@ -9,7 +9,7 @@ class BaseStatList extends React.Component {
         super(props);
         this.state = {
             rolls: [...props.rolls],
-            baseStats: this.props.stats,
+            baseStats: [...this.props.stats],
             hidden: false,
             count: 6
         }
@@ -30,7 +30,7 @@ class BaseStatList extends React.Component {
     }
 
     getModifiers = () => {
-        const stats = this.props.stats;
+        const stats = [...this.props.stats];
        
         const modifiers = stats.map(e=>Math.floor((e-10)/2));
        
@@ -57,7 +57,6 @@ class BaseStatList extends React.Component {
         if (this.state.hidden === false) {
             return(
                 <div id="prompt-stat">
-                    <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
                     {this.props.count < 6 ? <h1>Choose your <span className="highlight">{this.nextStat()}</span> score!</h1> : null}
     
                     {this.props.count === 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?

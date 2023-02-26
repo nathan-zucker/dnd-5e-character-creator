@@ -21,12 +21,13 @@ import Skills from './Skills';
 import Equipment from './Equipment';
 import CalculateFinalScores from './Components/CalculateFinalScores';
 import ProgressBar from './ProgressBar';
+import AbilityScores from './Components/AbilityScores';
 
 
 function App() {
 
-  const stateProgress = useSelector((state)=>state.progress)
-  const [progress, setProgress] = useState('')
+  const progress = useSelector((state)=>state.progress)
+  const [progressBar, setProgressBar] = useState('')
 
   const state = useSelector((state)=>state);
 
@@ -36,22 +37,25 @@ function App() {
   const delay1 = 100
   const delay2 = 300
 
+  /*
   useEffect(()=>{
-    if ( breakpoints.includes(stateProgress[stateProgress.length - 1]) ) {  
+    if ( breakpoints.includes(progress[progress.length - 1]) ) {  
       setTimeout(()=>{  
         select("#content")
         .transition()
         .style("opacity", 0)
       
         setTimeout(()=>{
-          setProgress([...progress, stateProgress[stateProgress.length - 1]])
+          setProgressBar([...progressBar, progress[progress.length - 1]])
           select("#content")
             .transition()
             .style("opacity", 1)
         }, delay2)
       }, delay1 )
     }
-  },[stateProgress])
+  },[progress])
+*/
+  useEffect(()=>{console.log(progress)},[progress])
 
   return (
       <div className="App">
@@ -68,11 +72,11 @@ function App() {
             { !progress.includes('classLevel') ? <DisplayClass /> : null }
             
             { progress.includes('classLevel') && !progress.includes('race') ? <Race /> : null }
-            { progress.includes('classLevel') ? <DisplayRace /> : null }
             
-            { progress.includes('race') ? <BaseStats /> : null }
+            { progress.includes('race') ? <AbilityScores /> : null }
+            
 
-            { progress.includes('rolls') ? <DisplayBaseStats /> : null }
+            {/* progress.includes('rolls') ? <DisplayBaseStats /> : null */}
             
             { progress.includes('baseStats') ? <RacialTraitsIndex /> : null }
             { progress.includes('baseStats') ? <Background /> : null }
