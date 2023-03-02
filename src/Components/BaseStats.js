@@ -63,7 +63,9 @@ class BaseStats extends React.Component {
       .style("border", "2px solid "+colorWheel.orange)
       .style("box-shadow", "none")
       .attr("class", "reset-button")
-
+    }
+    if (this.state.Rolls.length == 6 && this.state.submitDisabled === true) {
+      this.setState({submitDisabled: false})
     }
   }
 
@@ -179,22 +181,17 @@ class BaseStats extends React.Component {
     }, 400)
   }
 
+  getRollCards = () => {
+    return this.state.Rolls.sort((a, b) => b - a ).map((e, i) => (
+      <RollCard value={e} key={i} index={i} />
+    ))
+  }
   
 
   render() {
 
-    const rolls = this.state.Rolls.sort((a, b) => b - a );
-    console.log(rolls, this.state.Rolls)
-    const rawRolls = rolls.map((i, key) => <li key={key}>{i}</li>);
     const input = this.state.input;
     const rollsAccepted = this.state.rollsAccepted;
-    const rollCards = rolls.map((e, i) => (
-      <RollCard value={e} key={i} index={i} />
-    ));
-
-    if (rolls.length == 6 && this.state.submitDisabled === true) {
-      this.setState({submitDisabled: false})
-    }
     
     
     if (this.props.count === 6 && this.props.progress.includes("baseStats")) {
@@ -205,8 +202,8 @@ class BaseStats extends React.Component {
     if(this.state.hidden === true){
       return (
         <div id="base-stats-submitted">
-          <div id="rollCardContainer">{rollCards}</div>
-          <BaseStatList rolls={rolls} stats={this.state.stats}/>
+          <div id="rollCardContainer">{this.getRollCards()}</div>
+          <BaseStatList rolls={this.state.Rolls} stats={this.state.stats}/>
         </div>
       )
     } 
@@ -241,7 +238,6 @@ class BaseStats extends React.Component {
               SUBMIT
             </button>
           ) : null}
-          {rollsAccepted === false ? <ul>{rawRolls}</ul> : null}
           <br/>
           <button id="resetButton" className="reset-button" onClick={this.resetRolls}>RESET</button>
           <button id="submitButton" className="submit-button" disabled={this.state.submitDisabled} onClick={this.acceptRolls}>ACCEPT</button>

@@ -68,7 +68,7 @@ function App() {
             { !progress.includes('classLevel') ? <DisplayClass /> : null }
             
             { progress.includes('classLevel') && !progress.includes('race') ? <Race /> : null }
-            { progress.includes('classLevel') ? <DisplayRace /> : null }
+            {/* progress.includes('classLevel') ? <DisplayRace /> : null */}
             
             { progress.includes('race') ? <BaseStats /> : null }
 

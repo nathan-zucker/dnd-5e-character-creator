@@ -289,7 +289,7 @@ button img, button h2 {
   box-shadow: 0 0 6px #BFABFF;
 }
 .race-button:hover {
-  transition: 100ms;
+  transition: 50ms;
   box-shadow: none;
   border: 2px solid #ebffab;
   box-shadow: 0 0 7px #ebffab;
