@@ -1,4 +1,5 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import RollCard from "./RollCard";
 import BaseStatList from "./BaseStatList";
 import { connect } from "react-redux";
@@ -15,6 +16,230 @@ const colorWheel = {
   yellow: "#ebffab",
   orange: "#ffbfab",
   green: "#abffbf",
+}
+
+
+function GetRolls() {
+
+  const dispatch = useDispatch()
+  
+  const [ input, setInput ] = useState("")
+  const [ rollDisabled, disableRoll ] = useState(false)
+  const [ inputDisabled, disableInput ] = useState(false)
+  const [ submitDisabled, disableSubmit ] = useState(false)
+  const [ preRoll, setPreRoll ] = useState([])
+  const [ rolls, setRolls ] = useState([])
+  const [ rollCount, setRollCount ] = useState(0)
+
+
+  const stats = useSelector((state)=>state.baseStats);
+
+
+  const standardArray = [15, 14, 13, 12, 10, 8];
+  
+  function handleInput(e) {
+      setInput(e.target.value)
+  }
+
+  function getRandomDieNumber() {
+      const min = 1;
+      const max = 6;
+      return Math.floor(Math.random() * (max - min + 1)) + min;
+  }
+
+  function roll() {
+      if ( rolls.length < 6 && rollCount < 6 ) {
+          setRollCount( rollCount + 1 )
+          const newPreRoll = [
+              getRandomDieNumber(),
+              getRandomDieNumber(),
+              getRandomDieNumber(),
+              getRandomDieNumber()
+          ]
+          setPreRoll(newPreRoll)
+          const best3 = [...newPreRoll]
+              .sort((a, b)=> b - a)
+              .slice(0, 3)
+              .reduce((a, b) => a + b, 0)
+          setTimeout(() =>{
+              enterRoll(best3)
+          }, 1600 )
+      }
+  }
+
+  function enterRoll(diceRoll) {
+      console.log("entering roll", diceRoll)
+      if ( rolls.length >= 6 ) { 
+          console.log("too many rolls")
+          return
+      }
+      if ( diceRoll > 0 ) {
+          console.log("got dice roll")
+          setRolls([...rolls, diceRoll])
+          return;
+      }
+      else if ( input === "" ) { console.log("input undefined"); return }
+          setRolls([...rolls, parseInt(input)])
+          setInput('')
+          return;
+  }
+
+  function resetRolls() {
+      setRolls([])
+      setRollCount(0)
+      setPreRoll([])
+      disableRoll(false)
+      disableInput(false)
+      disableSubmit(true)
+  }
+  
+  useEffect(()=>{
+      if ( rolls.length === 6 && submitDisabled ) {
+          disableSubmit(false)
+          disableRoll(true)
+          disableInput(true)
+      }
+  },[rolls, submitDisabled])
+  
+
+  function dispatchRolls() {
+      console.log(rolls)
+      dispatch({ type: "setRolls", payload: rolls })
+  }
+  
+
+  return (
+      <div id="enter-rolls">
+
+          <div id="dice-container">
+              <Dice numbers={preRoll} id="dice" />
+          </div>
+
+          <div id="enter-rolls-display" className="input-card">
+              <h2>Ability Scores</h2>
+              <h3>Let's Roll!</h3>
+              <button id="rollDice" className="submit-button" onClick={()=>roll()} disabled={rollDisabled} >ROLL DICE!</button>
+              <br/>
+              <h3>...or input your own rolls</h3>
+              <input type="number" onChange={(e)=>handleInput(e)} value={input} ></input>
+              <button id="submitScore" onClick={()=>enterRoll()} disabled={inputDisabled} >ENTER</button>
+              <h3>{rolls.join(', ')}</h3>
+              <button id="resetButton" className="reset-button" onClick={()=>resetRolls()} >RESET</button>
+              <button id="submitButton" className="submit-button" disabled={submitDisabled} onClick={()=>dispatchRolls()} >SUBMIT</button>
+              <br/>
+              <button id="standard-array" onClick={()=>setRolls(standardArray)} >Standard Array</button>
+          </div>
+
+      </div>
+  )
+}
+
+
+function ScoreCard(props) {
+  
+  const number = props.value
+  const key = props.index
+
+  const count = useSelector((state)=>state.baseStats.count)
+  const bonuses = useSelector((state)=>state.raceDetails.abilityScoreIncrease)
+
+
+  const [visible, setVisibility] = useState(true)
+  const dispatch = useDispatch()
+
+  function handleClick(e) {
+    if (bonuses[count] > 0) {
+
+      //console.log("bonus", bonuses[count], select(`#ability-scores-container`))
+      select('#score-cards-container').append("div")
+        .attr("class", "AS-bonus")
+        .text(`+${bonuses[count]}`)
+        .style("top", `${e.pageY-30}px`)
+        .style("left", `${e.pageX-25}px`)
+        .transition()
+        .style("opacity", 0)
+        .style("top", `${e.pageY-175}px`)
+
+      
+    }
+      dispatch({ type: "selectStat", payload: {value: (number + bonuses[count]), index: count} })
+      select(`#roll-card-${key}`)
+          .style("pointer-events", "none")
+          .transition()
+          .style("opacity", 0)
+      
+
+      setTimeout(()=>{ setVisibility(false) },200)
+  }
+
+  if (visible) {
+      return (
+          <div className='rollCard' id={`roll-card-${key}`} onClick={(e)=>handleClick(e)}>
+              <h2 className='number'>{number}</h2>
+              <div className="bonus-indicator"></div>
+          </div>
+      )
+  } else {
+      return null;
+  }
+
+}
+
+function AbilityScores() {
+
+  const rolls = useSelector((state)=>state.baseStats.rolls)
+  const count = useSelector((state)=>state.baseStats.count)
+  const progress = useSelector((state)=>state.progress)
+
+  const [ prompt, setPrompt ] = useState('');
+  const [ hidden, hide ] = useState(false);
+  const [ scoreCards, setScoreCards ] = useState(<div></div>);
+
+  function getScoreCards() {
+    let newScoreCards = rolls.map( ( e, i ) => <ScoreCard value={e} key={i} index={i} /> );
+    setScoreCards(newScoreCards);
+    return;
+  }
+
+  useEffect(()=>{
+    if (hidden) {
+      getScoreCards()
+    }
+  },[hidden])
+
+  useEffect(()=>{
+    if ( count < 6 ) {
+        const nextPrompt = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'][count];
+        setPrompt(nextPrompt);
+    } 
+    else { return }
+  },[count])
+
+  useEffect(()=>{
+    if (progress.includes('rolls')) {
+      hide(true);
+      return;
+    }
+  },[progress])
+
+
+
+  if (hidden) {
+    return (
+      <div className='ability-scores-container'>
+        <div id='score-cards-container'>
+          {scoreCards}
+        </div>
+        <BaseStatList rolls={rolls} />
+      </div>
+    )
+  }
+
+  return (
+    <div className='ability-scores-container'>
+      <GetRolls />
+    </div>
+  )
 }
 
 class BaseStats extends React.Component {
@@ -268,5 +493,7 @@ const mapDispatchToProps = (dispatch) => {
     dispatch: (type, payload) => { dispatch({type: type, payload: payload}) }
   };
 };
-
+/*
 export default connect(mapStateToProps, mapDispatchToProps)(BaseStats);
+*/
+export default AbilityScores;

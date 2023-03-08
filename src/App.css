@@ -25,6 +25,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 .reset-button {
+  cursor: pointer;
   margin: 0.5em;
   transition: 200ms;
   background-color: #1a1a1a;
@@ -40,6 +41,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   box-shadow: 0 0 6px #ffbfab;
 }
 .submit-button {
+  cursor: pointer;
   margin: 0.5em;
   transition: 150ms;
   background-color: #1a1a1a;
@@ -48,14 +50,32 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   border: 3px solid whitesmoke;
   padding: 0.25em;
   border-radius: 0.35em;
+  box-shadow: 0 0 6px #abffbf, inset 0 0 6px #abffbf;
+  text-shadow: 0 0 3px #abffbf;
+}
+
+.submit-button:hover {
+  transition: 125ms;
+  transform: scale(1.05);
+  background-color: #abffbf50;
+}
+
+.submit-button:disabled {
+  box-shadow: 0 0 6px #ffbfab;
+  text-shadow: none;
+  color: gray;
+  border-color: gray;
 }
 
 .submit-button:disabled:hover {
-  transform: scaleY(0.95);
-  border: 2px solid #ffbfab;
+  transition: 100ms;
+  transform: scaleY(0.9);
+  padding-top: calc(0.25em*1.05);
+  padding-bottom: calc(0.25em*1.05);
   box-shadow: 0 0 6px #ffbfab;
   background-color: #1a1a1a;
 }
+
 
 #canvas1 {
   border: 1px solid whitesmoke;
@@ -110,12 +130,11 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 }
 
 .progress-tooltip {
-  border: 1px solid orangered;
-  background-color: gray;
   position: absolute;
   z-index: 1;
   opacity: 0;
   transition: 150ms;
+  pointer-events: none;
 }
 
 /*  CLASS   */
@@ -251,7 +270,7 @@ button img, button h2 {
   padding: 0.25em;
   border-radius: 0.35em;
 }
-#continue-button-classlevel:hover, .submit-button:hover {
+#continue-button-classlevel:hover {
   background-color: #abffbf30;
   transition: 200ms;
   transform: scale(1.1);
@@ -336,32 +355,59 @@ button img, button h2 {
 }
 
 
-#ability-score-container{
+.ability-scores-container{
   height: fit-content;
 }
 
 .rollCard {
+  cursor: pointer;
+  transition-delay: 150ms;
+  transition: 200ms;
+  font-size: 1.5em;
+  text-shadow: 0 0 4px #abffbf;
   width: min(12vw, 6em);
   height: min(12vw, 6em);
   margin: max(2px, 1vw);
   display: inline-flex;
   border: 1px solid whitesmoke;
   border-radius: 1vw;
-  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
+  box-shadow: 0 0 6px #abffbf, inset 0 0 6px #abffbf;
 }
 
 .rollCard h2 {
   margin: auto;
+  pointer-events: none;
 }
 
 .rollCard:hover {
-  box-shadow: 0 0 6px #ebffab, inset 0 0 6px #ebffab;
+  transition: 50ms;
+  border-color: #abffbf;
+  transform: scale(1.05);
+}
+
+.AS-bonus {
+  width: 50px;
+  height: 50px;
+  position: absolute;
+  font-size: 25px;
+  text-align: center;
+  transition-delay: 200ms;
+  transition-duration: 300ms;
+  text-shadow: 0 0 6px #abffbf;
+  color: #abffbf;
 }
 
 #prompt-stat {
   width: 100%;
   text-align: center;
 }
+
+.fancy-AS-display {
+  border: 1px solid hotpink;
+  width: fit-content;
+  height: fit-content;
+}
+
 
 #displayBaseStats {
   width: fit-content;
@@ -386,7 +432,7 @@ button img, button h2 {
   border: 2px solid #abffbf;
   box-shadow: 0 0 3px #abffbf;
 }
-#rollCardContainer {
+#score-cards-container {
   width: fit-content;
   margin: auto;
 }

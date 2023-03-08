@@ -4,11 +4,12 @@ import Header from './Header.jsx';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { select } from 'd3';
-import "primereact/resources/themes/lara-light-indigo/theme.css"; 
+import "primereact/resources/themes/bootstrap4-dark-blue/theme.css"; 
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
 
+import AbilityScores from './Components/BaseStats';
 import  BaseStats  from './Components/BaseStats'
 import  Race  from './Components/Race';
 import { DisplayBaseStats } from './Components/DisplayBaseStats';
@@ -70,7 +71,7 @@ function App() {
             { progress.includes('classLevel') && !progress.includes('race') ? <Race /> : null }
             {/* progress.includes('classLevel') ? <DisplayRace /> : null */}
             
-            { progress.includes('race') ? <BaseStats /> : null }
+            { progress.includes('race') ? <AbilityScores /> : null }
 
             { progress.includes('rolls') ? <DisplayBaseStats /> : null }
             

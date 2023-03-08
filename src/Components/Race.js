@@ -97,7 +97,7 @@ class Race extends React.Component {
 
                     const scrollTop = c - a - d + 300;
 
-                    console.log(select(".main")._groups[0][0].offsetHeight)
+                    //console.log(select(".main")._groups[0][0].offsetHeight)
                     setTimeout(()=>{
                         window.scroll({
                             top: scrollTop,

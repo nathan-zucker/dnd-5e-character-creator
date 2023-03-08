@@ -1,6 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 
+import { Dropdown } from 'primereact/dropdown';
+
 const data = {
     "Acoltye": {
         skillProficiencies: ['Insight (Wis)', "Religion (Int)"],
@@ -101,21 +103,25 @@ class Background extends React.Component {
             hidden: false,
             selection: undefined,
             alignment: 'none',
-            button1disabled: false,
+            selectBackgroundDisabled: false,
+            selectAlignmentDisabled: true,
+            button1disabled: true,
             button2disabled: true,
         }
     }
 
     handleChange = (event) => {
-        this.setState({selection: event.target.value})
+        this.setState({selection: event.target.value, button1disabled: false})
     }
 
     handleSubmit = () => {
         this.props.dispatch('submitBackground')
         //DISABLE BUTTON AFTER INPUT
-        this.setState({button1disabled: true})
-        // ENABLE ALIGNMENT BUTTON
-        this.setState({ button2disabled: false })
+        this.setState({button1disabled: true, selectBackgroundDisabled: true, selectAlignmentDisabled: false})
+        
+        // ENABLE ALIGNMENT SELECTION
+        
+        //this.setState({ button2disabled: false })
 
         //GRAB DATA FROM BACKGROUNDS TABLE
         console.log(data[this.state.selection])
@@ -145,14 +151,14 @@ class Background extends React.Component {
     }
 
     changeAlignment = (event) => {
-        this.setState({alignment: event.target.value})
+        this.setState({alignment: event.target.value, button2disabled: false})
     }
 
     submitAlignment = () => {
         this.props.dispatch('setAlignment', this.state.alignment)
         this.props.dispatch("updateProgress", "alignment")
-        this.setState({button2disabled: true})
-        setTimeout(()=>{ this.setState({ hidden: true }) }, 600)
+        this.setState({button2disabled: true, selectAlignmentDisabled: true})
+        setTimeout(()=>{ this.setState({ hidden: true }) }, 300)
     }
 
     render(){
@@ -170,23 +176,32 @@ class Background extends React.Component {
                 <div id="background-alignment-container" className="input-card">
 
                     <div id="background-container">
-                        <h2>now choose your Background</h2>
-                        <select onChange={this.handleChange} value={this.state.selection}>
-                            <option>(select)</option>
-                            {options}
-                        </select>
-                        <button disabled={this.state.button1disabled} onClick={this.handleSubmit}>submit</button>    
+                        <h2>Background: </h2>
+                        <Dropdown
+                            id='background-select'
+                            className="select-menu"
+                            disabled={this.state.selectBackgroundDisabled}
+                            onChange={this.handleChange}
+                            value={this.state.selection}
+                            options={Object.keys(data)}
+                            placeholder='select'
+                        />
+                        <button id='background-submit' className="submit-button" disabled={this.state.button1disabled} onClick={this.handleSubmit}>submit</button>    
                     </div>
                     
                     <div id="alignment-container">
-                        <h2>choose your Alignment</h2>
-                        <select 
+                        <h2>Alignment: </h2>
+                        <Dropdown
+                            id='alignment-select'
+                            className="select-menu"
+                            disabled={this.state.selectAlignmentDisabled}
                             value={this.state.alignment}
-                            onChange={this.changeAlignment} >
-                            <option>(select)</option>
-                            {alignmentOptions}
-                        </select>
-                        <button 
+                            onChange={this.changeAlignment}
+                            options={alignments}
+                            placeholder='select'
+                        />
+                        <button
+                            className="submit-button"
                             disabled={this.state.button2disabled} 
                             onClick={this.submitAlignment} >
                             submit

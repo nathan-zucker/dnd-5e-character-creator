@@ -25,7 +25,7 @@ class BaseStatList extends React.Component {
     nextStat = () => {
         const statNames = ['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma'];
         const index = this.props.count;
-        console.log(statNames[index]);
+        //console.log(statNames[index]);
         return(statNames[index]);
     }
 
@@ -47,8 +47,8 @@ class BaseStatList extends React.Component {
 
     handleSubmit = () => {
         if (this.props.picks === 0 && this.state.count === 6) {
-            document.getElementById("submitAudio").play()
-            setTimeout(()=>this.props.submitStats(), 500)
+            //document.getElementById("submitAudio").play()
+            setTimeout(()=>this.props.submitStats(), 150)
             this.getModifiers()
         }
     }
@@ -57,7 +57,7 @@ class BaseStatList extends React.Component {
         if (this.state.hidden === false) {
             return(
                 <div id="prompt-stat">
-                    <audio id="submitAudio" src={submitAudio} preload="auto"></audio>
+                    {/*<audio id="submitAudio" src={submitAudio} preload="auto"></audio>*/}
                     {this.props.count < 6 ? <h1>Choose your <span className="highlight">{this.nextStat()}</span> score!</h1> : null}
     
                     {this.props.count === 6 && this.props.picks === 0 && !this.props.progress.includes('baseStats') ?

@@ -5,49 +5,48 @@ import * as d3 from 'd3'
 
 
 const colorWheel = [
+  "gray",
   "#CC0000", "#FF3300", "#FF6600", "#FF9900", "#FFCC33", "#FFFF66",
   "#CCFFFF", "#CCFF99", "#CCFF00", "#66CC00", "#669900", "#9933CC"
 ]
 const pickColor = d3.scaleQuantize()
-  .domain([ 5, 20 ])
+  .domain([ 0, 20 ])
   .range( colorWheel )
-console.log(pickColor(5))
+//console.log(pickColor(5))
 
 
 function FancyAbilityScores() {
 
-  const baseStats = useSelector((state) => state.baseStats)
-    
   const stats = useSelector((state)=>state.baseStats.stats)
-  const mods = useSelector((state)=>state.baseStats.modifiers[1])
+  //const mods = useSelector((state)=>state.baseStats.modifiers[1])
   
   
 
   const statNames = [ "Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma" ]
 
-  const backgroundColor = "#1a1a1a"
-  
   const screenWidth = document.documentElement.clientWidth
-  console.log(screenWidth)
+  //console.log(screenWidth)
+  
   let w;
-
   if (screenWidth <= 900) { w = screenWidth * 0.75 }
   else { w = screenWidth / 3 }
   const h = w;
   const padding = screenWidth * 0.05;
+
   const f = (2 * Math.PI) / 6
   let s;
   if (screenWidth >= 600) {
-    s = 11;
+    s = 8;
   } else {
-    s = 11 * ( screenWidth / 600 );
+    s = 8 * ( screenWidth / 600 );
   }
-  console.log( w , h)
+  
+  const minMagnitude = 5;
 
   useEffect(()=>{
     d3.select("#display").selectAll("svg").remove()
     getCoordinatePairs(stats)
-    console.log("fancy header",stats)
+    //console.log("fancy header",stats)
   },[stats])
 
   function getCoordinatePairs(data){
@@ -55,8 +54,8 @@ function FancyAbilityScores() {
     let points = []
     let lines = []
     for (let i=0; i<numberArr.length; i++) {
-      const newX = ((w + padding * 2) / 2) + ( data[i] * Math.cos(i * f) * s);
-      const newY = ((h + padding * 2) / 2) + ( data[i] * Math.sin(i * f) * s);
+      const newX = ((w + padding * 2) / 2) + ( (data[i] + minMagnitude) * Math.cos(i * f) * s);
+      const newY = ((h + padding * 2) / 2) + ( (data[i] + minMagnitude) * Math.sin(i * f) * s);
       // GET LINE
       if ( i > 0) {
         const lineObj = Object.assign({}, {
@@ -90,7 +89,7 @@ function FancyAbilityScores() {
       lines: lines,
       stats: stats
     }
-    console.log(finalData)
+    //console.log(finalData)
     renderChart(finalData)
   }
 
@@ -107,7 +106,6 @@ function FancyAbilityScores() {
         .html("<h3>"+data.statName+": "+data.value+"</h3>")
     }
     function mousemoveHandler(e){
-        console.log(e.clientX, e.clientY, e)
       d3.select("#tooltip")
         .style("top", (e.pageY - 60) + "px")
         .style("left", (e.pageX - 50) + "px")
@@ -192,7 +190,7 @@ function FancyAbilityScores() {
 
 
   return (
-    <div className="App">
+    <div className="fancy-AS-display">
       <div id="tooltip"></div>
       <div id="display"></div>  
     </div>

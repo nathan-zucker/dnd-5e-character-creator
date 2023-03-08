@@ -54,7 +54,7 @@ class Class extends React.Component {
 
     componentDidMount(){
         if (window.innerWidth <= 600) {
-            console.log('small screen')
+            //console.log('small screen')
             d3.selectAll(".class-button-wrapper")
              .style("transform", "scale(0.6) translate( -40%, -40% )")
              .style("width", "4em")
@@ -69,7 +69,7 @@ class Class extends React.Component {
     }
 
     selectClass(value) {
-        console.log(value.base.class.toLowerCase())
+        //console.log(value.base.class.toLowerCase())
         this.setState(Object.assign(this.state, value))
         d3.selectAll(".classSelector")
             .style("box-shadow", "none")

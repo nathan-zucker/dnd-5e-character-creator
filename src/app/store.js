@@ -3,6 +3,7 @@ import { configureStore } from '@reduxjs/toolkit';
 
 const progressReducer = (state = [], action) => {
     switch(action.type){
+        case 'setRolls': if (!state.includes('rolls')) { return [...state, 'rolls'] } else { break };
         case 'submitBaseStats': return [...state, 'baseStats'];
         case 'submitRace': return [...state, 'race'];
         case 'submitClassLevel': return [...state, 'classLevel'];
@@ -25,8 +26,11 @@ const randomNumberReducer = (state = 0, action) => {
     }
 }
 
-const baseStatReducer = (state = {count: 0, picks: 0, stats: [5,5,5,5,5,5], modifiers: [ [0,0,0,0,0,0], ['','','','','',''] ]}, action) => {
+const baseStatReducer = (state = {count: 0, picks: 0, stats: [0,0,0,0,0,0], modifiers: [ [0,0,0,0,0,0], ['','','','','',''] ]}, action) => {
     switch(action.type){
+        case 'setRolls': return Object.assign({}, state, {
+            rolls: action.payload,
+        })
         case 'selectStat':
             let newStats = [...state.stats];
             newStats[action.payload.index] = action.payload.value

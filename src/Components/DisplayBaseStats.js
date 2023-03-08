@@ -21,7 +21,7 @@ export const DisplayBaseStats = () => {
     const progress = useSelector((state)=>state.progress)
 
     const scale = (window.screen.width / 1500)
-    console.log(scale)
+    //console.log(scale)
     
     let display = null;
 
@@ -34,7 +34,7 @@ export const DisplayBaseStats = () => {
             }
 
             const nodeList = selectAll(".statDisplay")._groups[0];
-            console.log(nodeList)
+            //console.log(nodeList)
             
             for (let i=0; i<nodeList.length; i++) {
                 select(nodeList[i])
