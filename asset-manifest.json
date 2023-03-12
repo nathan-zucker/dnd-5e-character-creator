@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dnd-5e-character-creator/static/css/main.25aa49bc.css",
-    "main.js": "/dnd-5e-character-creator/static/js/main.3a03c5a5.js",
+    "main.css": "/dnd-5e-character-creator/static/css/main.e8445575.css",
+    "main.js": "/dnd-5e-character-creator/static/js/main.7bbc7e91.js",
     "static/js/787.346cd47a.chunk.js": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js",
     "static/media/primeicons.svg": "/dnd-5e-character-creator/static/media/primeicons.e1441b135b3ca9ad643c.svg",
     "static/media/dieShuffle2.wav": "/dnd-5e-character-creator/static/media/dieShuffle2.dbaf9a6f5ace58f5beeb.wav",
@@ -17,12 +17,12 @@
     "static/media/primeicons.woff2": "/dnd-5e-character-creator/static/media/primeicons.78172950b335ccdb94e2.woff2",
     "static/media/cardSelect.mp3": "/dnd-5e-character-creator/static/media/cardSelect.b3613f7907ff0b3260b2.mp3",
     "index.html": "/dnd-5e-character-creator/index.html",
-    "main.25aa49bc.css.map": "/dnd-5e-character-creator/static/css/main.25aa49bc.css.map",
-    "main.3a03c5a5.js.map": "/dnd-5e-character-creator/static/js/main.3a03c5a5.js.map",
+    "main.e8445575.css.map": "/dnd-5e-character-creator/static/css/main.e8445575.css.map",
+    "main.7bbc7e91.js.map": "/dnd-5e-character-creator/static/js/main.7bbc7e91.js.map",
     "787.346cd47a.chunk.js.map": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.25aa49bc.css",
-    "static/js/main.3a03c5a5.js"
+    "static/css/main.e8445575.css",
+    "static/js/main.7bbc7e91.js"
   ]
 }
