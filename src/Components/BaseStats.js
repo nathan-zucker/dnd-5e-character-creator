@@ -49,7 +49,7 @@ function GetRolls() {
 
   function roll() {
       if ( rolls.length < 6 && rollCount < 6 ) {
-          setRollCount( rollCount + 1 )
+          setRollCount( rolls.length )
           const newPreRoll = [
               getRandomDieNumber(),
               getRandomDieNumber(),
@@ -67,15 +67,17 @@ function GetRolls() {
       }
   }
 
-  function enterRoll(diceRoll) {
-      console.log("entering roll", diceRoll)
-      if ( rolls.length >= 6 ) { 
-          console.log("too many rolls")
+  function enterRoll() {
+      console.log("entering roll", input)
+      setRollCount(rolls.length)
+
+      if ( rollCount >= 6 ) { 
+          console.log("too many rolls", rolls)
           return
       }
-      if ( diceRoll > 0 ) {
+      if ( input > 0 ) {
           console.log("got dice roll")
-          setRolls([...rolls, diceRoll])
+          setRolls([...rolls, input])
           return;
       }
       else if ( input === "" ) { console.log("input undefined"); return }
@@ -117,10 +119,9 @@ function GetRolls() {
 
           <div id="enter-rolls-display" className="input-card">
               <h2>Ability Scores</h2>
-              <h3>Let's Roll!</h3>
               <button id="rollDice" className="submit-button" onClick={()=>roll()} disabled={rollDisabled} >ROLL DICE!</button>
               <br/>
-              <h3>...or input your own rolls</h3>
+              <h3>...or enter your own rolls</h3>
               <input type="number" onChange={(e)=>handleInput(e)} value={input} ></input>
               <button id="submitScore" onClick={()=>enterRoll()} disabled={inputDisabled} >ENTER</button>
               <h3>{rolls.join(', ')}</h3>

@@ -66,7 +66,7 @@ function App() {
           <div id="content">
             
             { !progress.includes('classLevel') ? <Class /> : null }
-            { !progress.includes('classLevel') ? <DisplayClass /> : null }
+            {/* !progress.includes('classLevel') ? <DisplayClass /> : null */}
             
             { progress.includes('classLevel') && !progress.includes('race') ? <Race /> : null }
             {/* progress.includes('classLevel') ? <DisplayRace /> : null */}

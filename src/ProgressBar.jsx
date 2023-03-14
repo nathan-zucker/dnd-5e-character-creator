@@ -10,6 +10,8 @@ function ProgressBar() {
     const progress = useSelector((state)=>state.progress)
     const [ blocks, setBlocks ] = useState(<div>no progress yet</div>)
     const [ blocksList, setBlocksList ] = useState([])
+    const [ classBlock, setClassBlock ] = useState(<div></div>)
+    const store = useSelector((state)=>state)
     const blocksData = useSelector((state)=>{
         return ([
             [ state.class[0][0], `Level ${state.class[0][1]} ${state.class[1]} `, [ "features", state.features.join(', ') ] ],
@@ -18,72 +20,81 @@ function ProgressBar() {
             [ state.background.background, state.alignment, [ "tooltip", "details..." ] ]
         ])
     })
+    const classLevelBlock = useSelector((state)=>{
+        return (
+            <div className="progress-block" key={0} >
+            <h3>{`Level ${state.class[0][1]} ${state.class[1]} `} {state.class[0][0]}</h3>
+            <div className="progress-tooltip">
+                <Fieldset legend={`Level ${state.class[0][1]} ${state.class[1]}`}>
+                    <p className="m-0">features: {state.features.join(', ')}</p>
+                </Fieldset>
+            </div>
+        </div>
+        )
+    })
 
     const breakpoints = ['classLevel', 'race', 'baseStats', 'alignment']
 
     useEffect(()=>{
-
-        
-        if (breakpoints.includes(progress[progress.length - 1]) && !blocksList.includes(progress[progress.length - 1])) {
-            setBlocksList([...blocksList, progress[progress.length - 1]])
-            //console.log("progress is happening", progress[progress.length - 1], [...blocksList, progress[progress.length - 1]])
-        }
-
-    },[progress])
-
-    useEffect(()=>{
-        getBlocks()
-    },[blocksList, progress])
-
-
-    function getBlocks() {
-        //console.log(blocksList)
-        const newBlocks = blocksList.map((e,i)=>{
-            let data = blocksData[i];
-            //console.log(data)
-            return (
-                
-                <div className="progress-block" key={i} >
-                    <h3>{data[1]} {data[0]}</h3>
+        if (progress.includes('classLevel')) {
+            setClassBlock(
+                <div className="progress-block">
+                    <h3>Level {store.class[0][1]} {store.class[0][0]}</h3>
                     <div className="progress-tooltip">
-                        <Fieldset legend={`${data[2][0]}`}>
-                            <p className="m-0">{data[2][1]}</p>
+                        <Fieldset legend={`your ${store.class[0][0]}`} style={{"backgroundColor": "transparent", "border": "none", "backdropFilter": "blur(5px)"}}>
+                        <p className="m-0" style={{"textShadow": "0 0 3px black", "fontSize": "17px"}}>
+                            Primary ability:  {store.classDetails.primaryAbility.join(' / ')}<br/>
+                            Armor Types:  {store.armor.proficiencies.join(", ")}<br/>
+                            Weapon Types:  {store.weaponProficiencies.join(", ")}<br/>
+                            Features: {store.features.join(", ")}
+                        </p>
                         </Fieldset>
                     </div>
-                </div>
-                
+                </div> 
             )
-        })
+            setTimeout(()=>bindToolTip(), 100)
 
-        setBlocks(newBlocks)
-    }
+            return;
+        }
+    },[progress])
 
     function showTooltip(e) {
         select(e.srcElement).select(".progress-tooltip")
-            .transition()
             .style("opacity", 1)
+            .style("top", `calc(${20}vh + ${60}px)`)
+            .style("left", `1000px`)
+            .transition()
+            .style("left", `${e.clientX - 50}px`)
     }
 
     function hideTooltip(e) {
         selectAll(".progress-tooltip")
             .transition()
             .style("opacity", 0)
+            .style("top", -600+"px")
     }
 
-    useEffect(()=>{
+    function bindToolTip(){
         selectAll(".progress-block")
         .on("mouseover", e => showTooltip(e) )
         .on("mouseout", e => hideTooltip(e) )
-    },[blocks])
+    }
 
     //console.log(blocks, blocksData)
 
     return (
-        <div id="progress-bar">     
-            {blocks}
+        <div id="progress-bar">
+            {classBlock}
         </div>
     )
 
 }
 
 export default ProgressBar;
+
+/**
+ * {progress.includes('classLevel') ? {classLevelBlock} : null}
+            {progress.includes('race') ? {raceBlock} : null}
+            {progress.includes('baseStats') ? {abilityScoresBlock} : null}
+            {progress.includes('alignment') ? {backgroundBlock} : null}
+ */

@@ -132,14 +132,17 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
 .progress-tooltip {
   position: absolute;
   z-index: 1;
-  opacity: 0;
-  transition: 150ms;
   pointer-events: none;
+  top: calc(20vh + 60px);
+  left: 110vw;
+  overflow: hidden;
+  width: fit-content;
 }
 
 /*  CLASS   */
 
 .classSelector {
+  transition: 2000ms;
   width: min( max(12vw, 12vh), 120px );
   height: min( max(14vw, 14vh), 140px );
   padding-top: .7em;
@@ -165,13 +168,13 @@ img {
   text-align: center;
 }
 .classSelector:hover {
-  box-shadow: inset 0 0 10px #ebffab;
-  box-shadow: 0 0 10px #ebffab;
+  box-shadow: inset 0 0 16px #abffbf, 0 0 14px #abffbf;
   border: 2px solid whitesmoke;
   background-color: #fffef5;
 }
 .classSelector:active {
-  box-shadow: 0 0 10px #abffbf;
+  box-shadow: 0 0 10px #abffbf, inset 0 0 15px #abffbf;
+  background-color: #fffef5;
 }
 
 button img, button h2 {
@@ -364,13 +367,13 @@ button img, button h2 {
   transition-delay: 150ms;
   transition: 200ms;
   font-size: 1.5em;
-  text-shadow: 0 0 4px #abffbf;
-  width: min(12vw, 6em);
-  height: min(12vw, 6em);
+  text-shadow: 0 0 6px #abffbf;
+  width: min(12vw, 5em);
+  height: min(12vw, 5em);
   margin: max(2px, 1vw);
   display: inline-flex;
   border: 1px solid whitesmoke;
-  border-radius: 1vw;
+  border-radius: min(1vw, 1.25em);
   box-shadow: 0 0 6px #abffbf, inset 0 0 6px #abffbf;
 }
 
@@ -380,9 +383,10 @@ button img, button h2 {
 }
 
 .rollCard:hover {
-  transition: 50ms;
+  transition: 150ms;
   border-color: #abffbf;
   transform: scale(1.05);
+  box-shadow: inset 0 0 12px #abffbf;
 }
 
 .AS-bonus {
