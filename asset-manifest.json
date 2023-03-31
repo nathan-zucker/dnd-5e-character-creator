@@ -1,10 +1,31 @@
 {
   "files": {
-    "main.css": "/dnd-5e-character-creator/static/css/main.e8445575.css",
-    "main.js": "/dnd-5e-character-creator/static/js/main.7bbc7e91.js",
+    "main.css": "/dnd-5e-character-creator/static/css/main.26868584.css",
+    "main.js": "/dnd-5e-character-creator/static/js/main.6916d48f.js",
     "static/js/787.346cd47a.chunk.js": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js",
+    "static/media/303836.jpg": "/dnd-5e-character-creator/static/media/303836.b640ba4479c9fe954745.jpg",
+    "static/media/1011957.jpg": "/dnd-5e-character-creator/static/media/1011957.3574cfc9041cf209b60a.jpg",
+    "static/media/158926.jpg": "/dnd-5e-character-creator/static/media/158926.d0eb49f5d68e5cc8ec40.jpg",
+    "static/media/582400.jpg": "/dnd-5e-character-creator/static/media/582400.9480831ec7674f2ec06e.jpg",
+    "static/media/938044.jpg": "/dnd-5e-character-creator/static/media/938044.d07dc31d16c4db9690be.jpg",
+    "static/media/bg-vertical-map.jpg": "/dnd-5e-character-creator/static/media/bg-vertical-map.cfb90e3a310836afc431.jpg",
+    "static/media/676334.jpg": "/dnd-5e-character-creator/static/media/676334.ea5c5be245db5540915f.jpg",
+    "static/media/1285940.jpg": "/dnd-5e-character-creator/static/media/1285940.1451f0a0da37a356b5b8.jpg",
+    "static/media/bg-vertical-duo.jpg": "/dnd-5e-character-creator/static/media/bg-vertical-duo.3bb9646196b3c3125871.jpg",
+    "static/media/bg-vertical-fireGiant.jpg": "/dnd-5e-character-creator/static/media/bg-vertical-fireGiant.aa58c5b1a178612b6795.jpg",
+    "static/media/bg-bbg.jpg": "/dnd-5e-character-creator/static/media/bg-bbg.00ff6c0eafdc5dd4ad4f.jpg",
+    "static/media/bg-vertical-fight.jpg": "/dnd-5e-character-creator/static/media/bg-vertical-fight.d7adbbbc611cc3663fd1.jpg",
+    "static/media/bg-worm.jpg": "/dnd-5e-character-creator/static/media/bg-worm.3a29b66b45dfa1b69358.jpg",
+    "static/media/1285953.jpg": "/dnd-5e-character-creator/static/media/1285953.8e7ce89f24807963579a.jpg",
+    "static/media/bg-mountains.jpg": "/dnd-5e-character-creator/static/media/bg-mountains.dc29c4a416d3efcfdd94.jpg",
+    "static/media/118110.jpg": "/dnd-5e-character-creator/static/media/118110.8f68182ed7d13d36888c.jpg",
+    "static/media/bg-camp.jpg": "/dnd-5e-character-creator/static/media/bg-camp.34a8793c82348a976cee.jpg",
+    "static/media/bg-room.jpg": "/dnd-5e-character-creator/static/media/bg-room.001ad706a3a85aca0cdf.jpg",
+    "static/media/bg-demon.jpg": "/dnd-5e-character-creator/static/media/bg-demon.c6b00e74ee6918f19d98.jpg",
+    "static/media/bg-flayer.jpg": "/dnd-5e-character-creator/static/media/bg-flayer.2958fe6d9e4b64fc00bd.jpg",
     "static/media/primeicons.svg": "/dnd-5e-character-creator/static/media/primeicons.e1441b135b3ca9ad643c.svg",
     "static/media/dieShuffle2.wav": "/dnd-5e-character-creator/static/media/dieShuffle2.dbaf9a6f5ace58f5beeb.wav",
+    "static/media/bg-d20.jpg": "/dnd-5e-character-creator/static/media/bg-d20.b40775da313ec720a316.jpg",
     "static/media/chipsHandle1.wav": "/dnd-5e-character-creator/static/media/chipsHandle1.57d2b8c1b2d4e127bfa4.wav",
     "static/media/cardFlip.wav": "/dnd-5e-character-creator/static/media/cardFlip.2fcd78868bfd43548751.wav",
     "static/media/dieThrow1.wav": "/dnd-5e-character-creator/static/media/dieThrow1.84e6f98504507208bdab.wav",
@@ -17,12 +38,12 @@
     "static/media/primeicons.woff2": "/dnd-5e-character-creator/static/media/primeicons.78172950b335ccdb94e2.woff2",
     "static/media/cardSelect.mp3": "/dnd-5e-character-creator/static/media/cardSelect.b3613f7907ff0b3260b2.mp3",
     "index.html": "/dnd-5e-character-creator/index.html",
-    "main.e8445575.css.map": "/dnd-5e-character-creator/static/css/main.e8445575.css.map",
-    "main.7bbc7e91.js.map": "/dnd-5e-character-creator/static/js/main.7bbc7e91.js.map",
+    "main.26868584.css.map": "/dnd-5e-character-creator/static/css/main.26868584.css.map",
+    "main.6916d48f.js.map": "/dnd-5e-character-creator/static/js/main.6916d48f.js.map",
     "787.346cd47a.chunk.js.map": "/dnd-5e-character-creator/static/js/787.346cd47a.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e8445575.css",
-    "static/js/main.7bbc7e91.js"
+    "static/css/main.26868584.css",
+    "static/js/main.6916d48f.js"
   ]
 }
