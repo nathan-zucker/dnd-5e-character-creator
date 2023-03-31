@@ -73,14 +73,19 @@ class Class extends React.Component {
         this.setState(Object.assign(this.state, value))
         d3.selectAll(".classSelector")
             .style("box-shadow", "none")
-            .style("filter", "blur(4px)")
             .style("background-color", "gray")
+            .select("img")
+            .style("filter", "blur(2px)")
         d3.select(`#${value.base.class.toLowerCase()}`)
             .style("filter", "none")
             .style("background-color", colorWheel.green)
             .style("box-shadow", "0 0 6px "+colorWheel.green)
             .style("box-shadow", "inset 0 0 4px "+colorWheel.green)
             .style("overflow", "show")
+
+            .select("img")
+            .style("filter", "none")
+
 
         d3.select("#level-section")
             .style("visibility", "visible")

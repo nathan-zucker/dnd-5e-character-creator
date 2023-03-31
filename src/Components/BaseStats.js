@@ -218,7 +218,7 @@ function AbilityScores() {
 
   useEffect(()=>{
     if (progress.includes('rolls')) {
-      hide(true);
+      setTimeout(()=>hide(true), 300);
       return;
     }
   },[progress])

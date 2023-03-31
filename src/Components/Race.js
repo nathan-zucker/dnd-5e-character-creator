@@ -69,7 +69,7 @@ class Race extends React.Component {
     componentDidMount(){
         this.bindSounds()
         select("#race-prompt")
-            .style("text-shadow", "0 0 6px "+colorWheel.green)
+            .style("text-shadow", "0 0 2px "+colorWheel.green)
 
         const scrollHeight = (select(".main")._groups[0][0].offsetTop) + 50;
 
@@ -610,7 +610,6 @@ class Race extends React.Component {
                     </div> : null}
                     
                     <div>
-                        <h2>you have selected: {this.state.subRace} {this.state.race}</h2>
                         <button id="race-reset-button" className="reset-button" onClick={this.handleReset}>RESET</button>
                         <button id="race-submit-button" className="submit-button" disabled={this.state.submitDisabled} onClick={this.handleSubmit}>SUBMIT</button>
                     </div>

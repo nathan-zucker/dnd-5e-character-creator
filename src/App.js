@@ -23,6 +23,34 @@ import Equipment from './Equipment';
 import CalculateFinalScores from './Components/CalculateFinalScores';
 import ProgressBar from './ProgressBar';
 
+import * as backgrounds from "./Components/images/background/backgrounds";
+
+const horizontalBackgrounds = [
+  backgrounds.bgh0,
+  backgrounds.bgh1,
+  backgrounds.bgh2,
+  backgrounds.bgh3,
+  backgrounds.bgh4,
+  backgrounds.bgh5,
+  backgrounds.bgh6,
+  backgrounds.bgh7,
+  backgrounds.bgh8,
+  backgrounds.bgh9,
+  backgrounds.bgh10,
+  backgrounds.bgh11,
+  backgrounds.bgh12,
+  backgrounds.bgh13,
+  backgrounds.bgh14,
+  backgrounds.bgh15,
+  backgrounds.bgh16
+]
+const verticalBackgrounds = [
+  backgrounds.bgv0,
+  backgrounds.bgv1,
+  backgrounds.bgv2,
+  backgrounds.bgv3
+]
+
 
 function App() {
 
@@ -35,7 +63,22 @@ function App() {
 
   const breakpoints = ['classLevel', 'race', 'rolls', 'baseStats', 'alignment', 'skills', 'equipment']
   const delay1 = 100
-  const delay2 = 300
+  const delay2 = 500
+
+  useEffect(()=>{
+
+    let newBackground;
+    
+    if (window.innerWidth > window.innerHeight) {
+      newBackground = horizontalBackgrounds[Math.floor(Math.random()*horizontalBackgrounds.length)]; 
+    } else {
+      newBackground = verticalBackgrounds[Math.floor(Math.random()*verticalBackgrounds.length)];
+    }
+
+    select(".App")
+    .style("background-image", `url(${newBackground})`)
+    
+  },[])
 
   useEffect(()=>{
     if ( breakpoints.includes(stateProgress[stateProgress.length - 1]) ) {  
