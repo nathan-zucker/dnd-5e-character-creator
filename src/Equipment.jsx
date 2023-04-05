@@ -16,6 +16,12 @@ class Equipment extends React.Component {
         }
     }
 
+    componentDidMount(){
+        if (this.props.state.progress.includes('skills') && this.state.hidden === true) {
+            this.loadComponent();
+        }
+    }
+
     componentDidUpdate(){
         const weaponSelectors = selectAll(".weapon-selector")._groups[0]
         if (!this.state.hidden && this.state.button1disabled && weaponSelectors.length === 0)
@@ -46,18 +52,22 @@ class Equipment extends React.Component {
 
     //RENDER OPTIONS IN ROWS OF BUTTONS
     showChoices = () => {
-        return (
-            this.state.choices.map((e, i)=>
+        let choices = this.state.choices.map((e, i)=>
             <div key={i} className="EOcontainer">
-                {e.map((f, j)=><button
-                    className="equipmentOption"
+                {e.map((f, j)=>
+                    <button
+                    className="equipment-option"
                     key={j}
                     value={f}
                     onClick={this.chooseEquipment}
-                    >{f}</button>)}
+                    >{f}</button>
+                )}
             </div>
-            )
         )
+        choices.forEach(set => {
+            set.props.children.splice(1,0,<div>OR</div>)
+        })
+        return choices
     }
 
     //MAKE A SELECTION FOR MAIN EQUIPMENT
@@ -158,7 +168,7 @@ class Equipment extends React.Component {
             return(
                 <div id="equipment-container" className="input-card">
                     <h1>choose your equipment!</h1>
-                    <h3>choices: {this.showChoices()}</h3>
+                    <div className="equipment-options">{this.showChoices()}</div>
                     { this.state.button1disabled ? <h3>equipment: {this.props.state.equipment.join(', ')}</h3> : <h3>equipment: {this.state.equipment.join(', ')}</h3> }
                     <h3></h3>
                     {/**SUBMIT BUTTON */}

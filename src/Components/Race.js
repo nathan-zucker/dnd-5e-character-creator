@@ -7,6 +7,7 @@ import selectorAudio from './sounds/selector1.wav';
 import resetAudio from './sounds/chipsStack3.wav';
 import submitAudio from './sounds/chipsStack1.wav';
 import { select, selectAll } from "d3";
+import { Button } from 'primereact/button';
 
 
 const colorWheel = {
@@ -111,8 +112,13 @@ class Race extends React.Component {
             for (let i=0; i<allButtons.length; i++) {
                 if (this.state.subRace === ''){
                     selectAll(".subRace")
-                        .style("border", "2px solid "+colorWheel.purple)
-                        .style("box-shadow", "0 0 6px "+colorWheel.purple)
+                    /** 
+                     
+                    .style("border", "2px solid "+colorWheel.purple)
+                    .style("box-shadow", "0 0 6px "+colorWheel.purple)
+                    */
+                   .style("border", "2px solid whitesmoke")
+                   .style("box-shadow", "0 0 7px whitesmoke")
                 }
                 if ( this.state.race === allButtons[i].value || this.state.subRace === allButtons[i].value ) {
                     select(allButtons[i])

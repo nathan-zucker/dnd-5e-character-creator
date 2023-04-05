@@ -59,8 +59,13 @@ class Skills extends React.Component {
         }
     }
 
-    componentDidUpdate(){
+    componentDidMount(){
+        if (this.props.state.progress.includes('alignment') && this.state.hidden === true) {
+            this.loadComponent();
+        }
+    }
 
+    componentDidUpdate(){
     }
 
     loadComponent = () => {
@@ -203,12 +208,10 @@ class Skills extends React.Component {
 
             return(
                 <div id="skills-container" className="input-card">
-                    <h2>You are proficient in these skills: </h2>
-                    <h4>{this.state.proficiencies.join(', ')}</h4>
-
+                    
                     {this.state.skillPicks > 0 || this.state.proficiencies !== [] ? <div>
-                        <h2>You may choose {this.state.skillPicks} more skills from the following list:</h2>
-                        <div>{this.skillOptionCards()}</div>
+                        <h2>Choose {this.state.skillPicks} more skills!</h2>
+                        <div className="skill-option-container">{this.skillOptionCards()}</div>
                     </div> : null}
                     
 
@@ -219,12 +222,13 @@ class Skills extends React.Component {
                         submit skills
                     </button> 
                     : null}
+                    <h4>Skills: {this.state.proficiencies.join(', ')}</h4>
+
                     <div>
                         {this.state.languagePicks > 0 || this.props.state.languages.picks !== 0 ? <div>
-                            <h2>you know these languages: </h2>
-                            <h3>{this.state.languages.join(', ')}</h3>
-                            <h4>you may choose {this.state.languagePicks} more languages from the following list: </h4>
-                            <div>{this.languageOptionCards()}</div>
+
+                            <h2>Choose {this.state.languagePicks} more languages!</h2>
+                            <div className="language-option-container">{this.languageOptionCards()}</div>
                         </div> : null}
                         
                         
@@ -235,7 +239,7 @@ class Skills extends React.Component {
                                 submit languages
                             </button> 
                         : null }
-
+                        <h4>Languages: {this.state.languages.join(', ')}</h4>
                     </div>
                 </div>
             )

@@ -246,7 +246,6 @@ class Class extends React.Component {
                 
                 </div>
                 <div id="level-section">
-                    <h2 id="show-class">class: {this.state.hasOwnProperty("base") && this.state.base.class}</h2>
                     <div id='levels'>
                         <h1 id="level-prompt">Choose {this.state.hasOwnProperty("base") && this.state.base.class} Level</h1>
                    
@@ -258,7 +257,7 @@ class Class extends React.Component {
                             </div>
                         
                         <div>
-                            { this.state.base.class !== '' ? <button id="continue-button-classlevel" onClick={this.handleSubmit}>continue</button> : null}
+                            { this.state.base.class !== '' ? <button className="submit-button" onClick={this.handleSubmit}>continue</button> : null}
                         </div> 
                     </div>
                 </div>

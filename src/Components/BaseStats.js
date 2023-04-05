@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
+import { Button } from "primereact/button";
+
 import RollCard from "./RollCard";
 import BaseStatList from "./BaseStatList";
 import { connect } from "react-redux";
@@ -125,10 +128,10 @@ function GetRolls() {
               <input type="number" onChange={(e)=>handleInput(e)} value={input} ></input>
               <button id="submitScore" onClick={()=>enterRoll()} disabled={inputDisabled} >ENTER</button>
               <h3>{rolls.join(', ')}</h3>
+              <button className="submit-button" id="standard-array" onClick={()=>setRolls(standardArray)} >Standard Array</button>
               <button id="resetButton" className="reset-button" onClick={()=>resetRolls()} >RESET</button>
               <button id="submitButton" className="submit-button" disabled={submitDisabled} onClick={()=>dispatchRolls()} >SUBMIT</button>
               <br/>
-              <button id="standard-array" onClick={()=>setRolls(standardArray)} >Standard Array</button>
           </div>
 
       </div>

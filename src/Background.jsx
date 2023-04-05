@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from "react-redux";
 
 import { Dropdown } from 'primereact/dropdown';
+import { Button } from 'primereact/button';
 
 const data = {
     "Acoltye": {
@@ -186,7 +187,13 @@ class Background extends React.Component {
                             options={Object.keys(data)}
                             placeholder='select'
                         />
-                        <button id='background-submit' className="submit-button" disabled={this.state.button1disabled} onClick={this.handleSubmit}>submit</button>    
+                        <Button
+                            id='background-submit'
+                            disabled={this.state.button1disabled}
+                            onClick={this.handleSubmit}
+                            label='submit'
+                        />
+                        
                     </div>
                     
                     <div id="alignment-container">
@@ -200,12 +207,11 @@ class Background extends React.Component {
                             options={alignments}
                             placeholder='select'
                         />
-                        <button
-                            className="submit-button"
+                        <Button 
                             disabled={this.state.button2disabled} 
-                            onClick={this.submitAlignment} >
-                            submit
-                        </button>
+                            onClick={this.submitAlignment}
+                            label='submit'
+                        />
                     </div>
                 </div>
             )

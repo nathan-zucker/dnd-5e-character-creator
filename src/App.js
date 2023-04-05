@@ -4,7 +4,7 @@ import Header from './Header.jsx';
 import { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { select } from 'd3';
-import "primereact/resources/themes/bootstrap4-dark-blue/theme.css"; 
+import "primereact/resources/themes/md-dark-indigo/theme.css"; 
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 
