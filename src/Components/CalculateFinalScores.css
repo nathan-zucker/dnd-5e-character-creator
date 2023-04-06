@@ -1,13 +1,53 @@
+.radio {
+    display: inline-block;
+    font-size: 2rem;
+    border: 1px solid aqua;
 
-#skills-etc {
+}
+
+.char-sheet-container {
+    border: 1px solid orangered;
+}
+.char-sheet-header {
+    height: 4rem;
+    border: 1px solid orangered;
+}
+.char-sheet-body {
+    height: 1080px;
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: 1fr 1fr 1fr;
 }
-td#skills-section {
-    width: fit-content;
+.stats-container {
+    border: 1px solid orange;
+    grid-column: 1 / 3;
     grid-row: 1 / 3;
+    display: grid;
+    grid-template-columns: 1fr 2fr 3fr;
 }
-#subtable2 {
-    grid-row: 2 / 3;
+.core-stats-container {
+    grid-column: 1 / 2;
+}
+.skills-etc-container {
     grid-column: 2 / 3;
+    display: grid;
+    grid-template-rows: 1fr 2fr 4fr;
+}
+.proficiency-bonus-container {
+    border: 1px solid gray;
+    display: grid;
+}
+.saving-throws-container {
+    border: 1px solid gray;
+}
+.skills-container {
+    border: 1px solid gray;
+}
+.combat-stats-container {
+    display: grid;
+    grid-template-rows: 1fr 1fr;
+}
+
+
+.personality-container {
+
 }

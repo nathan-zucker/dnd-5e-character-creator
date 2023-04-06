@@ -6,6 +6,9 @@ import WeaponCard from "../WeaponCard";
 import { weapons, weaponList, allWeapons, armorData } from "../reference/equipment-data";
 import FinalAbilityScores from "./FinalAbilityScores";
 import FancyAbilityScores from "./FancyAbilityScores";
+import { select, selectAll } from "d3";
+
+import { skillsBank } from "../Skills";
 
 const armorTypes = Object.keys(armorData);
 
@@ -208,19 +211,16 @@ class CalculateFinalScores extends React.Component {
     checkSkills = () => {
         let arr = [...this.props.state.skillProficiencies.proficiencies];
         for (let i=0; i<arr.length; i++) {
-            console.log(arr[i])
-            const box = document.getElementById(arr[i]);
-            box.className = "check-box checked";
+            document.getElementById(`radio-${arr[i].match(/\w+/)}`)
+                .className = "pi pi-check-circle";
         }
     }
 
     checkSaves = () => {
         let arr = [...this.props.state.savingThrows.proficient];
         for (let i=0; i<arr.length; i++) {
-            let str = arr[i]+"Pro"
-            console.log(str)
-            const node = document.getElementById(str);
-            node.className = "check-box checked"
+            document.getElementById("radio-"+arr[i])
+                .className = "pi pi-check-circle"
         }
     }
 
@@ -231,11 +231,57 @@ class CalculateFinalScores extends React.Component {
                 <h1>calculate scores!</h1>
                 <button onClick={this.loadComponent}>GO</button>
 
-                <h2>{this.state.statMods.concat(this.state.proficiencyBonus).join(', ')}</h2>
-                <h2>{this.state.equipment.join(', ')}</h2>
+                <div className="char-sheet-container">
+                    <div className="char-sheet-header">
+                        <h2>Name</h2>
+                    </div>
+                    <div className="char-sheet-body">
+                        <div className="stats-container">
+                            <div className="core-stats-container">stats</div>
+                            <div className="skills-etc-container">
+                                <div className="proficiency-bonus-container">
+                                    <div className="proficiency-bonus">
+                                        Proficiency Bonus: <span className="box">{this.props.state.classDetails.proficiencyBonus}</span>
+                                    </div>
+                                    <div className="passive-perception">
+                                        Passive Perception: <span className="box">{this.state.PP}</span>
+                                    </div>
+                                </div>
+                                <div className="saving-throws-container">
+                                    {(["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]).map((e, i) => {
+                                        return (
+                                            <div className="saving-throw-row" key={i}>
+                                                <i className="pi pi-circle" id={`radio-${e}`} />
+                                                <span className='underline'>+X</span>
+                                                {e}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                                <div className="skills-container">
+                                    {skillsBank.map((e, i) => {
+                                        return (
+                                            <div className="skill-row" key={i}>
+                                                <i className="pi pi-circle" id={`radio-${e.match(/\w+/)}`} />
+                                                <span className='underline'>+X</span>
+                                                {e}
+                                            </div>
+                                        )
+                                    })}
+                                </div>
+                            </div>
+                            <div className="combat-stats-container">
+                                <div className="defense-stats-container">defense</div>
+                                <div className="attack-stats-container">attack</div>
+                            </div>
+                        </div>
+                        <div className="personality-container">personality</div>
+                        <div className="proficiencies-container">misc pro</div>
+                        <div className="equipment-container">equipment</div>
+                        <div className="features-container">features</div>
+                    </div>
+                </div>
 
-                
-                
                 <table id="final-results">
                     <thead><tr><td colSpan={3}><h2>NAME</h2></td></tr></thead>
                     <tbody>

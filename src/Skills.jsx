@@ -261,3 +261,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills)
+export {skillsBank, languageBank}
