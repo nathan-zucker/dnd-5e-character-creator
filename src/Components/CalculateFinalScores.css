@@ -176,7 +176,74 @@
 /*  DEFENSE  */
 .defense-stats-container {
     margin: 1rem 0.5rem 0.5rem;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 2fr;
     
+}
+.cs-speed, .cs-initiative {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.5rem;
+}
+.cs-armor-class {
+    grid-column: 1 / 3;
+    grid-row: 2 / 3;
+    display: grid;
+    gap: 0.5rem;
+    padding: 0.5rem;
+    grid-template-columns: 1fr 1fr;
+}
+.cs-armor {
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+    grid-row: 1/3;
+    grid-column: 1/2;
+    padding: 0 0.5rem;
+}
+.cs-armor i {
+    margin-right: 0.25rem;
+    font-size: 0.85rem;
+}
+.cs-ac {
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+    grid-column: 2 / 3;
+    grid-row: 1/3;
+    padding: 0 0.5rem;
+    position: relative;
+}
+.ac-box {
+    position: absolute;
+    top: 25%;
+    left: 50%;
+    transform: translate(-50%);
+    font-size: 2rem;
+    background-color: #1a1a1a70;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    border: 2px solid whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+.ac-label {
+    position: absolute;
+    font-size: 1rem;
+    top: 110%;
+    width: 8rem;
+    text-align: center;
+}
+.cs-hit-points {
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+    grid-row: 3/4;
+    grid-column: 1/3;
+    padding: 0 0.5rem;
+
 }
 
 .personality-container {

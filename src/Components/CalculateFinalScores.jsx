@@ -272,6 +272,10 @@ class CalculateFinalScores extends React.Component {
             document.getElementById(`radio-${arr[i].match(/\w+/)}`)
                 .className = "pi pi-check-circle";
         }
+        if (this.state.shield === true) {
+            document.querySelector("#shield-radio")
+                .className = "pi pi-check-circle";
+        }
     }
 
     checkSaves = () => {
@@ -344,16 +348,24 @@ class CalculateFinalScores extends React.Component {
                             </div>
                             <div className="combat-stats-container">
                                 <div className="defense-stats-container">
-                                    <div className="cs-initiative">Initiative: {this.props.state.baseStats.modifiers[0][1]}</div>
-                                    <div className="cs-speed">Speed: {this.props.state.raceDetails.speed}'</div>
+                                    <div className="cs-initiative"><span className="bonus-box">{this.props.state.baseStats.modifiers[0][1]}</span>Initiative</div>
+                                    <div className="cs-speed"><span className="bonus-box">{this.props.state.raceDetails.speed}'</span>Speed</div>
                                     <div className="cs-armor-class">
-                                        <div className="cs-armor">Armor:</div>
-                                        <div className="cs-shield">Shield: {this.state.shield ? +2 : 0}</div>
-                                        <div className="cs-ac">Armor Class: {this.state.AC}</div>
-                                    </div>
-                                    <div className="cs-hit-points">
-                                        <div className="cs-hit-dice">Hit Dice</div>
-                                        <div className="cs-hp">Hit Points</div>
+                                        <div className="cs-armor"><span className="section-header">Armor:</span><br/>
+                                            <span className="shield"><i className="pi pi-circle" id='shield-radio' />Shield</span>
+                                            <br/>armor details...
+                                        </div>
+                                        <div className="cs-ac">
+                                            <span className="ac-box">
+                                                {this.state.AC}
+                                                <span className="ac-label">Armor Class</span>
+                                            </span>
+
+                                        </div>
+                                        <div className="cs-hit-points">
+                                            <div className="cs-hit-dice">Hit Dice</div>
+                                            <div className="cs-hp">Hit Points</div>
+                                        </div>
                                     </div>
 
                                 </div>
