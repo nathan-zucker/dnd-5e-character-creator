@@ -5,15 +5,18 @@
 
 }
 
+
+
 .char-sheet-container {
     border: 1px solid orangered;
+    font-family: 'Titillium Web', sans-serif;
 }
 .char-sheet-header {
     height: 4rem;
     border: 1px solid orangered;
 }
 .char-sheet-body {
-    height: 1080px;
+    height: 1300px;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
 }
@@ -24,29 +27,157 @@
     display: grid;
     grid-template-columns: 1fr 2fr 3fr;
 }
+/*  BASE STATS  */
 .core-stats-container {
     grid-column: 1 / 2;
+    display: grid;
+    row-gap: 1rem;
+    background-color: #1a1a1a70;
+    border-radius: 1rem;
+    padding-top: 1rem;
+    margin: 1rem;
 }
+.base-stat-row {
+    position: relative;
+    text-align: center;
+}
+.base-mod {
+    width: 50%;
+    height: 50%;
+    border: 2px solid gray;
+    border-radius: 10%;
+    margin: auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    padding-bottom: 0.5rem;
+}
+.base-stat {
+    position: absolute;
+    border: 2px solid whitesmoke;
+    border-radius: 15%;
+    background-color: #1a1a1a;
+    width: 2rem;
+    left: 50%;
+    transform: translate(-50%, -0.5rem)
+}
+/*  SKILLS  */
+
 .skills-etc-container {
     grid-column: 2 / 3;
     display: grid;
-    grid-template-rows: 1fr 2fr 4fr;
+    row-gap: 1rem;
+    grid-template-rows: 1fr 2fr 6fr;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+.bonus-box {
+    border: 2px solid whitesmoke;
+    border-radius: 50%;
+    background-color: #1a1a1a70;
+    font-size: 1.3rem;
+    width: 2.5rem;
+    height: 2.5rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
 }
 .proficiency-bonus-container {
-    border: 1px solid gray;
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+    margin: 0 auto;
+    padding: 0.5rem 2rem;
     display: grid;
+    row-gap: 0.75rem;
 }
-.saving-throws-container {
-    border: 1px solid gray;
+.proficiency-bonus, .passive-perception {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
 }
-.skills-container {
-    border: 1px solid gray;
+
+
+.saving-throw-row, .skill-row {
+    display: grid;
+    column-gap: 0.5rem;
+    grid-template-columns: 1.5rem 2rem auto;
+    grid-template-rows: 1.75rem;
+    margin: 0 0.5rem;
 }
+.saving-throws-container, .skills-container {
+    display: grid;
+    margin: 0 0.5rem;
+    border: 2px solid gray;
+    border-radius: 0.5rem;
+    padding-bottom: 0.5rem;
+}
+.saving-throws-container i, .skills-container i, .underline, .save-title, .skill-title {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.section-header {
+    text-decoration: underline;
+    margin-left: 1rem;
+}
+.underline {
+    background-color: #1a1a1a70;
+    border-radius: 20%;
+}
+.save-title, .skill-title {
+    justify-content: left;
+    padding-left: 0.5rem;
+}
+
 .combat-stats-container {
     display: grid;
     grid-template-rows: 1fr 1fr;
 }
 
+/*  ATTACKS  */
+.attack-stats-container, .defense-stats-container { 
+    border: 2px solid whitesmoke;
+    border-radius: 1rem;
+    padding: 0.5rem;
+    margin: 0.5rem 0.5rem 1rem;
+}
+.attack-stats-container i {
+    font-size: 0.75rem;
+    margin: 0.25rem;
+    margin-left: 1.5rem;
+}
+.attack-row {
+    display: grid;
+    grid-template-columns: 5fr 1fr 5fr, 1fr;
+    padding: 0.25rem;
+}
+.attack-bonus, .attack-name, .attack-damage {
+    background-color: #1a1a1a;
+    border-radius: 5px;
+    padding: 0.25rem;
+}
+.attack-name {
+    padding-left: 0.5rem;
+    width: 8rem;
+}
+.attack-bonus {
+    text-align: center;
+    width: 2.5rem;
+}
+.attack-damage {
+    padding-left: 0.5rem;
+}
+.attack-properties {
+    grid-column: 1 / 4;
+    grid-row: 4 / 5;
+
+}
+/*  DEFENSE  */
+.defense-stats-container {
+    margin: 1rem 0.5rem 0.5rem;
+    
+}
 
 .personality-container {
 

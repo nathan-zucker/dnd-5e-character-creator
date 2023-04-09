@@ -77,7 +77,19 @@ export default function WeaponCard(props) {
     
 
 
-
+    return (
+        {
+            name: {name},
+            type: {type},
+            range: {range},
+            ability: {ability},
+            abilityModifier: {ASM},
+            ProBonus: {PB},
+            attackBonus: {AB},
+            damage: {DMG}
+        }
+    )
+/*
     return (
         <div id="weapon-card-container">
             <table>
@@ -135,8 +147,9 @@ export default function WeaponCard(props) {
             </table>
         </div>
     )
+    
+    */
 }
-
 /* 
         NAME                range       type
         properties           {r}         {t}

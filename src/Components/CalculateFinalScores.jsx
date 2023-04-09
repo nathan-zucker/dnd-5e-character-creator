@@ -9,6 +9,8 @@ import FancyAbilityScores from "./FancyAbilityScores";
 import { select, selectAll } from "d3";
 
 import { skillsBank } from "../Skills";
+import { weapons as weaponsData }  from "../reference/equipment-data";
+
 
 const armorTypes = Object.keys(armorData);
 
@@ -37,10 +39,18 @@ class CalculateFinalScores extends React.Component {
 
             equipment: [...this.props.state.equipment] || [],
             weapons: [],
+            attacks: [],
             
             
             resistances: this.props.state.resistances,
         }
+    }
+
+    componentDidMount(){
+        this.loadComponent();
+    }
+
+    componentDidUpdate(){
     }
 
     loadComponent = () => {
@@ -73,12 +83,12 @@ class CalculateFinalScores extends React.Component {
             }
         }
         this.setState({weapons: weapons})
-        this.removeDuplicateWeapons()
+        this.removeDuplicateWeapons(weapons)
     }
 
     //REMOVE DUPLICATES
-    removeDuplicateWeapons = () => {
-        let arr1 = [...this.props.weapons, ...this.state.weapons]
+    removeDuplicateWeapons = (weapons) => {
+        let arr1 = [...this.props.weapons, ...weapons]
         let finalNames = [];
         let arr1Names = arr1.map(e=>e.name)
 
@@ -92,21 +102,69 @@ class CalculateFinalScores extends React.Component {
             final.push(allWeapons[finalNames[i]])
         }
         this.props.updateWeapons(final)
+        this.loadAttacks(final)
     }
 
-    // GENERATE WEAPON CARDS 
-    mapWeaponCard = (obj) => {
-        let {name, damage, type, properties} = obj;
-        return <WeaponCard name={name} baseDamage={damage} type={type} properties={properties} />
+    // GET WEAPON STATS
+
+    loadAttacks = (weapons) => {
+        const meleeWeapons = Object.keys(weaponsData["simple melee"]).concat(Object.keys(weaponsData["martial melee"]))
+        const rangedWeapons = Object.keys(weaponsData["simple ranged"]).concat(Object.keys(weaponsData["martial ranged"]))
+        
+        console.log("WEAPONS: ", this.props.weapons)
+        let attacks = []
+        weapons.forEach(weapon => {
+
+            // range?
+            // ability score?
+            // NAME, ATTACK BONUS, DAMAGE/TYPE
+            let ability = '';
+            let abilityMod = 0;
+            let range = weapon.properties.join(" ").match(/(range \d+\/\d+)/g) ?? "melee";
+
+            if (meleeWeapons.includes(weapon.name)) {
+                ability = 'STR'
+                abilityMod = this.props.abilityMods[0]
+                
+            } else if (rangedWeapons.includes(weapon.name)) {
+                ability = 'DEX'
+                abilityMod = this.props.abilityMods[1]
+            }
+            if (weapon.properties.includes("finesse")) {
+                ability = 'DEX'
+                abilityMod = this.props.abilityMods[1]
+            }
+
+            let attackBonus = `+${this.props.proficiencyBonus + abilityMod}`
+            let damage = weapon.damage + `+${abilityMod}`
+
+            weapon = Object.assign({}, weapon, {
+                type: weapon.type,
+                ability: ability,
+                abilityMod: abilityMod,
+                range: range.toString(),
+                attackBonus: attackBonus,
+                damage: damage,
+            })
+
+            attacks.push(weapon)
+        })
+        this.setState({attacks: attacks})
+        console.log(this.state.attacks, attacks)
+        return attacks
     }
+
 
     weaponCards = () => {
+
         let arr = [...this.props.weapons];
+        /*
         return arr.map((e, i)=>
             <div className="weapon-card" key={i}>
                 <WeaponCard name={e.name} baseDamage={e.damage} type={e.type} properties={e.properties} />
             </div>
         )
+        */
     }
 
     // FIND ARMOR IN WEAPONS 
@@ -163,7 +221,7 @@ class CalculateFinalScores extends React.Component {
             console.log("max dex bonus: ", armor[0]["AC"]["maxBonus"])
             maxBonus = armor[0]["AC"]["maxBonus"]
         }
-        if (this.state.shield == true) {
+        if (this.state.shield === true) {
             console.log("has shield")
             shield = 2;
         }
@@ -225,6 +283,10 @@ class CalculateFinalScores extends React.Component {
     }
 
     render(){
+        let icon1 = 'pi pi-eye';
+        let icon2 = 'pi pi-tag';
+        let stats = [...this.props.baseStats.stats];
+        let mods = [...this.props.baseStats.modifiers[1]];
         
         return(
             <div>
@@ -237,42 +299,84 @@ class CalculateFinalScores extends React.Component {
                     </div>
                     <div className="char-sheet-body">
                         <div className="stats-container">
-                            <div className="core-stats-container">stats</div>
+                            <div className="core-stats-container">
+                                {(['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']).map((title, i) =>
+                                        <div className="base-stat-row">
+                                            <div className="base-label">{title}</div>
+                                            <div className="base-mod">{mods[i]}</div>
+                                            <div className="base-stat">{stats[i]}</div>
+                                        </div>
+                                    )}
+                            </div>
                             <div className="skills-etc-container">
                                 <div className="proficiency-bonus-container">
                                     <div className="proficiency-bonus">
-                                        Proficiency Bonus: <span className="box">{this.props.state.classDetails.proficiencyBonus}</span>
+                                        <span className="bonus-box">{this.props.state.classDetails.proficiencyBonus}</span>Proficiency Bonus
                                     </div>
                                     <div className="passive-perception">
-                                        Passive Perception: <span className="box">{this.state.PP}</span>
+                                        <span className="bonus-box">{this.state.PP}</span>Passive Perception
                                     </div>
                                 </div>
                                 <div className="saving-throws-container">
+                                    <span className="section-header">Saving Throws</span>
                                     {(["Strength", "Dexterity", "Constitution", "Intelligence", "Wisdom", "Charisma"]).map((e, i) => {
                                         return (
                                             <div className="saving-throw-row" key={i}>
                                                 <i className="pi pi-circle" id={`radio-${e}`} />
                                                 <span className='underline'>+X</span>
-                                                {e}
+                                                <span className="save-title">{e}</span>
                                             </div>
                                         )
                                     })}
                                 </div>
                                 <div className="skills-container">
+                                    <span className="section-header">Skills</span>
                                     {skillsBank.map((e, i) => {
                                         return (
                                             <div className="skill-row" key={i}>
                                                 <i className="pi pi-circle" id={`radio-${e.match(/\w+/)}`} />
                                                 <span className='underline'>+X</span>
-                                                {e}
+                                                <span className="skill-title">{e}</span>
                                             </div>
                                         )
                                     })}
                                 </div>
                             </div>
                             <div className="combat-stats-container">
-                                <div className="defense-stats-container">defense</div>
-                                <div className="attack-stats-container">attack</div>
+                                <div className="defense-stats-container">
+                                    <div className="cs-initiative">Initiative: {this.props.state.baseStats.modifiers[0][1]}</div>
+                                    <div className="cs-speed">Speed: {this.props.state.raceDetails.speed}'</div>
+                                    <div className="cs-armor-class">
+                                        <div className="cs-armor">Armor:</div>
+                                        <div className="cs-shield">Shield: {this.state.shield ? +2 : 0}</div>
+                                        <div className="cs-ac">Armor Class: {this.state.AC}</div>
+                                    </div>
+                                    <div className="cs-hit-points">
+                                        <div className="cs-hit-dice">Hit Dice</div>
+                                        <div className="cs-hp">Hit Points</div>
+                                    </div>
+
+                                </div>
+                                <div className="attack-stats-container">
+                                    Attacks:
+                                    {this.state.attacks.map((e, i) => {
+                                        return (
+                                            <div className="attack-row" key={i}>
+                                                <div className="attack-name">{e.name.toString()}</div>
+                                                <div className="attack-bonus">{e.attackBonus}</div>
+                                                <div className="attack-damage">{`${e.damage} ${e.type}`}</div>
+                                                <div className="attack-range"><i className={icon1} />{e.range}</div>
+                                                <div className="attack-properties">
+                                                    {e.properties.map((property, i) => {
+                                                        return (
+                                                            <div className="attack-property" key={i}><i className={icon2} />{property}</div>
+                                                        )
+                                                    })}
+                                                </div>
+                                            </div>
+                                        )
+                                    })}
+                                </div>
                             </div>
                         </div>
                         <div className="personality-container">personality</div>
@@ -567,7 +671,10 @@ const mapStateToProps = (state) => {
     return {
         state: state,
         weapons: state.weapons,
-        features: state.features
+        features: state.features,
+        baseStats: state.baseStats,
+        abilityMods: state.baseStats.modifiers[0],
+        proficiencyBonus: state.classDetails.proficiencyBonus,
     }
 }
 

@@ -65,7 +65,7 @@ class Equipment extends React.Component {
             </div>
         )
         choices.forEach(set => {
-            set.props.children.splice(1,0,<div>OR</div>)
+            set.props.children.splice(1,0,<div key={Math.random()}>OR</div>)
         })
         return choices
     }
