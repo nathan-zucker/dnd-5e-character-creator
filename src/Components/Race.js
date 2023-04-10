@@ -380,7 +380,8 @@ class Race extends React.Component {
             requireSubrace: true,
             abilityScoreIncrease: [2,0,0,0,0,1],
             age: 15,
-            size: 30,
+            size: 'medium',
+            speed: 30,
             languagues: ['Common', 'Draconic'],
             features: ['Draconic Ancestry']
         })

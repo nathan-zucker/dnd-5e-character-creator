@@ -34,6 +34,7 @@ class CalculateFinalScores extends React.Component {
             HP: undefined,
             AC: undefined,
             armor: undefined,
+            armorType: 'No armor',
             shield: false,
             statMods: [...this.props.state.baseStats.modifiers[0]] || [],
 
@@ -167,7 +168,7 @@ class CalculateFinalScores extends React.Component {
         */
     }
 
-    // FIND ARMOR IN WEAPONS 
+    // FIND ARMOR IN EQUIPMENT
     findArmor = () => {
         let arr = [...this.props.state.equipment];
         let armor = [];
@@ -177,6 +178,7 @@ class CalculateFinalScores extends React.Component {
                     this.setState({shield: true})
                 } else {
                     armor.push(armorData[arr[i]])
+                    this.setState({armorType: arr[i]})
                 }
             }
         }
@@ -185,10 +187,18 @@ class CalculateFinalScores extends React.Component {
         this.setState({armor: armor})
         this.props.updateArmor(armor)
         // ^ CHANGE TO CHECK FOR SHIELDS ^
-        if ( armor.length === 0 ) { return }
+        // UNARMORED DEFENSE
+        if ( armor.length === 0 ) { 
+            if (this.props.features.includes("Unarmored Defense")) {
+                let AC = 10 + this.props.abilityMods[1] + this.props.abilityMods[2];
+                console.log("Unarmored Defense: ", AC)
+                this.setState({AC: AC})
+            }
+            return
+        }
         
         console.log("calculate from",armor, this.props.state.baseStats.stats)
-        this.calculateAC(armor, this.props.state.baseStats.modifiers[0])
+        this.calculateAC(armor, this.props.state.baseStats.stats)
     }
     calculateAC = (armor, stats) => {
 
@@ -202,19 +212,13 @@ class CalculateFinalScores extends React.Component {
         let bonus = dex;
         console.log("base",base, "str", str)
 
-        // Unarmored Defense
-        if (this.props.state.features.includes("Unarmored Defense")) {
-            console.log("Unarmored Defense");
-
-            return
-        }
 
         if (armor[0].hasOwnProperty("stealth")) {
             console.log("disadvantage on stealth")
             this.props.dispatchResistance("disadvantage on stealth")
         }
         if (armor[0]["AC"].hasOwnProperty("strReq")) {
-            console.log("has strength req: ", armor[0]["AC"]["strReq"])
+            console.log("has strength req: ", armor[0]["AC"]["strReq"], "My Strength: ", this.props.abilityMods[0])
             strReq = armor[0]["AC"]["strReq"]
         }
         if (armor[0]["AC"].hasOwnProperty("maxBonus")) {
@@ -225,18 +229,15 @@ class CalculateFinalScores extends React.Component {
             console.log("has shield")
             shield = 2;
         }
-
         if (maxBonus < dex) {
             console.log("maxxed bonus", maxBonus)
             bonus = maxBonus
         }
-
         if (str >= strReq) {
             AC = base + bonus + shield
         }
         console.log(AC)
         this.setState({AC: AC})
-        
     }
     
     calculatePP = () => {
@@ -287,10 +288,13 @@ class CalculateFinalScores extends React.Component {
     }
 
     render(){
+        console.log("LOCAL STATE CHAR SHEET: ", this.state)
         let icon1 = 'pi pi-eye';
         let icon2 = 'pi pi-tag';
         let stats = [...this.props.baseStats.stats];
         let mods = [...this.props.baseStats.modifiers[1]];
+        let level = this.props.state.class[0][1];
+        const hitDie = this.props.state.hitPoints["Hit Die"];
         
         return(
             <div>
@@ -327,7 +331,7 @@ class CalculateFinalScores extends React.Component {
                                         return (
                                             <div className="saving-throw-row" key={i}>
                                                 <i className="pi pi-circle" id={`radio-${e}`} />
-                                                <span className='underline'>+X</span>
+                                                <span className='underline'>{mods[i]}</span>
                                                 <span className="save-title">{e}</span>
                                             </div>
                                         )
@@ -339,7 +343,16 @@ class CalculateFinalScores extends React.Component {
                                         return (
                                             <div className="skill-row" key={i}>
                                                 <i className="pi pi-circle" id={`radio-${e.match(/\w+/)}`} />
-                                                <span className='underline'>+X</span>
+                                                <span className='underline'>{(()=>{
+                                                    let value = ''
+                                                    e.match(/(Str)/) ? value = mods[0]:
+                                                    e.match(/(Dex)/) ? value = mods[1]:
+                                                    e.match(/(Con)/) ? value = mods[2]:
+                                                    e.match(/(Int)/) ? value = mods[3]:
+                                                    e.match(/(Wis)/) ? value = mods[4]:
+                                                    value = mods[5];
+                                                    return value;
+                                                })()}</span>
                                                 <span className="skill-title">{e}</span>
                                             </div>
                                         )
@@ -348,12 +361,21 @@ class CalculateFinalScores extends React.Component {
                             </div>
                             <div className="combat-stats-container">
                                 <div className="defense-stats-container">
-                                    <div className="cs-initiative"><span className="bonus-box">{this.props.state.baseStats.modifiers[0][1]}</span>Initiative</div>
+                                    <div className="cs-initiative"><span className="bonus-box">{this.props.state.baseStats.modifiers[1][1]}</span>Initiative</div>
                                     <div className="cs-speed"><span className="bonus-box">{this.props.state.raceDetails.speed}'</span>Speed</div>
                                     <div className="cs-armor-class">
                                         <div className="cs-armor"><span className="section-header">Armor:</span><br/>
                                             <span className="shield"><i className="pi pi-circle" id='shield-radio' />Shield</span>
-                                            <br/>armor details...
+                                            <br/>
+                                            {this.state.armorType === "No armor" ? "No armor" :
+                                                <div>
+                                                    <br/>{this.state.armorType}<br/>
+                                                    type: {this.state.armor[0].group}<br/>
+                                                    weight: {this.state.armor[0].weight}lb<br/>
+                                                    {this.state.armor[0].stealth ? <span>stealth: {this.state.armor[0].stealth}<br/></span> : null}
+                                                    AC: {this.state.armor[0].AC.base} + Dex {this.state.armor[0].AC.maxBonus ? <span>(max {this.state.armor[0].AC.maxBonus})</span> : null}
+                                                </div>
+                                            }
                                         </div>
                                         <div className="cs-ac">
                                             <span className="ac-box">
@@ -363,14 +385,39 @@ class CalculateFinalScores extends React.Component {
 
                                         </div>
                                         <div className="cs-hit-points">
-                                            <div className="cs-hit-dice">Hit Dice</div>
-                                            <div className="cs-hp">Hit Points</div>
+                                            <div className="cs-hit-dice">
+                                                <span className="cs-box">{level}d{this.props.state.hitPoints["Hit Die"]}
+                                                    <span className="cs-label">Hit Dice</span>
+                                                </span>
+                                            </div>
+                                            <div className="cs-hp">
+                                                <span className="cs-box">
+                                                    {(()=>{
+                                                        let getRoll = () => {
+                                                        let max = this.props.state.hitPoints["Hit Die"];
+                                                        let min = (max / 2) + 1;
+                                                        let con = this.props.abilityMods[2];
+                                                        return Math.floor(Math.random() * (max - min)) + min + con;
+                                                        }
+                                                        let HP = 0;
+                                                        for (let i = 1; i <= level; i++) {
+                                                            if (i === 1) {
+                                                                HP += hitDie + this.props.abilityMods[2];
+                                                            }
+                                                            else {
+                                                                HP += getRoll()
+                                                            }
+                                                        }
+                                                        return HP;
+                                                    })()}
+                                                    <span className="cs-label">Hit Points</span>
+                                                </span>
+                                            </div>
                                         </div>
                                     </div>
-
                                 </div>
                                 <div className="attack-stats-container">
-                                    Attacks:
+                                    <span className="section-header">Attacks:</span>
                                     {this.state.attacks.map((e, i) => {
                                         return (
                                             <div className="attack-row" key={i}>
@@ -391,10 +438,27 @@ class CalculateFinalScores extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="personality-container">personality</div>
+                        <div className="personality-container">
+                            <div className="personality-traits personality-row">
+                                <textarea name="personality-traits" id="personality-traits" className="cs-personality"></textarea>
+                                <span className="pt-label">personality traits</span>
+                            </div>
+                            <div className="ideals personality-row">
+                                <textarea name="ideals" id="ideals" className="cs-personality"></textarea>
+                                <span className="pt-label">ideals</span>
+                            </div>
+                            <div className="bonds personality-row">
+                                <textarea name="bonds" id="bonds" className="cs-personality"></textarea>
+                                <span className="pt-label">bonds</span>
+                            </div>
+                            <div className="flaws personality-row">
+                                <textarea name="flaws" id="flaws" className="cs-personality"></textarea>
+                                <span className="pt-label">flaws</span>
+                            </div>
+                        </div>
+                        <div className="features-container">features</div>
                         <div className="proficiencies-container">misc pro</div>
                         <div className="equipment-container">equipment</div>
-                        <div className="features-container">features</div>
                     </div>
                 </div>
 

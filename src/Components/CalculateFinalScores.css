@@ -21,12 +21,34 @@
     grid-template-columns: 1fr 1fr 1fr;
 }
 .stats-container {
-    border: 1px solid orange;
     grid-column: 1 / 3;
     grid-row: 1 / 3;
     display: grid;
     grid-template-columns: 1fr 2fr 3fr;
 }
+.cs-box {
+    font-size: 1.55rem;
+    background-color: #1a1a1a70;
+    width: 4rem;
+    height: 4rem;
+    border-radius: 0.5rem;
+    border: 2px solid whitesmoke;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+.cs-label {
+    position: absolute;
+    top: 105%;
+    font-size: 1rem;
+    width: 8rem;
+    text-align: center;
+}
+
 /*  BASE STATS  */
 .core-stats-container {
     grid-column: 1 / 2;
@@ -42,8 +64,8 @@
     text-align: center;
 }
 .base-mod {
-    width: 50%;
-    height: 50%;
+    width: 5rem;
+    height: 5rem;
     border: 2px solid gray;
     border-radius: 10%;
     margin: auto;
@@ -196,18 +218,18 @@
     grid-template-columns: 1fr 1fr;
 }
 .cs-armor {
-    border: 2px solid gray;
+    border: 1px solid gray;
+    background-color: #1a1a1a70;
     border-radius: 0.5rem;
     grid-row: 1/3;
     grid-column: 1/2;
-    padding: 0 0.5rem;
+    padding: 0.5rem;
 }
 .cs-armor i {
     margin-right: 0.25rem;
     font-size: 0.85rem;
 }
 .cs-ac {
-    border: 2px solid gray;
     border-radius: 0.5rem;
     grid-column: 2 / 3;
     grid-row: 1/3;
@@ -238,14 +260,52 @@
     text-align: center;
 }
 .cs-hit-points {
-    border: 2px solid gray;
     border-radius: 0.5rem;
     grid-row: 3/4;
     grid-column: 1/3;
     padding: 0 0.5rem;
-
+    display: grid;
+    grid-template-columns: 1fr 1fr;
 }
 
 .personality-container {
-
+    display: grid;
+    padding-top: 0.25rem;
+    padding-bottom: 0.5rem;
+}
+.personality-row {
+    position: relative;
+}
+.cs-personality {
+    background-color: #1a1a1a;
+    border: 3px dotted whitesmoke;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    height: 80%;
+    text-indent: 1.5rem;
+}
+.cs-personality:active {
+    box-shadow: 0 0 4px whitesmoke;
+    border: 3px dotted whitesmoke;
+}
+.personality-row:first-of-type textarea {
+    border-top-right-radius: 1rem;
+    border-top-left-radius: 1rem;
+}
+.personality-row:last-of-type textarea {
+    border-bottom-right-radius: 1rem;
+    border-bottom-left-radius: 1rem;
+}
+.pt-label {
+    position: absolute;
+    bottom: 2.5%;
+    border: 2px solid whitesmoke;
+    border-radius: 0.5rem;
+    padding: 0 0.5rem;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #1a1a1a;
 }

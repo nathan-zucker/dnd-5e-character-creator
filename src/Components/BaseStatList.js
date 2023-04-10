@@ -36,8 +36,8 @@ class BaseStatList extends React.Component {
        
         const dressedModifiers = modifiers.map(e=>{
             switch(e>=0){
-              case true: return "(+"+e+")";
-              case false: return "("+e+")";
+              case true: return "+"+e+"";
+              case false: return ""+e+"";
               default: return null;
             }
           })
