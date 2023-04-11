@@ -1,6 +1,11 @@
 
 # TODO
-[] add feats\
+[] add feats
+[] add expertise
+[] finish normal character sheet
+[] add mobile character sheet
+[] add spell sheet
+
 
 # **Nathan's D&D Character Creator**
 
