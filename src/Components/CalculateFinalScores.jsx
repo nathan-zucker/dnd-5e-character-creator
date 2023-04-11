@@ -300,11 +300,11 @@ class CalculateFinalScores extends React.Component {
                             </div>
                             <div className="skills-etc-container">
                                 <div className="proficiency-bonus-container">
-                                    <div className="proficiency-bonus">
-                                        <span className="bonus-box">+{this.props.state.classDetails.proficiencyBonus}</span>Proficiency Bonus
-                                    </div>
                                     <div className="passive-perception">
                                         <span className="bonus-box">{10 + this.state.PP}</span>Passive Perception
+                                    </div>
+                                    <div className="proficiency-bonus">
+                                        <span className="bonus-box">+{this.props.state.classDetails.proficiencyBonus}</span>Proficiency Bonus
                                     </div>
                                 </div>
                                 <div className="saving-throws-container">
@@ -452,7 +452,7 @@ class CalculateFinalScores extends React.Component {
                                                     <span className="feature-name"><i className="pi pi-tag" />{e.name}<br/></span>
                                                     <ul className="feature-details">
                                                         {Object.keys(e).map((key, j) => {
-                                                            if (key === 'name') {return null}
+                                                            if (key === 'name' || key === 'details') {return null}
                                                             return (
                                                                 <li key={j}>
                                                                     {key}: {e[key]}
@@ -460,6 +460,7 @@ class CalculateFinalScores extends React.Component {
                                                             )
                                                         })}
                                                     </ul>
+                                                    {e.hasOwnProperty("details") ? <div className="feature-description">{e.details}</div> : null }
                                                 </div>
                                             }
                                         </div>
@@ -468,11 +469,52 @@ class CalculateFinalScores extends React.Component {
                             </div>
                         </div>
                         <div className="proficiencies-container">
-                            <span className="section-header">Other Proficiencies</span>
-
+                            <span className="section-header">Other Proficiencies</span><br/>
+                            <div className="proficiency-section">
+                                <span className="section-header">Armor:</span><br/>
+                                {
+                                    this.props.state.armor.proficiencies.length === 0 ? null :
+                                    <ul className="proficiency-list">
+                                        {this.props.state.armor.proficiencies.map((e, i) => {
+                                            return <li key={i}>{e}</li>
+                                        })}
+                                    </ul>
+                                }
+                            </div>
+                            <div className="proficiency-section">
+                                <span className="section-header">Weapons:</span><br/>
+                                {
+                                    this.props.state.weaponProficiencies.length === 0 ? null :
+                                    <ul className="proficiency-list">
+                                        {
+                                            this.props.state.weaponProficiencies.map((e, i) => {
+                                                return <li key={i}>{e}</li>
+                                            })
+                                        }
+                                    </ul>
+                                }
+                            </div>
+                            <div className="proficiency-section">
+                                <span className="section-header">Tools:</span>
+                                {
+                                    this.props.state.tools.length === 0 ? null :
+                                    <ul className="proficiency-list">
+                                        {
+                                            this.props.state.tools.map((e, i) => {
+                                                return <li key={i}>{e}</li>
+                                            })
+                                        }
+                                    </ul>
+                                }
+                            </div>
                         </div>
                         <div className="equipment-container">
-                            <span className="section-header">Equipment</span>
+                            <span className="section-header">Equipment:</span>
+                            <ul className="equipment-list">
+                                {this.props.state.equipment.map((e, i) => {
+                                    return <li key={i}>{e}</li>
+                                })}
+                            </ul>
                         </div>
                     </div>
                 </div>

@@ -138,7 +138,7 @@ class Class extends React.Component {
         const output = Object.assign({}, inputClass.base, inputClass[this.state.level], {
             features: features,
             subClasses: inputClass.subClasses,
-            subClasses2: inputClass.subClasses2 || null
+            subClasses2: inputClass.subClasses2 ?? null
         })
         
         const classDetails = Object.assign({}, output)

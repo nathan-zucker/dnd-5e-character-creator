@@ -14,7 +14,8 @@ class RacialTraitsIndex extends React.Component {
             inputAcquired: 0,
             subClass: undefined,
             savedInfo: [],
-            selectors: 0
+            selectors: 0,
+            dispatched: false
         }
     }
 
@@ -31,16 +32,41 @@ class RacialTraitsIndex extends React.Component {
     componentDidUpdate(){
         //console.log("loading extra choices")
         const selectorButtons = document.getElementsByClassName("subClassSubmit")
+        const selectorEnabled = [];
+        const selectorDisabled = [];
+        for (let i=0; i<selectorButtons.length; i++) {
+            if (selectorButtons[i].disabled) {
+                selectorDisabled.push(selectorButtons[i])
+            }
+            else {
+                selectorEnabled.push(selectorButtons[i])
+            }
+        }
+        if (this.state.dispatched === true) {
+            if (selectorEnabled.length === 0) {
+                // HIDE COMPONENT
+                //this.props.sendPackage('submitSubClass')
+                //console.log('hiding')
+            }
+            else {
+                this.setState({dispatched: false})
+            }
+        }
+        console.log(selectorButtons.length, "inputs: ", selectorDisabled.length, "needed: ", selectorEnabled.length)
         this.countSelectors(selectorButtons.length)
     }
 
     countSelectors = (num) => {
         if(this.state.selectors === num) {
+            if (this.state.inputNeeded === 0) {
+                //console.log('hiding')
+            }
             return null
-        } else {
+        }
+        else {
             let numRemaining = num - this.state.inputAcquired
             this.setState({selectors: num, inputNeeded: numRemaining})
-        }
+        } 
     }
 
     handleSubClassChange = (event) => {
@@ -100,8 +126,7 @@ class RacialTraitsIndex extends React.Component {
         // DISPATCH SUBCLASS SELECTION
         this.props.sendPackage("subClass", this.state.subClass)
         this.dispatchInfo()
-        this.setState({inputNeeded: -1})
-        this.props.sendPackage('submitSubClass')
+        this.setState({inputNeeded: -1, dispatched: true})
     }
 
     dispatchInfo = () => {
@@ -122,6 +147,12 @@ class RacialTraitsIndex extends React.Component {
                 
 
                 switch(infoType){
+                    case 'armor':
+                        this.props.sendPackage("armorProficiency",infoPayload);
+                        break;
+                    case 'weapons':
+                        this.props.sendPackage("weaponProficiency",infoPayload);
+                        break;
                     case 'features': 
                         type = 'addFeatureArray';
                         payload = infoPayload;
@@ -179,7 +210,7 @@ class RacialTraitsIndex extends React.Component {
 
     render(){
 
-        if (!this.props.progress.includes("baseStats") || this.props.progress.includes("subClass") ) {
+        if (this.props.progress.includes('alignment')) {
             return null
         }
         
@@ -193,6 +224,7 @@ class RacialTraitsIndex extends React.Component {
                     : null}
 
                     {this.subClassSelector("Primal Path")}
+                    {this.subClassSelector("Totem Spirit", 2)}
                     {this.subClassSelector("Bard College")}
                     {this.subClassSelector("Divine Domain")}
                     {this.subClassSelector("Druid Circle")}

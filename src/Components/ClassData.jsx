@@ -19,12 +19,13 @@ const barbarian = {
         
     1: {
         proficiencyBonus: 2,
-        features: [{name: "Rage", rages: 2, "rage damage": 2}, "Unarmored Defense"],
+        features: [{name: "Rage", rages: 2, "rage damage": 2, 
+        description: `While Raging, advantage on Strength checks and Strength saving throws, when you make a melee attack using Stength gain Rage damage bonus, resistance to bludgeoning, piercing, and slashing damage`}, "Unarmored Defense"],
         AC: [10, "Dex", "Con"]
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Reckless Attack", "Danger Sense"]
+        features: [{"name": "Reckless Attack", "details": " advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn"}, "Danger Sense"]
     },
     3: {
         proficiencyBonus: 2,
@@ -36,12 +37,12 @@ const barbarian = {
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Extra Attack", "Fast Movement"]
+        features: ["Extra Attack", {"name": "Fast Movement", "speed": 10, "details": "your speed increases by 10 feet while you aren’t w earing heavy armor"}]
     },
     subClasses: {
         Berserker: {
             3: {
-                features: ["Frenzy"]
+                features: [{"name": "Frenzy", "details": `While Raging, you can go into a Frenzy. Make a single melee weapon attack as a bonus action on each of your turns after this one. W hen your rage ends, you suffer one level of exhaustion`}]
             },
             6: {
                 features: ["Mindless Rage"]
@@ -55,7 +56,7 @@ const barbarian = {
         },
         TotemWarrior: {
             3: {
-                features: ["Spirit Seeker", "Totem Spirit"],
+                features: [{"name": "Spirit Seeker", "details": "you gain the ability to cast the beast sense and speak with animals spells, but only as rituals"}, "Totem Spirit"],
                 spellcasting: {
                     rituals: ["beast sense", "speak with animals"]
                 }
@@ -71,7 +72,11 @@ const barbarian = {
             }
         }
     },
-    subClasses2: {}
+    subClasses2: {
+        Bear: {},
+        Eagle: {},
+        Wolf: {},
+    }
     
 }
 
@@ -94,7 +99,7 @@ const bard = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Spellcasting", {"name": "Bardic Inspiration", "bard die": "1d6"}],
+        features: ["Spellcasting", {"name": "Bardic Inspiration", "bard die": "1d6", "details": `use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes`}],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 4,
@@ -104,7 +109,7 @@ const bard = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Jack of All Trades", {"name": "Song of Rest", "bard die": "1d6"}],
+        features: ["Jack of All Trades", {"name": "Song of Rest", "bard die": "1d6", "details": `If you or any friendly creatures who can hear your perform ance regain hit points at the end of a short rest, each of those creatures regains an extra 1d6 hit points.`}],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 5,
@@ -134,7 +139,7 @@ const bard = {
     },
     5: {
         proficiencyBonus: 3,
-        features: [{"name": "Bardic Inspiration", "bard die": "1d8"}, "Font of Inspiration"],
+        features: [{"name": "Bardic Inspiration", "bard die": "1d8"}, {"name": "Font of Inspiration", "details": `you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest`}],
         spellCasting: {
             cantripsKnown: 3,
             spellsKnown: 8,
@@ -144,7 +149,8 @@ const bard = {
     subClasses: {
         "College of Lore": {
             3: {
-                features: ["Bonus Proficiencies Lore", "Cutting Words"]
+                features: ["Bonus Proficiencies Lore", {"name": "Cutting Words", "details": `When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature’s roll`}],
+                skills: [3, "any"]
             },
             6: {
                 features: ["Additional Magic Secrets"]
@@ -155,7 +161,9 @@ const bard = {
         },
         "College of Valor": {
             3: {
-                features: ["Bonus Proficiencies Valor", "Combat Inspiration"]
+                features: ["Bonus Proficiencies Valor", "Combat Inspiration"],
+                weapons: ['martial'],
+                armor: ['medium', 'shield']
             },
             6: {
                 features: ["Extra Attack"]
