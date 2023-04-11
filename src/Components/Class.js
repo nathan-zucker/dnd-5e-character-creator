@@ -132,6 +132,7 @@ class Class extends React.Component {
 
         const features = [];
         for(let i=1; i<=this.state.level; i++){
+            //console.log(i, features)
             inputClass[i].hasOwnProperty("features") && features.push(...inputClass[i].features)
         }
 
@@ -142,6 +143,7 @@ class Class extends React.Component {
         })
         
         const classDetails = Object.assign({}, output)
+        //console.log(output)
         delete classDetails.class
         delete classDetails.features
         delete classDetails.hitDie
@@ -158,8 +160,8 @@ class Class extends React.Component {
             delete classDetails.equipment;
         }
         
-
-        this.props.dispatchFeatures(output.features)
+        console.log(features)
+        this.props.dispatchFeatures(features)
         this.props.dispatchHitDie(output.hitDie)
         this.props.dispatchClassLevel([output.class, this.state.level])
         this.props.dispatchArmor(output.armor)

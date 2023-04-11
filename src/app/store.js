@@ -134,24 +134,35 @@ const featureReducer = (state = [], action) => {
                 return state.push(action.payload);
             }
         case 'addFeatureArray': 
+        console.log('adding array of features')
             let currentState = state.concat(action.payload);
             let newState = [];
             for (let i = currentState.length - 1; i >=0; i--) {
                 if (typeof currentState[i] === 'object') {
+                    console.log("object detected", currentState[i].name)
                     let newFeature = currentState[i];
-                    newState.forEach(e => {
-                        if (typeof e === 'object' && e.name === currentState[i].name) {
-                            newFeature = 'none';
-                        }
-                    })
-                    if (newFeature !== 'none') {
-                        newState.push(newFeature);
+
+                    if (newState.find(feature => typeof feature === 'object' && feature.name === currentState[i].name)) {
+                        console.log("matching name")
+                        let oldFeature = newState.find(feature => typeof feature === 'object' && feature.name === currentState[i].name);
+                        newFeature = Object.assign({}, currentState[i], oldFeature );
+                        newState.splice(newState.indexOf(oldFeature), 1);
                     }
+                    newState.push(newFeature);
                 }
                 else {
                     newState.push(currentState[i])
                 }
             }
+            /* 
+            for (let i=0; i<newState.length; i++) {
+                if (typeof newState[i] === 'object') {
+                    if (newState.find(feature => typeof feature === 'object' && feature.name === newState[i].name)) {
+                        
+                    }
+                }
+            }
+            */
             return newState;
         default: return state;
     }

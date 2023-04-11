@@ -172,7 +172,7 @@ class CalculateFinalScores extends React.Component {
                 }
             }
         }
-        console.log("armor",armor)
+        //console.log("armor",armor)
          // v CHECK IF SHIELD CHANGE THIS V
         this.setState({armor: armor})
         this.props.updateArmor(armor)
@@ -199,32 +199,32 @@ class CalculateFinalScores extends React.Component {
         let AC = 0;
         let base = armor[0]["AC"]["base"];
         let bonus = dexMod;
-        console.log("base",base, "str", str)
+        //console.log("base",base, "str", str)
 
         if (armor[0].hasOwnProperty("stealth")) {
-            console.log("disadvantage on stealth")
+            //console.log("disadvantage on stealth")
             this.props.dispatchResistance("disadvantage on stealth")
         }
         if (armor[0]["AC"].hasOwnProperty("strReq")) {
-            console.log("has strength req: ", armor[0]["AC"]["strReq"], "My Strength: ", this.props.abilityMods[0])
+            //console.log("has strength req: ", armor[0]["AC"]["strReq"], "My Strength: ", this.props.abilityMods[0])
             strReq = armor[0]["AC"]["strReq"]
         }
         if (armor[0]["AC"].hasOwnProperty("maxBonus")) {
-            console.log("max dex bonus: ", armor[0]["AC"]["maxBonus"])
+            //console.log("max dex bonus: ", armor[0]["AC"]["maxBonus"])
             maxBonus = armor[0]["AC"]["maxBonus"]
         }
         if (this.state.shield === true) {
-            console.log("has shield")
+            //console.log("has shield")
             shield = 2;
         }
         if (maxBonus < dexMod) {
-            console.log("maxxed bonus", maxBonus)
+            //console.log("maxxed bonus", maxBonus)
             bonus = maxBonus
         }
         if (str >= strReq) {
             AC = base + bonus + shield
         }
-        console.log("ac", AC)
+        //console.log("ac", AC)
         this.setState({AC: AC})
     }
     calculatePP = () => {
@@ -234,7 +234,7 @@ class CalculateFinalScores extends React.Component {
             bonus = this.props.state.classDetails.proficiencyBonus;
         }
         const PP = base + bonus;
-        console.log("base", base, "bonus", bonus)
+        //console.log("base", base, "bonus", bonus)
         this.setState({PP: PP})
     }
     // GENERATE LIST OF FEATURES
@@ -267,6 +267,17 @@ class CalculateFinalScores extends React.Component {
         for (let i=0; i<arr.length; i++) {
             document.getElementById("radio-"+arr[i])
                 .className = "pi pi-check-circle"
+        }
+    }
+    toggleFeatureDetails = (id) => {
+        const details = select(`#details-${id}`);
+        let display = details.style("display");
+        if (display === 'none' ) {
+            console.log("un hiding", details)
+            details.style("display", "block")
+        }
+        else {
+            details.style("display", "none")
         }
     }
     render(){
@@ -322,7 +333,7 @@ class CalculateFinalScores extends React.Component {
                                 <div className="skills-container">
                                     <span className="section-header">Skills</span>
                                     {skillsBank.map((e, i) => {
-                                        console.log("skill id: ", `radio-${e.match(/(\w+)/)[0]}`)
+                                        //console.log("skill id: ", `radio-${e.match(/(\w+)/)[0]}`)
                                         return (
                                             <div className="skill-row" key={i}>
                                                 <i className="pi pi-circle" id={`radio-${e.match(/(\w+)/)[0]}`} />
@@ -345,7 +356,24 @@ class CalculateFinalScores extends React.Component {
                             <div className="combat-stats-container">
                                 <div className="defense-stats-container">
                                     <div className="cs-initiative"><span className="bonus-box">{this.props.state.baseStats.modifiers[1][1]}</span>Initiative</div>
-                                    <div className="cs-speed"><span className="bonus-box">{this.props.state.raceDetails.speed}'</span>Speed</div>
+                                    <div className="cs-speed">
+                                        <span className="bonus-box">
+                                            {(()=>{
+                                                let base = this.props.state.raceDetails.speed;
+                                                let speed = base;
+                                                this.props.features.forEach((feature, i) => {
+                                                    if (typeof feature === 'object') {
+                                                        if (feature.hasOwnProperty('speed')) {
+                                                            speed += feature.speed;
+                                                        }
+                                                    }
+                                                })
+
+                                                return `${speed}'`;
+                                            })()}
+                                        </span>
+                                        Speed
+                                    </div>
                                     <div className="cs-armor-class">
                                         <div className="cs-armor"><span className="section-header">Armor:</span><br/>
                                             <span className="shield"><i className="pi pi-circle" id='shield-radio' />Shield</span>
@@ -425,7 +453,7 @@ class CalculateFinalScores extends React.Component {
                             <div className="personality-container">
                                 <div className="personality-traits personality-row">
                                     <textarea name="personality-traits" id="personality-traits" className="cs-personality"></textarea>
-                                    <span className="pt-label">personality traits</span>
+                                    <span className="pt-label">personality</span>
                                 </div>
                                 <div className="ideals personality-row">
                                     <textarea name="ideals" id="ideals" className="cs-personality"></textarea>
@@ -446,10 +474,10 @@ class CalculateFinalScores extends React.Component {
                                     return this.props.features.map((e, i) =>
                                         <div className="feature-item" key={i}>
                                             {typeof e === 'string' ?
-                                                <span className="feature-name"><i className="pi pi-tag" />{e}<br/></span>
+                                                <div className="feature-name"><i className="pi pi-tag" />{e}<br/></div>
                                             : 
                                                 <div className="feature-row">
-                                                    <span className="feature-name"><i className="pi pi-tag" />{e.name}<br/></span>
+                                                    <div className="feature-name" id={`tag-${e.name}`} onClick={()=>this.toggleFeatureDetails(e.name)} style={{cursor: "pointer"}}><i className="pi pi-tag" />{e.name}<br/></div>
                                                     <ul className="feature-details">
                                                         {Object.keys(e).map((key, j) => {
                                                             if (key === 'name' || key === 'details') {return null}
@@ -460,7 +488,7 @@ class CalculateFinalScores extends React.Component {
                                                             )
                                                         })}
                                                     </ul>
-                                                    {e.hasOwnProperty("details") ? <div className="feature-description">{e.details}</div> : null }
+                                                    {e.hasOwnProperty("details") ? <div className="feature-description" id={`details-${e.name}`} style={{display: "none"}} >{e.details}</div> : null }
                                                 </div>
                                             }
                                         </div>

@@ -20,12 +20,26 @@ const barbarian = {
     1: {
         proficiencyBonus: 2,
         features: [{name: "Rage", rages: 2, "rage damage": 2, 
-        description: `While Raging, advantage on Strength checks and Strength saving throws, when you make a melee attack using Stength gain Rage damage bonus, resistance to bludgeoning, piercing, and slashing damage`}, "Unarmored Defense"],
+        details: `On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren’t wearing heavy armor:
+        You have advantage on Strength checks and Strength saving throws.
+        When you make a melee weapon attack using Strength, you gain a bonus to the damage roll.
+        You have resistance to bludgeoning, piercing, and slashing damage. If you are able to cast spells, you can’t cast them or concentrate on them while raging.
+        Your rage lasts for 1 minute. It ends early if you are knocked unconscious or if your turn ends and you haven’t attacked a hostile creature since your last turn or taken damage since then. You can also end your rage on your turn as a bonus action.`}, "Unarmored Defense"],
         AC: [10, "Dex", "Con"]
     },
     2: {
         proficiencyBonus: 2,
-        features: [{"name": "Reckless Attack", "details": " advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn"}, "Danger Sense"]
+        features: [
+            {
+                "name": "Reckless Attack",
+                "details": "Advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn"
+            },
+            {
+                name: "Danger Sense",
+                details: `You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can’t be blinded, deafened, or incapacitated.`
+            }
+            
+        ]
     },
     3: {
         proficiencyBonus: 2,
@@ -37,7 +51,7 @@ const barbarian = {
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Extra Attack", {"name": "Fast Movement", "speed": 10, "details": "your speed increases by 10 feet while you aren’t w earing heavy armor"}]
+        features: ["Extra Attack", {"name": "Fast Movement", "speed": 10, "details": "Your speed increases by 10 feet while you aren’t wearing heavy armor"}]
     },
     subClasses: {
         Berserker: {
@@ -73,9 +87,21 @@ const barbarian = {
         }
     },
     subClasses2: {
-        Bear: {},
-        Eagle: {},
-        Wolf: {},
+        Bear: {
+            3: {
+                features: [{"name": "Bear Totem", "details": `While raging, you have resistance to all damage except psychic damage.`}]
+            }
+        },
+        Eagle: {
+            3: {
+                features: [{"name": "Eagle Totem", "details": `While you're raging and aren’t wearing heavy armor, other creatures have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn`}]
+            }
+        },
+        Wolf: {
+            3: {
+                features: [{"name": "Wolf Totem", "details": `While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. `}]
+            }
+        },
     }
     
 }
@@ -161,7 +187,7 @@ const bard = {
         },
         "College of Valor": {
             3: {
-                features: ["Bonus Proficiencies Valor", "Combat Inspiration"],
+                features: ["Bonus Proficiencies Valor", {"name": "Combat Inspiration", "details": `A creature that has a Bardic Inspiration die from you can roll that die and add the number rolled to a weapon damage roll it just made. Alternatively, when an attack roll is made against the creature, it can use its reaction to roll the Bardic Inspiration die and add the number rolled to its AC against that attack, after seeing the roll but before knowing whether it hits or misses.`}],
                 weapons: ['martial'],
                 armor: ['medium', 'shield']
             },
@@ -239,7 +265,8 @@ const cleric = {
         "Knowledge": {
             1: {
                 features: ["Blessings of Knowledge"],
-                spellCasting: {clericSpells: ["command", "identify"]}
+                spellCasting: {clericSpells: ["command", "identify"]},
+                expertise: [2, ['Arcana', 'History', 'Nature', 'Religion']]
             },
             2: {
                 spellCasting: {ChannelDivinity: ["Knowledge of the Ages"]}
@@ -268,7 +295,7 @@ const cleric = {
         },
         "Life": {
             1: {
-                features: ["Disciple of Life"],
+                features: [{"name": "Disciple of Life", "details": `Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.`}],
                 spellCasting: {clericSpells: ["bless", "cure wounds"]}
             },
             2: {
@@ -509,7 +536,7 @@ const druid = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Wild Shape", "Druid Circle"],
+        features: [{"name": "Wild Shape", "max CR": "1/4", "limitations": "no flying or swimming speed",  "details": `use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest.`}, "Druid Circle"],
         spellCasting: {
             cantripsKnown: 2,
             slots: [3]
@@ -525,7 +552,7 @@ const druid = {
     },
     4: {
         proficiencyBonus: 2,
-        features: ["Wild Shape Improvement", "Ability Score Improvement"],
+        features: [{"name": "Wild Shape", "max CR": "1/2", "limitations": "no flying speed"}, "Ability Score Improvement"],
         spellCasting: {
             cantripsKnown: 3,
             slots: [4, 3]
@@ -542,7 +569,7 @@ const druid = {
     subClasses: {
         "Circle of the Land": {
             2: {
-                features: ["Circle of the Land", "Natural Recovery"],
+                features: ["Circle of the Land", {"name": "Natural Recovery", "details": `During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level`}],
                 spellCasting: {
                     cantripsKnown: 1
                 }
@@ -559,7 +586,7 @@ const druid = {
         },
         "Circle of the Moon": {
             2: {
-                features: ["Combat Wild Shape", "Circle Forms"]
+                features: [{"name": "Combat Wild Shape", "details": `Use Wild Shape on your turn as a bonus action, rather than as an action. Additionally, while you are transformed by Wild Shape, you can use a bonus action to expend one spell slot to regain 1d8 hit points per level of the spell slot expended.`}, "Circle Forms"]
             },
             6: {
                 features: ["Improved Circle Forms", "Primal Strike"]
