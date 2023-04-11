@@ -53,7 +53,7 @@ See the section about [running tests](https://facebook.github.io/create-react-ap
 
 ### `npm run deploy`
 
-Builds the app for production and deploys to github pages. link: https://nathan-zucker.github.io/dnd-5e-character-creator/ .\
+Builds the app for production and deploys to github pages. link: https://nathan-zucker.github.io/dnd-5e-character-creator/ \
 It correctly bundles React in production mode and optimizes the build for the best performance.
 
 ### `npm run eject`
