@@ -29,10 +29,13 @@
 [X] display Initiative, Armor Class, and Hit Points
 [] get miscellaneous resistances
 
+# **Nathan's D&D Character Creator**
 
-# Getting Started with Create React App
+This project currently only supports up to level 5 characters. This accounts for most of the unique features and sub classes that exist in the game, but to support up to level 20 characters would require a lot more data entry.
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Features
+
+You can build faithful and accurate D&D characters for fifth edition. There is full implementation of proficiencies, sub classes, languages, and more. This includes in in-depth armor and weapons system, and support for special feautes like Ki points and unarmored defense.
 
 ## Available Scripts
 
