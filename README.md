@@ -35,7 +35,7 @@ This project currently only supports up to level 5 characters. This accounts for
 
 ## Features
 
-You can build faithful and accurate D&D characters for fifth edition. There is full implementation of proficiencies, sub classes, languages, and more. This includes in in-depth armor and weapons system, and support for special feautes like Ki points and unarmored defense.
+You can build faithful and accurate D&D characters for fifth edition. There is full implementation of proficiencies, sub classes, languages, and more. This includes an in-depth armor and weapons system, and support for special features like Ki points and unarmored defense.
 
 ## Available Scripts
 
@@ -45,9 +45,6 @@ In the project directory, you can run:
 
 Runs the app in the development mode.\
 Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
-
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
 
 ### `npm test`
 
