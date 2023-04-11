@@ -8,7 +8,7 @@ import FinalAbilityScores from "./FinalAbilityScores";
 import FancyAbilityScores from "./FancyAbilityScores";
 import { select, selectAll } from "d3";
 
-import { skillsBank } from "../Skills";
+import { allSkills as skillsBank } from "../Skills";
 import { weapons as weaponsData }  from "../reference/equipment-data";
 
 
@@ -61,7 +61,6 @@ class CalculateFinalScores extends React.Component {
         this.checkSaves()
         this.calculatePP()
     }
-
     // FIND WEAPONS IN EQUIPMENT
     findWeapons = () => {
         let allEquipment = this.props.state.equipment;
@@ -86,7 +85,6 @@ class CalculateFinalScores extends React.Component {
         this.setState({weapons: weapons})
         this.removeDuplicateWeapons(weapons)
     }
-
     //REMOVE DUPLICATES
     removeDuplicateWeapons = (weapons) => {
         let arr1 = [...this.props.weapons, ...weapons]
@@ -105,14 +103,12 @@ class CalculateFinalScores extends React.Component {
         this.props.updateWeapons(final)
         this.loadAttacks(final)
     }
-
     // GET WEAPON STATS
-
     loadAttacks = (weapons) => {
         const meleeWeapons = Object.keys(weaponsData["simple melee"]).concat(Object.keys(weaponsData["martial melee"]))
         const rangedWeapons = Object.keys(weaponsData["simple ranged"]).concat(Object.keys(weaponsData["martial ranged"]))
         
-        console.log("WEAPONS: ", this.props.weapons)
+        //console.log("WEAPONS: ", this.props.weapons)
         let attacks = []
         weapons.forEach(weapon => {
 
@@ -151,23 +147,9 @@ class CalculateFinalScores extends React.Component {
             attacks.push(weapon)
         })
         this.setState({attacks: attacks})
-        console.log(this.state.attacks, attacks)
+        //console.log(this.state.attacks, attacks)
         return attacks
     }
-
-
-    weaponCards = () => {
-
-        let arr = [...this.props.weapons];
-        /*
-        return arr.map((e, i)=>
-            <div className="weapon-card" key={i}>
-                <WeaponCard name={e.name} baseDamage={e.damage} type={e.type} properties={e.properties} />
-            </div>
-        )
-        */
-    }
-
     // FIND ARMOR IN EQUIPMENT
     findArmor = () => {
         let arr = [...this.props.state.equipment];
@@ -191,27 +173,25 @@ class CalculateFinalScores extends React.Component {
         if ( armor.length === 0 ) { 
             if (this.props.features.includes("Unarmored Defense")) {
                 let AC = 10 + this.props.abilityMods[1] + this.props.abilityMods[2];
-                console.log("Unarmored Defense: ", AC)
+                //console.log("Unarmored Defense: ", AC)
                 this.setState({AC: AC})
             }
             return
         }
         
-        console.log("calculate from",armor, this.props.state.baseStats.stats)
-        this.calculateAC(armor, this.props.state.baseStats.stats)
+        //console.log("calculate from",armor, this.props.state.baseStats.stats)
+        this.calculateAC(armor, this.props.state.baseStats)
     }
     calculateAC = (armor, stats) => {
-
-        const str = stats[0]
-        const dex = stats[1]
+        const str = stats.stats[0]
+        const dexMod = stats.modifiers[0][1]
         let strReq = 0;
         let maxBonus = 10;
         let shield = 0;
         let AC = 0;
         let base = armor[0]["AC"]["base"];
-        let bonus = dex;
+        let bonus = dexMod;
         console.log("base",base, "str", str)
-
 
         if (armor[0].hasOwnProperty("stealth")) {
             console.log("disadvantage on stealth")
@@ -229,17 +209,16 @@ class CalculateFinalScores extends React.Component {
             console.log("has shield")
             shield = 2;
         }
-        if (maxBonus < dex) {
+        if (maxBonus < dexMod) {
             console.log("maxxed bonus", maxBonus)
             bonus = maxBonus
         }
         if (str >= strReq) {
             AC = base + bonus + shield
         }
-        console.log(AC)
+        console.log("ac", AC)
         this.setState({AC: AC})
     }
-    
     calculatePP = () => {
         let base = this.props.state.baseStats.modifiers[0][4];
         let bonus = 0;
@@ -250,27 +229,23 @@ class CalculateFinalScores extends React.Component {
         console.log("base", base, "bonus", bonus)
         this.setState({PP: PP})
     }
-
     // GENERATE LIST OF FEATURES
     mapFeatures = () => {
         let arr = [...this.props.features]
         return arr.map((e, i)=><tr key={i}><td>{e}</td></tr>)
     }
-
     mapEquipment = () => {
         let arr = [...this.props.state.equipment];
         return arr.map((e, i)=><tr key={i}><td>{e}</td></tr>)
     }
-
     mapResistances = () => {
         let arr = [...this.state.resistances];
         return arr.map((e, i)=><tr key={i}><td>{e}</td></tr>)
     }
-
     checkSkills = () => {
         let arr = [...this.props.state.skillProficiencies.proficiencies];
         for (let i=0; i<arr.length; i++) {
-            document.getElementById(`radio-${arr[i].match(/\w+/)}`)
+            document.querySelector(`#radio-${arr[i].match(/(\w+)/)[0]}`)
                 .className = "pi pi-check-circle";
         }
         if (this.state.shield === true) {
@@ -286,9 +261,8 @@ class CalculateFinalScores extends React.Component {
                 .className = "pi pi-check-circle"
         }
     }
-
     render(){
-        console.log("LOCAL STATE CHAR SHEET: ", this.state)
+        console.log("LOCAL STATE CHAR SHEET: ", this.state, "SKILLS BANK: ", skillsBank)
         let icon1 = 'pi pi-eye';
         let icon2 = 'pi pi-tag';
         let stats = [...this.props.baseStats.stats];
@@ -309,7 +283,7 @@ class CalculateFinalScores extends React.Component {
                         <div className="stats-container">
                             <div className="core-stats-container">
                                 {(['Strength', 'Dexterity', 'Constitution', 'Intelligence', 'Wisdom', 'Charisma']).map((title, i) =>
-                                        <div className="base-stat-row">
+                                        <div className="base-stat-row" key={i}>
                                             <div className="base-label">{title}</div>
                                             <div className="base-mod">{mods[i]}</div>
                                             <div className="base-stat">{stats[i]}</div>
@@ -319,10 +293,10 @@ class CalculateFinalScores extends React.Component {
                             <div className="skills-etc-container">
                                 <div className="proficiency-bonus-container">
                                     <div className="proficiency-bonus">
-                                        <span className="bonus-box">{this.props.state.classDetails.proficiencyBonus}</span>Proficiency Bonus
+                                        <span className="bonus-box">+{this.props.state.classDetails.proficiencyBonus}</span>Proficiency Bonus
                                     </div>
                                     <div className="passive-perception">
-                                        <span className="bonus-box">{this.state.PP}</span>Passive Perception
+                                        <span className="bonus-box">{10 + this.state.PP}</span>Passive Perception
                                     </div>
                                 </div>
                                 <div className="saving-throws-container">
@@ -340,9 +314,10 @@ class CalculateFinalScores extends React.Component {
                                 <div className="skills-container">
                                     <span className="section-header">Skills</span>
                                     {skillsBank.map((e, i) => {
+                                        console.log("skill id: ", `radio-${e.match(/(\w+)/)[0]}`)
                                         return (
                                             <div className="skill-row" key={i}>
-                                                <i className="pi pi-circle" id={`radio-${e.match(/\w+/)}`} />
+                                                <i className="pi pi-circle" id={`radio-${e.match(/(\w+)/)[0]}`} />
                                                 <span className='underline'>{(()=>{
                                                     let value = ''
                                                     e.match(/(Str)/) ? value = mods[0]:
@@ -438,30 +413,62 @@ class CalculateFinalScores extends React.Component {
                                 </div>
                             </div>
                         </div>
-                        <div className="personality-container">
-                            <div className="personality-traits personality-row">
-                                <textarea name="personality-traits" id="personality-traits" className="cs-personality"></textarea>
-                                <span className="pt-label">personality traits</span>
+                        <div className="personality-features-container">
+                            <div className="personality-container">
+                                <div className="personality-traits personality-row">
+                                    <textarea name="personality-traits" id="personality-traits" className="cs-personality"></textarea>
+                                    <span className="pt-label">personality traits</span>
+                                </div>
+                                <div className="ideals personality-row">
+                                    <textarea name="ideals" id="ideals" className="cs-personality"></textarea>
+                                    <span className="pt-label">ideals</span>
+                                </div>
+                                <div className="bonds personality-row">
+                                    <textarea name="bonds" id="bonds" className="cs-personality"></textarea>
+                                    <span className="pt-label">bonds</span>
+                                </div>
+                                <div className="flaws personality-row">
+                                    <textarea name="flaws" id="flaws" className="cs-personality"></textarea>
+                                    <span className="pt-label">flaws</span>
+                                </div>
                             </div>
-                            <div className="ideals personality-row">
-                                <textarea name="ideals" id="ideals" className="cs-personality"></textarea>
-                                <span className="pt-label">ideals</span>
-                            </div>
-                            <div className="bonds personality-row">
-                                <textarea name="bonds" id="bonds" className="cs-personality"></textarea>
-                                <span className="pt-label">bonds</span>
-                            </div>
-                            <div className="flaws personality-row">
-                                <textarea name="flaws" id="flaws" className="cs-personality"></textarea>
-                                <span className="pt-label">flaws</span>
+                            <div className="features-container">
+                                <span className="section-header">Features:</span><br/>
+                                {(()=>{
+                                    return this.props.features.map((e, i) =>
+                                        <div className="feature-item" key={i}>
+                                            {typeof e === 'string' ?
+                                                <span className="feature-name"><i className="pi pi-tag" />{e}<br/></span>
+                                            : 
+                                                <div className="feature-row">
+                                                    <span className="feature-name"><i className="pi pi-tag" />{e.name}<br/></span>
+                                                    <ul className="feature-details">
+                                                        {Object.keys(e).map((key, j) => {
+                                                            if (key === 'name') {return null}
+                                                            return (
+                                                                <li key={j}>
+                                                                    {key}: {e[key]}
+                                                                </li>
+                                                            )
+                                                        })}
+                                                    </ul>
+                                                </div>
+                                            }
+                                        </div>
+                                    )
+                                })()}
                             </div>
                         </div>
-                        <div className="features-container">features</div>
-                        <div className="proficiencies-container">misc pro</div>
-                        <div className="equipment-container">equipment</div>
+                        <div className="proficiencies-container">
+                            <span className="section-header">Other Proficiencies</span>
+
+                        </div>
+                        <div className="equipment-container">
+                            <span className="section-header">Equipment</span>
+                        </div>
                     </div>
                 </div>
-
+{/*
                 <table id="final-results">
                     <thead><tr><td colSpan={3}><h2>NAME</h2></td></tr></thead>
                     <tbody>
@@ -737,7 +744,7 @@ class CalculateFinalScores extends React.Component {
                         </tr>
                     </tbody>
                 </table>
-                
+*/}
             </div>
         )
     }

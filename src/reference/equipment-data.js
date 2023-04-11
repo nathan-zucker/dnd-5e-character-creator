@@ -170,7 +170,7 @@ const allWeapons = {
         damage: "1d4",
         type: "piercing",
         weight: 1,
-        properties: ["finess", "light", "thrown (range 20/60)"]
+        properties: ["finesse", "light", "thrown (range 20/60)"]
     },
     "greatclub": {
         name: 'greatclub',

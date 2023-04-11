@@ -109,8 +109,50 @@ const backgroundReducer = (state = {}, action) => {
 const featureReducer = (state = [], action) => {
     switch(action.type) {
         case 'clearFeatures': return [];
-        case 'addFeature': return state.push(action.payload);
-        case 'addFeatureArray': return state.concat(action.payload)
+        case 'addFeature': 
+            if (typeof action.payload === "object") {
+                let newFeature = action.payload;
+                state.forEach((e, i) => {
+                    if (typeof e === 'object') {
+                        if (action.payload.name === e.name) {
+                            newFeature = Object.assign({}, 
+                                e,
+                                action.payload,
+                                {index: i}
+                            )
+                        }
+                    }
+                })
+                if (newFeature.hasOwnProperty("index")) {
+                    return state.toSpliced(newFeature.index, 1, newFeature)
+                }
+                else {
+                    return state.push(newFeature)
+                }
+            }
+            else {
+                return state.push(action.payload);
+            }
+        case 'addFeatureArray': 
+            let currentState = state.concat(action.payload);
+            let newState = [];
+            for (let i = currentState.length - 1; i >=0; i--) {
+                if (typeof currentState[i] === 'object') {
+                    let newFeature = currentState[i];
+                    newState.forEach(e => {
+                        if (typeof e === 'object' && e.name === currentState[i].name) {
+                            newFeature = 'none';
+                        }
+                    })
+                    if (newFeature !== 'none') {
+                        newState.push(newFeature);
+                    }
+                }
+                else {
+                    newState.push(currentState[i])
+                }
+            }
+            return newState;
         default: return state;
     }
 }

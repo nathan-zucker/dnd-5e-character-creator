@@ -19,34 +19,24 @@ const barbarian = {
         
     1: {
         proficiencyBonus: 2,
-        features: ["Rage", "Unarmored Defense"],
-        rages: 2,
-        rageDamage: 2,
+        features: [{name: "Rage", rages: 2, "rage damage": 2}, "Unarmored Defense"],
         AC: [10, "Dex", "Con"]
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Reckless Attack", "Danger Sense"],
-        rages: 2,
-        rageDamage: 2
+        features: ["Reckless Attack", "Danger Sense"]
     },
     3: {
         proficiencyBonus: 2,
-        features: ["Primal Path"],
-        rages: 3,
-        rageDamage: 2
+        features: [{name: "Rage", rages: 3, "rage damage": 2}, "Primal Path"]
     },
     4: {
         proficiencyBonus: 2,
-        features: ["Ability Score Improvement"],
-        rages: 3,
-        rageDamage: 2
+        features: ["Ability Score Improvement"]
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Extra Attack", "Fast Movement"],
-        rages: 3,
-        rageDamage: 2
+        features: ["Extra Attack", "Fast Movement"]
     },
     subClasses: {
         Berserker: {
@@ -104,7 +94,7 @@ const bard = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Spellcasting", "Bardic Inspiration (d6)"],
+        features: ["Spellcasting", {"name": "Bardic Inspiration", "bard die": "1d6"}],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 4,
@@ -114,7 +104,7 @@ const bard = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Jack of All Trades", "Song of Rest (d6)"],
+        features: ["Jack of All Trades", {"name": "Song of Rest", "bard die": "1d6"}],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 5,
@@ -144,7 +134,7 @@ const bard = {
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Bardic Inspiration (d8)", "Font of Inspiration"],
+        features: [{"name": "Bardic Inspiration", "bard die": "1d8"}, "Font of Inspiration"],
         spellCasting: {
             cantripsKnown: 3,
             spellsKnown: 8,
@@ -207,7 +197,7 @@ const cleric = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Channel Divinity (1/rest)", "Divine Domain Feature"],
+        features: [{"Channel Divinity": "1 per rest"}, "Divine Domain Feature"],
         spellCasting: {
             cantripsKnown: 3,
             slots: [3]
@@ -231,7 +221,7 @@ const cleric = {
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Destroy Undead (CR 1/2)"],
+        features: [{"Destroy Undead": "CR 1/2"}],
         spellCasting: {
             cantripsKnown: 4,
             slots: [4, 3, 2]
@@ -697,7 +687,7 @@ const fighter = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Action Surge (1)"]
+        features: [{"name": "Action Surge", "uses": "1 per short rest"}]
     },
     3: {
         proficiencyBonus: 2,

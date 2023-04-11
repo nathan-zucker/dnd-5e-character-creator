@@ -2,6 +2,27 @@ import { selectAll } from "d3";
 import React from "react";
 import {connect} from "react-redux";
 
+const allSkills = [
+    "Athletics (Str)",
+    "Acrobatics (Dex)",
+    "Sleight of Hand (Dex)",
+    "Stealth (Dex)",
+    "Arcana (Int)",
+    "History (Int)",
+    "Investigation (Int)",
+    "Nature (Int)",
+    "Religion (Int)",
+    "Animal Handling (Wis)",
+    "Insight (Wis)",
+    "Medicine (Wis)",
+    "Perception (Wis)",
+    "Survival (Wis)",
+    "Deception (Cha)",
+    "Intimidation (Cha)",
+    "Performance (Cha)",
+    "Persuasion (Cha)"
+]
+
 const skillsBank = [
     "Athletics (Str)",
     "Acrobatics (Dex)",
@@ -261,4 +282,4 @@ const mapDispatchToProps = (dispatch) => {
 }
 
 export default connect(mapStateToProps, mapDispatchToProps)(Skills)
-export {skillsBank, languageBank}
+export {skillsBank, languageBank, allSkills}
