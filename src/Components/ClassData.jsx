@@ -860,39 +860,23 @@ const monk = {
     },
     1: {
         proficiencyBonus: 2,
-        martialArts: "1d4",
-        kiPoints: 0,
-        unarmoredMovement: 0,
-        features: ["Unarmored Defense", "Martial Arts"],
-        AC: [10, "Dex", "Wis"]
+        features: ["Unarmored Defense", {"name": "Martial Arts", "damage": "1d4"}]
     },
     2: {
         proficiencyBonus: 2,
-        martialArts: "1d4",
-        kiPoints: 2,
-        unarmoredMovement: 10,
-        features: ["Ki", "Unarmored Movement"]
+        features: [{"name": "Ki", "Ki points": 2}, {"name": "Unarmored Movement", "speed": 10}]
     },
     3: {
         proficiencyBonus: 2,
-        martialArts: "1d4",
-        kiPoints: 3,
-        unarmoredMovement: 10,
-        features: ["Monastic Tradition", "Deflect Missiles"]
+        features: [{"name": "Ki", "Ki points": 3}, "Monastic Tradition", "Deflect Missiles"]
     },
     4: {
         proficiencyBonus: 2,
-        martialArts: "1d4",
-        kiPoints: 4,
-        unarmoredMovement: 10,
-        features: ["Ability Score Improvement", "Slow Fall"]
+        features: [{"name": "Ki", "Ki points": 4}, "Ability Score Improvement", "Slow Fall"]
     },
     5: {
         proficiencyBonus: 3,
-        martialArts: "1d6",
-        kiPoints: 5,
-        unarmoredMovement: 10,
-        features: ["Extra Attack", "Stunning Strike"]
+        features: [{"name": "Ki", "Ki points": 5}, {"name": "Martial Arts", "damage": "1d6"}, "Extra Attack", "Stunning Strike"]
     },
     subClasses: {
         "Way of the Open Hand": {
@@ -1259,28 +1243,23 @@ const rogue = {
     },
     1: {
         proficiencyBonus: 2,
-        sneakAttack: "1d6",
-        features: ["Expertise", "Sneak Attack", "Thieves' Cant"]
+        features: ["Expertise", {"name": "Sneak Attack", "damage": "1d6"}, "Thieves' Cant"]
     },
     2: {
         proficiencyBonus: 2,
-        sneakAttack: "1d6",
         features: ["Cunning Action"]
     },
     3: {
         proficiencyBonus: 2,
-        sneakAttack: "2d6",
-        features: ["Rogueish Archetype"]
+        features: [{"name": "Sneak Attack", "damage": "2d6"}, "Rogueish Archetype"]
     },
     4: {
         proficiencyBonus: 2,
-        sneakAttack: "2d6",
         features: ["Ability Score Improvement"]
     },
     5: {
         proficiencyBonus: 3,
-        sneakAttack: "3d6",
-        features: ["Uncanny Dodge"]
+        features: [{"name": "Sneak Attack", "damage": "3d6"}, "Uncanny Dodge"]
     },
     subClasses: {
         "Thief": {
@@ -1368,7 +1347,6 @@ const sorcerer = {
     },
     1: {
         proficiencyBonus: 2,
-        sorceryPoints: 0,
         features: ["Spellcasting", "Sorcerous Origins"],
         spellCasting: {
             cantripsKnown: 4,
@@ -1378,8 +1356,7 @@ const sorcerer = {
     },
     2: {
         proficiencyBonus: 2,
-        sorceryPoints: 2,
-        features: ["Font of Magic"],
+        features: [{"name": "Font of Magic", "sorcery points": 2}],
         spellCasting: {
             cantripsKnown: 4,
             spellsKnown: 3,
@@ -1389,7 +1366,7 @@ const sorcerer = {
     3: {
         proficiencyBonus: 2,
         sorceryPoints: 3,
-        features: ["Metamagic"],
+        features: [{"name": "Font of Magic", "sorcery points": 3}, "Metamagic"],
         spellCasting: {
             cantripsKnown: 4,
             spellsKnown: 4,
@@ -1399,7 +1376,7 @@ const sorcerer = {
     4: {
         proficiencyBonus: 2,
         sorceryPoints: 4,
-        features: ["Ability Score Improvement"],
+        features: [{"name": "Font of Magic", "sorcery points": 4}, "Ability Score Improvement"],
         spellCasting: {
             cantripsKnown: 5,
             spellsKnown: 5,
@@ -1409,7 +1386,7 @@ const sorcerer = {
     5: {
         proficiencyBonus: 2,
         sorceryPoints: 5,
-        features: [],
+        features: [{"name": "Font of Magic", "sorcery points": 5}],
         spellCasting: {
             cantripsKnown: 5,
             spellsKnown: 6,

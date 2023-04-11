@@ -119,6 +119,8 @@ class CalculateFinalScores extends React.Component {
             let abilityMod = 0;
             let range = weapon.properties.join(" ").match(/(range \d+\/\d+)/g) ?? "melee";
 
+
+
             if (meleeWeapons.includes(weapon.name)) {
                 ability = 'STR'
                 abilityMod = this.props.abilityMods[0]
@@ -130,6 +132,12 @@ class CalculateFinalScores extends React.Component {
             if (weapon.properties.includes("finesse")) {
                 ability = 'DEX'
                 abilityMod = this.props.abilityMods[1]
+            }
+            if (this.props.state.class[0][0] === 'Monk') {
+                if ( Object.keys(weaponsData["simple melee"]).includes(weapon.name) && !weapon.properties.includes('two-handed') && !weapon.properties.includes('heavy')) {
+                    ability = 'DEX';
+                    abilityMod = this.props.abilityMods[1];
+                }
             }
 
             let attackBonus = `+${this.props.proficiencyBonus + abilityMod}`
@@ -348,7 +356,7 @@ class CalculateFinalScores extends React.Component {
                                                     type: {this.state.armor[0].group}<br/>
                                                     weight: {this.state.armor[0].weight}lb<br/>
                                                     {this.state.armor[0].stealth ? <span>stealth: {this.state.armor[0].stealth}<br/></span> : null}
-                                                    AC: {this.state.armor[0].AC.base} + Dex {this.state.armor[0].AC.maxBonus ? <span>(max {this.state.armor[0].AC.maxBonus})</span> : null}
+                                                    AC: {this.state.armor[0].AC.base} + Dex {this.state.armor[0].AC.hasOwnProperty("maxBonus") ? <span>(max {this.state.armor[0].AC.maxBonus})</span> : null}
                                                 </div>
                                             }
                                         </div>

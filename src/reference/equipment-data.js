@@ -293,6 +293,8 @@ const allWeapons = {
 
 const weaponList = Object.keys(weapons["simple melee"]).concat(Object.keys(weapons["simple ranged"])).concat(Object.keys(weapons["martial melee"])).concat(Object.keys(weapons["martial ranged"]));
 
+// ANY SIMPLE MELEE WEAPON WHICH IS NOT TWO-HANDED OR HEAVY
+
 
 const armorData = {
     "padded armor": {
