@@ -1,33 +1,6 @@
 
 # TODO
-[X] level 4 ability score increase
-[X] fix equipment selections
-[X] specific equipment selections (weapons, armor) infrastructure
-[X] weapons data entry
-[X] finish weapons
-[] add feats
-
-[] roll for hit points (need con & hit dice)
-[] compute Hit Points
-
-[] find armor from equipment =>
-[] find shield from equipment =>
-[] (armor, shield, stats) => compute Armor Class
-[] add functionality for unarmored defense
-
-[] proficient in perception? =>
-[] wisdom mod =>
-[] compute Passive Perception
-
-[] display proficiencies for skills and saving throws
-
-[X] determine attacks
-[] determine spellcasting ability
-[] FINAL VIS
-[X] display Ability Scores
-[X] display Weapons
-[X] display Initiative, Armor Class, and Hit Points
-[] get miscellaneous resistances
+[] add feats\
 
 # **Nathan's D&D Character Creator**
 
