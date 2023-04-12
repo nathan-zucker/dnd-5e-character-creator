@@ -492,7 +492,8 @@ class CalculateFinalScores extends React.Component {
                                         <div className="feature-item" key={i}>
                                             {typeof e === 'string' ?
                                                 <div className="feature-name"><i className="pi pi-tag" />{e}<br/></div>
-                                            : 
+                                            :
+                                            e.hasOwnProperty('details') ?
                                                 <div className="feature-row">
                                                     <div className="feature-name" onClick={()=>this.toggleFeatureDetails(e.id)} style={{cursor: "pointer"}}><i className="pi pi-tag" />{e.name}<br/></div>
                                                     <ul className="feature-details">
@@ -507,7 +508,7 @@ class CalculateFinalScores extends React.Component {
                                                     </ul>
                                                     {e.hasOwnProperty("details") ? <div className="feature-description" id={`details-${e.id}`} style={{display: "none"}} >{e.details}</div> : null }
                                                 </div>
-                                            }
+                                            : <div className="feature-name"><i className="pi pi-tag" />{e.name}<br/></div> }
                                         </div>
                                     )
                                 })()}

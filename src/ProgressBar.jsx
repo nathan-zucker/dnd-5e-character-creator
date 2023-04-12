@@ -19,7 +19,7 @@ function ProgressBar() {
     const store = useSelector((state)=>state)
     const blocksData = useSelector((state)=>{
         return ([
-            [ state.class[0][0], `Level ${state.class[0][1]} ${state.class[1]} `, [ "features", state.features.join(', ') ] ],
+            [ state.class[0][0], `Level ${state.class[0][1]} ${state.class[1]} `,{/* [ "features", state.features.join(', ') ]*/} ],
             [ state.race[0], state.race[1], [ "notes", `Dark vision: ${state.raceDetails.darkVision}, Size: ${state.raceDetails.size}, Speed: ${state.raceDetails.speed}'` ] ],
             [ "simplified AS display", "", [ "tooltip", `Str: ${state.baseStats.stats[0]}, Dex: ${state.baseStats.stats[1]}, Con: ${state.baseStats.stats[2]}, Int: ${state.baseStats.stats[3]}, Wis: ${state.baseStats.stats[4]}, Cha: ${state.baseStats.stats[5]} ` ] ],
             [ state.background.background, state.alignment, [ "tooltip", "details..." ] ]

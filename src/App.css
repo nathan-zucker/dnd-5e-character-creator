@@ -149,6 +149,7 @@ GUIDE USER THROUGH THE PROCESS WITH BOX-SHADOW AND TEXT-SHADOW NEON EFFECTS
   pointer-events: none;
   top: calc(20vh + 120px);
   width: fit-content;
+  -webkit-backdrop-filter: blur(5px);
   backdrop-filter: blur(5px);
   border: 1px solid whitesmoke;
   padding: 25px 10px 10px;
@@ -359,6 +360,14 @@ button img, button h2 {
   margin: 1rem auto;
 }
 
+.ability-score-increase button {
+  width: 7em;
+  height: 2em;
+  margin: 2px;
+  border: 1px solid whitesmoke;
+  border-radius: 4px;
+  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
+}
 .prompt-AS-increase button {
   transition: 100ms;
   font-size: min(3vw, 3vh);
@@ -369,9 +378,11 @@ button img, button h2 {
   background-color: #1a1a1a;
   color: whitesmoke;
   text-shadow: 0 0 3px #abffbf;
-
+  
 }
-
+.as-increase-container {
+  padding: 1rem;
+}
 .prompt-AS-increase button:hover {
   transition: 150ms;
   transform: scale(1.05);
@@ -379,14 +390,6 @@ button img, button h2 {
 }
 
 .ability-score-increase {
-}
-.ability-score-increase button {
-  width: 7em;
-  height: 2em;
-  margin: 2px;
-  border: 1px solid whitesmoke;
-  border-radius: 4px;
-  box-shadow: 0 0 6px #BFABFF, inset 0 0 6px #BFABFF;
 }
 
 .ability-score-increase button:hover {

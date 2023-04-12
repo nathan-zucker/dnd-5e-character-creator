@@ -3,7 +3,8 @@ import React from "react";
 import { connect } from "react-redux";
 //import ToolProficiency from "./RaceFeatures/ToolProficiency";
 import AbilityScordIncrease from "./AbilityScoreIncrease";
-import './RacialTraitsIndex.css'
+import './RacialTraitsIndex.css';
+//import * as ClassData from './ClassData';
 
 class RacialTraitsIndex extends React.Component {
     constructor(props){
@@ -74,7 +75,7 @@ class RacialTraitsIndex extends React.Component {
     }
 
     subClassSelector = (targetFeature, group) => {
-        if(!this.props.features.includes(targetFeature)){return null} else {
+        if(!this.props.features.includes(targetFeature) && typeof targetFeature === 'string' ){return null} else {
             let options = [];
             if(group === 2){
                 const subClasses2 = this.props.classDetails.subClasses2;
@@ -220,6 +221,42 @@ class RacialTraitsIndex extends React.Component {
         })
     }
 
+    featureSelector = (trigger, group) => {
+        if (this.props.features.includes(trigger)) {
+            let parent = this.props.features.find(e => e.id === group)
+            let picks = parent.picks
+            let options = parent.options;
+
+
+            console.log(`pick ${picks} from ${options.join(', ')}`)
+
+            const clickHandler = (obj) => {
+                console.log("YOU CHOSE THIS", obj)
+                this.props.sendPackage('delete-feature', trigger)
+                this.props.sendPackage('addFeature', obj)
+            }
+
+            const buttons = options.map((e, i) => {
+                return (
+                    <div className="featureOption" key={i}>
+                        <button 
+                            label={e.name}
+                            onClick={()=>clickHandler(e)}
+                        >
+                            {e.name}
+                        </button>
+                    </div>
+                )
+            })
+
+            return (
+                <div className="featureSelection">
+                    {buttons}
+                </div>
+            )
+        }
+    }
+
     render(){
 
         if (this.props.progress.includes('alignment')) {
@@ -230,7 +267,7 @@ class RacialTraitsIndex extends React.Component {
             return(
                 <div id="subClass-selections" className="input-card">
                     {this.props.features.includes('Ability Score Improvement') ? 
-                        <div>
+                        <div className="as-increase-container">
                             <AbilityScordIncrease picks={2} bonuses={this.props.raceDetails.abilityScoreIncrease} />
                         </div> 
                     : null}
@@ -246,7 +283,7 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Monastic Tradition")}
                     {this.subClassSelector("Sacred Oath")}
                     {this.subClassSelector("Ranger Archetype")}
-                    
+                    {this.featureSelector('Hunter', 'hunters-prey')}
 
                     {this.subClassSelector("Rogueish Archetype")}
                     {this.subClassSelector("Pact Magic")}

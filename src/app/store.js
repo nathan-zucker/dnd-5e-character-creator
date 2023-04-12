@@ -109,6 +109,9 @@ const backgroundReducer = (state = {}, action) => {
 const featureReducer = (state = [], action) => {
     switch(action.type) {
         case 'clearFeatures': return [];
+        case 'delete-feature':
+            let feature = state.find(e => e.id === action.payload || e === action.payload)
+            return state.toSpliced(state.indexOf(feature), 1);
         case 'addFeature': 
             if (typeof action.payload === "object") {
                 let newFeature = action.payload;
@@ -154,15 +157,6 @@ const featureReducer = (state = [], action) => {
                     newState.push(currentState[i])
                 }
             }
-            /* 
-            for (let i=0; i<newState.length; i++) {
-                if (typeof newState[i] === 'object') {
-                    if (newState.find(feature => typeof feature === 'object' && feature.name === newState[i].name)) {
-                        
-                    }
-                }
-            }
-            */
             return newState;
         default: return state;
     }

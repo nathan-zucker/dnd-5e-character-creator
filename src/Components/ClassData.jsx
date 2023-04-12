@@ -1271,11 +1271,36 @@ const ranger = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Favored Enemy", "Natural Explorer"]
+        features: [
+            {
+                name: "Favored Enemy",
+                id: 'favored-enemy',
+                details: `Choose a type of favored enemy: aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, or undead. Alternatively, you can select two races of humanoid (such as gnolls and orcs) as favored enemies.You have advantage on Wisdom (Survival) checks to track your favored enemies, as well as on Intelligence checks to recall information about them.When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.`
+            },
+            {
+                name: "Natural Explorer",
+                id: 'natural-explorer',
+                details: `Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark. When you make an Intelligence or Wisdom check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you’re proficient in. While traveling for an hour or more in your favored terrain, you gain the following benefits:${<br/>}
+                • Difficult terrain doesn’t slow your group’s travel.${<br/>}
+                • Your group can’t become lost except by magical means.${<br/>}
+                • Even when you are engaged in another activity while traveling (such as foraging, navigating, or tracking), you remain alert to danger.${<br/>}
+                • If you are traveling alone, you can move stealthily at a normal pace.${<br/>}
+                • When you forage, you find twice as much food as you normally would.${<br/>}
+                • While tracking other creatures, you also learn their 
+                exact number, their sizes, and how long ago they passed through the area.`
+            }
+        ]
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Fighting Style", "Spellcasting"],
+        features: [
+            {
+                name: "Fighting Style",
+                id: 'fighting-style',
+                options: ['Archery', 'Defense', 'Dueling', 'Two-Weapon Fighting']
+            },
+            "Spellcasting"
+        ],
         spellCasting: {
             spellsKnown: 2,
             slots: [2]
@@ -1283,7 +1308,14 @@ const ranger = {
     },
     3: {
         proficiencyBonus: 2,
-        features: ["Ranger Archetype", "Primeval Awareness"],
+        features: [
+            "Ranger Archetype",
+            {
+                name: "Primeval Awareness",
+                id: 'primeval-awareness',
+                details: `You can use your action and expend one ranger spell slot to focus your awareness on the region around you. For 1 minute per level of the spell slot you expend, you can sense whether the following types of creatures are present within 1 mile of you (or within up to 6 miles if you are in your favored terrain): aberrations, celestials, dragons, elementals, fey, fiends, and undead. This feature doesn’t reveal the creatures’ location or number.`
+            }
+        ],
         spellCasting: {
             spellsKnown: 3,
             slots: [3]
@@ -1308,7 +1340,31 @@ const ranger = {
     subClasses: {
         "Hunter": {
             3: {
-                features: ["Hunter's Prey"],
+                features: [
+                    "Hunter",
+                    {
+                        name: "Hunter's Prey",
+                        id: 'hunters-prey',
+                        picks: 1,
+                        options: [
+                            {
+                                name: 'Colossus Slayer',
+                                id: 'colossus-slayer',
+                                details: `Your tenacity can wear down the most potent foes. When you hit a creature with a weapon attack, the creature takes an extra 1d8 damage if it’s below its hit point maximum. You can deal this extra damage only once per turn.`
+                            },
+                            {
+                                name: 'Giant Killer',
+                                id: 'giant-killer',
+                                details: `When a Large or larger creature within 5 feet of you hits or misses you with an attack, you can use your reaction to attack that creature immediately after its attack, provided that you can see the creature.`
+                            },
+                            {
+                                name: 'Horde Breaker',
+                                id: 'horde-breaker',
+                                details: `Once on each of your turns when you make a weapon attack, you can make another attack with the same weapon against a different creature that is within 5 feet of the original target and within range of your weapon.`
+                            }
+                        ]
+                    }
+                ],
                 options: ["Colossus Slayer", "Giant Killer", "Horde Breaker"]
             },
             7: {
@@ -1327,7 +1383,13 @@ const ranger = {
         "Beast Master": {
 
             3: {
-                features: ["Ranger's Companion"]
+                features: [
+                    {
+                        name: "Ranger's Companion",
+                        id: 'rangers-companion',
+                        details: `You gain a beast companion that accompanies you on your adventures and is trained to fight alongside you. Choose a beast that is no larger than Medium and that has a challenge rating of 1/4 or lower (appendix D presents statistics for the hawk, mastiff, and panther as examples). Add your proficiency bonus to the beast’s AC, attack rolls, and damage rolls, as well as to any saving throws and skills it is proficient in. Its hit point maximum equals its normal maximum or four times your ranger level, whichever is higher. The beast obeys your commands as best as it can. It takes its turn on your initiative, though it doesn’t take an action unless you command it to. On your turn, you can verbally command the beast w here to m ove (no action required by you). You can use your action to verbally command it to take the Attack, Dash, Disengage, Dodge, or Help action. Once you have the Extra Attack feature, you can make one weapon attack yourself when you command the beast to take the Attack action. While traveling through your favored terrain with only the beast, you can move stealthily at a normal pace. If the beast dies, you can obtain another one by spending 8 hours magically bonding with another beast that isn’t hostile to you, either the sam e type of beast as before or a different one.`
+                    }
+                ]
             },
             7: {
                 features: ["Exceptional Training"]
