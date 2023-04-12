@@ -147,6 +147,18 @@ class RacialTraitsIndex extends React.Component {
                 
 
                 switch(infoType){
+                    case 'resistances': 
+                        this.props.sendPackage('add-resistances', infoPayload);
+                        break;
+                    case 'skill-package': 
+                        this.props.sendPackage("add-skill-package", infoPayload);
+                        break;
+                    case 'expertise-package':
+                        this.props.sendPackage("add-expertise-package", infoPayload);
+                        break;
+                    case 'languagePicks':
+                        this.props.sendPackage("addLanguagePick", infoPayload);
+                        break;
                     case 'armor':
                         this.props.sendPackage("armorProficiency",infoPayload);
                         break;

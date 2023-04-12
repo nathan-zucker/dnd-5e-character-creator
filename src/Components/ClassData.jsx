@@ -19,7 +19,7 @@ const barbarian = {
         
     1: {
         proficiencyBonus: 2,
-        features: [{name: "Rage", rages: 2, "rage damage": 2, 
+        features: [{id: 'rage', name: "Rage", rages: 2, "rage damage": 2, 
         details: `On your turn, you can enter a rage as a bonus action. While raging, you gain the following benefits if you aren’t wearing heavy armor:
         You have advantage on Strength checks and Strength saving throws.
         When you make a melee weapon attack using Strength, you gain a bonus to the damage roll.
@@ -31,10 +31,12 @@ const barbarian = {
         proficiencyBonus: 2,
         features: [
             {
+                id: 'reckless-attack',
                 "name": "Reckless Attack",
                 "details": "Advantage on melee weapon attack rolls using Strength during this turn, but attack rolls against you have advantage until your next turn"
             },
             {
+                id: 'danger-sense',
                 name: "Danger Sense",
                 details: `You have advantage on Dexterity saving throws against effects that you can see, such as traps and spells. To gain this benefit, you can’t be blinded, deafened, or incapacitated.`
             }
@@ -43,7 +45,7 @@ const barbarian = {
     },
     3: {
         proficiencyBonus: 2,
-        features: [{name: "Rage", rages: 3, "rage damage": 2}, "Primal Path"]
+        features: [{id: 'rage', name: "Rage", rages: 3, "rage damage": 2}, "Primal Path"]
     },
     4: {
         proficiencyBonus: 2,
@@ -51,12 +53,12 @@ const barbarian = {
     },
     5: {
         proficiencyBonus: 3,
-        features: ["Extra Attack", {"name": "Fast Movement", "speed": 10, "details": "Your speed increases by 10 feet while you aren’t wearing heavy armor"}]
+        features: ["Extra Attack", {id: 'fast-movement', "name": "Fast Movement", "speed": 10, "details": "Your speed increases by 10 feet while you aren’t wearing heavy armor"}]
     },
     subClasses: {
         Berserker: {
             3: {
-                features: [{"name": "Frenzy", "details": `While Raging, you can go into a Frenzy. Make a single melee weapon attack as a bonus action on each of your turns after this one. W hen your rage ends, you suffer one level of exhaustion`}]
+                features: [{id: 'frenzy', "name": "Frenzy", "details": `While Raging, you can go into a Frenzy. Make a single melee weapon attack as a bonus action on each of your turns after this one. W hen your rage ends, you suffer one level of exhaustion`}]
             },
             6: {
                 features: ["Mindless Rage"]
@@ -70,7 +72,14 @@ const barbarian = {
         },
         TotemWarrior: {
             3: {
-                features: [{"name": "Spirit Seeker", "details": "you gain the ability to cast the beast sense and speak with animals spells, but only as rituals"}, "Totem Spirit"],
+                features: [
+                    {
+                        id: 'spirit-seeker',
+                        "name": "Spirit Seeker",
+                        "details": "you gain the ability to cast the beast sense and speak with animals spells, but only as rituals"
+                    },
+                    "Totem Spirit"
+                ],
                 spellcasting: {
                     rituals: ["beast sense", "speak with animals"]
                 }
@@ -89,17 +98,17 @@ const barbarian = {
     subClasses2: {
         Bear: {
             3: {
-                features: [{"name": "Bear Totem", "details": `While raging, you have resistance to all damage except psychic damage.`}]
+                features: [{id: 'bear-totem', "name": "Bear Totem", "details": `While raging, you have resistance to all damage except psychic damage.`}]
             }
         },
         Eagle: {
             3: {
-                features: [{"name": "Eagle Totem", "details": `While you're raging and aren’t wearing heavy armor, other creatures have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn`}]
+                features: [{id: 'eagle-totem', "name": "Eagle Totem", "details": `While you're raging and aren’t wearing heavy armor, other creatures have disadvantage on opportunity attack rolls against you, and you can use the Dash action as a bonus action on your turn`}]
             }
         },
         Wolf: {
             3: {
-                features: [{"name": "Wolf Totem", "details": `While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. `}]
+                features: [{id: 'wolf-totem', "name": "Wolf Totem", "details": `While you're raging, your friends have advantage on melee attack rolls against any creature within 5 feet of you that is hostile to you. `}]
             }
         },
     }
@@ -125,7 +134,7 @@ const bard = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Spellcasting", {"name": "Bardic Inspiration", "bard die": "1d6", "details": `use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes`}],
+        features: ["Spellcasting", {id: 'bardic-inspiration', "name": "Bardic Inspiration", "bard die": "1d6", "details": `use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes`}],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 4,
@@ -135,7 +144,15 @@ const bard = {
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Jack of All Trades", {"name": "Song of Rest", "bard die": "1d6", "details": `If you or any friendly creatures who can hear your perform ance regain hit points at the end of a short rest, each of those creatures regains an extra 1d6 hit points.`}],
+        features: [
+            "Jack of All Trades",
+            {
+                id: 'song-of-rest',
+                name: "Song of Rest",
+                "bard die": "1d6",
+                details: `If you or any friendly creatures who can hear your perform ance regain hit points at the end of a short rest, each of those creatures regains an extra 1d6 hit points.`
+            }
+        ],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 5,
@@ -165,7 +182,18 @@ const bard = {
     },
     5: {
         proficiencyBonus: 3,
-        features: [{"name": "Bardic Inspiration", "bard die": "1d8"}, {"name": "Font of Inspiration", "details": `you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest`}],
+        features: [
+            {
+                id: 'bardic-inspiration',
+                name: "Bardic Inspiration",
+                "bard die": "1d8"
+            },
+            {
+                id: 'font-of-inspiration',
+                name: "Font of Inspiration",
+                details: `you regain all of your expended uses of Bardic Inspiration when you finish a short or long rest`
+            }
+        ],
         spellCasting: {
             cantripsKnown: 3,
             spellsKnown: 8,
@@ -175,7 +203,7 @@ const bard = {
     subClasses: {
         "College of Lore": {
             3: {
-                features: ["Bonus Proficiencies Lore", {"name": "Cutting Words", "details": `When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature’s roll`}],
+                features: ["Bonus Proficiencies Lore", {id: 'cutting-words', "name": "Cutting Words", "details": `When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature’s roll`}],
                 skills: [3, "any"]
             },
             6: {
@@ -187,7 +215,7 @@ const bard = {
         },
         "College of Valor": {
             3: {
-                features: ["Bonus Proficiencies Valor", {"name": "Combat Inspiration", "details": `A creature that has a Bardic Inspiration die from you can roll that die and add the number rolled to a weapon damage roll it just made. Alternatively, when an attack roll is made against the creature, it can use its reaction to roll the Bardic Inspiration die and add the number rolled to its AC against that attack, after seeing the roll but before knowing whether it hits or misses.`}],
+                features: ["Bonus Proficiencies Valor", {id: 'combat-inspiration', "name": "Combat Inspiration", "details": `A creature that has a Bardic Inspiration die from you can roll that die and add the number rolled to a weapon damage roll it just made. Alternatively, when an attack roll is made against the creature, it can use its reaction to roll the Bardic Inspiration die and add the number rolled to its AC against that attack, after seeing the roll but before knowing whether it hits or misses.`}],
                 weapons: ['martial'],
                 armor: ['medium', 'shield']
             },
@@ -231,7 +259,7 @@ const cleric = {
     },
     2: {
         proficiencyBonus: 2,
-        features: [{"Channel Divinity": "1 per rest"}, "Divine Domain Feature"],
+        features: [{id: 'channel-divinity', name: "Channel Divinity", uses: "1 per rest"}, "Divine Domain Feature"],
         spellCasting: {
             cantripsKnown: 3,
             slots: [3]
@@ -255,7 +283,14 @@ const cleric = {
     },
     5: {
         proficiencyBonus: 3,
-        features: [{"Destroy Undead": "CR 1/2"}],
+        features: [
+            {
+                id: 'destroy-undead',
+                name: "Destroy Undead",
+                "power": "CR 1/2",
+                details: `When an undead fails its saving throw against your Turn Undead feature, the creature is instantly destroyed if its challenge rating is at or below a certain threshold`
+            }
+        ],
         spellCasting: {
             cantripsKnown: 4,
             slots: [4, 3, 2]
@@ -266,7 +301,8 @@ const cleric = {
             1: {
                 features: ["Blessings of Knowledge"],
                 spellCasting: {clericSpells: ["command", "identify"]},
-                expertise: [2, ['Arcana', 'History', 'Nature', 'Religion']]
+                'expertise-package': [2, ['Arcana', 'History', 'Nature', 'Religion']]
+                // two language picks 
             },
             2: {
                 spellCasting: {ChannelDivinity: ["Knowledge of the Ages"]}
@@ -295,7 +331,7 @@ const cleric = {
         },
         "Life": {
             1: {
-                features: [{"name": "Disciple of Life", "details": `Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.`}],
+                features: [{id: 'disciple-of-life', "name": "Disciple of Life", "details": `Whenever you use a spell of 1st level or higher to restore hit points to a creature, the creature regains additional hit points equal to 2 + the spell’s level.`}],
                 spellCasting: {clericSpells: ["bless", "cure wounds"]}
             },
             2: {
@@ -325,7 +361,11 @@ const cleric = {
         },
         "Light": {
             1: {
-                features: ["Bonus Cantrip Light", "Warding Flare"],
+                features: ["Bonus Cantrip Light", {
+                    name: "Warding Flare",
+                    id: 'warding-flare',
+                    details: `When you are attacked by a creature within 30 feet of you that you can see, you can use your reaction to im pose disadvantage on the attack roll, causing light to flare before the attacker before it hits or misses. An attacker that can’t be blinded is immune to this feature. You can use this feature a number of times equal to your Wisdom modifier (a minim um of once). You regain all expended uses when you finish a long rest.`
+                }],
                 spellCasting: {
                     clericSpells: ["burning hands", "faerie fire"]
                 }
@@ -357,6 +397,8 @@ const cleric = {
         "Nature": {
             1: {
                 features: ["Acolyte of Nature", "Bonus Proficiency Nature"],
+                'skill-package': [1, ['Animal Handling', 'Nature', "Survival"]],
+                armor: ['heavy'],
                 spellCasting: {
                     clericSpells: ["animal friendship", "speak with animals"]
                 }
@@ -394,7 +436,9 @@ const cleric = {
         },
         "Tempest": {
             1: {
-                features: ["Bonus Proficiencies Tempest", "Wrath of the Storm"],
+                features: ["Bonus Proficiencies Tempest", {id: 'wrath-of-the-storm', name: "Wrath of the Storm", details: `When a creature within 5 feet of you that you can see hits you with an attack, you can use your reaction to cause the creature to make a Dexterity saving throw. The creature takes 2d8 lightning or thunder damage (your choice) on a failed saving throw, and half as much damage on a successful one. You can use this feature a number of times equal to your Wisdom modifier (a minimum of once). You regain all expended uses w hen you finish a long rest.`}],
+                weapons: ['martial'],
+                armor: ['heavy'],
                 spellCasting: {
                     clericSpells: ["fog cloud", "thunderwave"]
                 }
@@ -432,7 +476,7 @@ const cleric = {
         },
         "Trickery": {
             1: {
-                features: ["Blessing of the Trickster"],
+                features: [{id: 'blessings-of-the-trickster', name: "Blessing of the Trickster", details: `You can use your action to touch a willing creature other than yourself to give it advantage on Dexterity (Stealth) checks. This blessing lasts for 1 hour or until you use this feature again.`}],
                 spellCasting: {
                     clericSpells: ["charm person", "disguise self"]
                 }
@@ -470,7 +514,9 @@ const cleric = {
         },
         "War": {
             1: {
-                features: ["Bonus Proficiencies War", "War Priest"],
+                features: ["Bonus Proficiencies War", {id: 'war-priest', name: "War Priest", details: `When you use the Attack action, you can make one w eapon attack as a bonus action. You can use this feature a number of times equal to your Wisdom modifier (a minimum of once). You regain all expended uses when you finish a long rest.`}],
+                weapons: ['martial'],
+                armor: ['heavy'],
                 spellCasting: {
                     clericSpells: ["divine favor", "shield of faith"]
                 }
@@ -536,7 +582,7 @@ const druid = {
     },
     2: {
         proficiencyBonus: 2,
-        features: [{"name": "Wild Shape", "max CR": "1/4", "limitations": "no flying or swimming speed",  "details": `use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest.`}, "Druid Circle"],
+        features: [{id: 'wild-shape', "name": "Wild Shape", "max CR": "1/4", "limitations": "no flying or swimming speed",  "details": `use your action to magically assume the shape of a beast that you have seen before. You can use this feature twice. You regain expended uses when you finish a short or long rest.`}, "Druid Circle"],
         spellCasting: {
             cantripsKnown: 2,
             slots: [3]
@@ -552,7 +598,7 @@ const druid = {
     },
     4: {
         proficiencyBonus: 2,
-        features: [{"name": "Wild Shape", "max CR": "1/2", "limitations": "no flying speed"}, "Ability Score Improvement"],
+        features: [{id: 'wild-shape', "name": "Wild Shape", "max CR": "1/2", "limitations": "no flying speed"}, "Ability Score Improvement"],
         spellCasting: {
             cantripsKnown: 3,
             slots: [4, 3]
@@ -569,7 +615,7 @@ const druid = {
     subClasses: {
         "Circle of the Land": {
             2: {
-                features: ["Circle of the Land", {"name": "Natural Recovery", "details": `During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level`}],
+                features: ["Circle of the Land", {"name": "Natural Recovery", id: 'natural-recovery', "details": `During a short rest, you choose expended spell slots to recover. The spell slots can have a combined level that is equal to or less than half your druid level`}],
                 spellCasting: {
                     cantripsKnown: 1
                 }
@@ -586,7 +632,7 @@ const druid = {
         },
         "Circle of the Moon": {
             2: {
-                features: [{"name": "Combat Wild Shape", "details": `Use Wild Shape on your turn as a bonus action, rather than as an action. Additionally, while you are transformed by Wild Shape, you can use a bonus action to expend one spell slot to regain 1d8 hit points per level of the spell slot expended.`}, "Circle Forms"]
+                features: [{"name": "Combat Wild Shape", id: 'combat-wild-shape', "details": `Use Wild Shape on your turn as a bonus action, rather than as an action. Additionally, while you are transformed by Wild Shape, you can use a bonus action to expend one spell slot to regain 1d8 hit points per level of the spell slot expended.`}, "Circle Forms"]
             },
             6: {
                 features: ["Improved Circle Forms", "Primal Strike"]
@@ -718,11 +764,11 @@ const fighter = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Fighting Style", "Second Wind"]
+        features: ["Fighting Style", {name: "Second Wind", id: 'second-wind', details: `You have a limited well of stamina that you can draw on to protect yourself from harm. On your turn, you can use a bonus action to regain hit points equal to 1d10 + your fighter level. Once you use this feature, you must finish a short or long rest before you can use it again.`}]
     },
     2: {
         proficiencyBonus: 2,
-        features: [{"name": "Action Surge", "uses": "1 per short rest"}]
+        features: [{"name": "Action Surge", id: 'action-surge', "uses": "1 per short rest", description: `On your turn, you can take one additional action on top of your regular action and a possible bonus action. Once you use this feature, you must finish a short or long rest before you can use it again.`}]
     },
     3: {
         proficiencyBonus: 2,
@@ -739,7 +785,7 @@ const fighter = {
     subClasses: {
         "Champion": {
             3: {
-                features: ["Improved Critical"]
+                features: [{name: "Improved Critical", id: 'improved-crit', description: `Your weapon attacks score a critical hit on a roll of 19 or 20.`}]
             },
             7: {
                 features: ["Remarkable Athlete"]
@@ -756,7 +802,20 @@ const fighter = {
         },
         "Battle Master": {
             3: {
-                features: ["Combat Superiority", "Student of War"]
+                features: [
+                    {
+                        name: "Combat Superiority",
+                        id: 'combat-superiority',
+                        "Superiority Dice": "4d8",
+                        "!!": `You learn three maneuvers of your choice, which are detailed under “Maneuvers” (PHB pg.74). Many maneuvers enhance an attack in some way. You can use only one maneuver per attack.`,
+                        details: `Maneuver Save DC = 8 + proficiency bonus + Str OR Dex bonus. (your choice)`
+                    },
+                    {
+                        name: "Student of War",
+                        id: 'student-of-war',
+                        "!!": "You gain proficiency with one type of artisan’s tools of your choice."
+                    }
+                ]
             },
             7: {
                 features: ["Know Your Enemy"]
@@ -773,7 +832,7 @@ const fighter = {
         },
         "Eldritch Knight": {
             3: {
-                features: ["Weapon Bond"],
+                features: [{name: "Weapon Bond", id: 'weapon-bond', details: `You perform the ritual over the course of 1 hour. Once you have bonded a weapon to yourself, you can’t be disarmed of that weapon unless you are incapacitated. If it is on the same plane of existence, you can summon that weapon as a bonus action on your turn, causing it to teleport instantly to your hand.`}],
                 spellCasting: {
                     cantripsKnown: 2,
                     spellsKnown: 3,
@@ -844,32 +903,32 @@ const fighter = {
     subClasses2: {
         "Archery": {
             1: {
-                features: ["Archery Fighting Style"]
+                features: [{id: "fs-archery", name: "Archery Fighting Style", details: `You gain a +2 bonus to attack rolls you make with ranged weapons.`}]
             } 
         },
         "Defense": {
             1: {
-                features: ["Defense Fighting Style"]
+                features: [{id: "fs-defense", name: "Defense Fighting Style", details: `While you are wearing armor, you gain a +1 bonus to AC.`}]
             }
         },
         "Dueling": {
             1: {
-                features: ["Dueling Fighting Style"]
+                features: [{id: "fs-dueling", name: "Dueling Fighting Style", details: `When you are wielding a melee weapon in one hand and no other weapons, you gain a +2 bonus to damage rolls with that weapon.`}]
             }
         },
         "Great Weapon Fighting": {
             1: {
-                features: ["Great Weapon Fighting Style"]
+                features: [{id: "fs-great-weapon", name: "Great Weapon Fighting Style", details: `When you roll a 1 or 2 on a damage die for an attack you make with a melee weapon that you are wielding with two hands, you can reroll the die and must use the new roll, even if the new roll is a 1 or a 2. The weapon must have the two-handed or versatile property for you to gain this benefit.`}]
             }
         },
         "Protection": {
             1: {
-                features: ["Protection Fighting Style"]
+                features: [{id: "fs-protection", name: "Protection Fighting Style", details: `When a creature you can see attacks a target other than you that is within 5 feet of you, you can use your reaction to im pose disadvantage on the attack roll. You must be wielding a shield.`}]
             }
         },
         "Two-Weapon Fighting": {
             1: {
-                features: ["Two-Weapon Fighting Style"]
+                features: [{id: "fs-two-weapon", name: "Two-Weapon Fighting Style", details: `When you engage in two-weapon fighting, you can add your ability modifier to the damage of the second attack.`}]
             }
         }
     }
@@ -895,23 +954,36 @@ const monk = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Unarmored Defense", {"name": "Martial Arts", "damage": "1d4"}]
+        features: [
+            "Unarmored Defense",
+            {
+                "name": "Martial Arts",
+                "damage": "1d4",
+                details: `You can use Dexterity instead of Strength for the attack and damage rolls of your unarmed strikes and monk weapons. You can roll a d4 in place of the normal damage of your unarmed strike or monk weapon. When you use the Attack action with an unarmed strike or a monk weapon on your turn, you can make one unarmed strike as a bonus action. `
+            }
+        ]
     },
     2: {
         proficiencyBonus: 2,
-        features: [{"name": "Ki", "Ki points": 2}, {"name": "Unarmored Movement", "speed": 10}]
+        features: [
+            {"name": "Ki", id: 'ki', "Ki points": 2},
+            {"name": "Unarmored Movement", id: 'unarmored-movement', "speed": 10, restrictions: 'Must not be wearing armor or wielding a shield.'},
+            {name: "Flurry of Blows", id: 'flurry-of-blows', details: `Immediately after you take the Attack action on your turn, you can spend 1 ki point to make two unarmed strikes as a bonus action.`},
+            {name: "Patient Defense", id: 'patient-defense', details: `You can spend 1 ki point to take the Dodge action as a bonus action on your turn.`},
+            {name: 'Step of the Wind', id: 'step-of-the-wind', details: `You can spend 1 ki point to take the Disengage or Dash action as a bonus action on your turn, and your jump distance is doubled for the turn.`}
+        ]
     },
     3: {
         proficiencyBonus: 2,
-        features: [{"name": "Ki", "Ki points": 3}, "Monastic Tradition", "Deflect Missiles"]
+        features: [{id: 'ki', "name": "Ki", "Ki points": 3}, "Monastic Tradition", "Deflect Missiles"]
     },
     4: {
         proficiencyBonus: 2,
-        features: [{"name": "Ki", "Ki points": 4}, "Ability Score Improvement", "Slow Fall"]
+        features: [{id: 'ki', "name": "Ki", "Ki points": 4}, "Ability Score Improvement", "Slow Fall"]
     },
     5: {
         proficiencyBonus: 3,
-        features: [{"name": "Ki", "Ki points": 5}, {"name": "Martial Arts", "damage": "1d6"}, "Extra Attack", "Stunning Strike"]
+        features: [{id: 'ki', "name": "Ki", "Ki points": 5}, {"name": "Martial Arts", "damage": "1d6"}, "Extra Attack", "Stunning Strike"]
     },
     subClasses: {
         "Way of the Open Hand": {
@@ -971,12 +1043,36 @@ const paladin = {
     },
     1: {
         proficiencyBonus: 2,
-        features: ["Divine Sense", "Lay on Hands"],
+        features: [
+            {
+                name: "Divine Sense",
+                id: 'divine-sense',
+                details: `Until the end of your next turn, you know the location of any celestial, fiend, or undead within 60 feet of you that is not behind total cover. You know the type (celestial, fiend, or undead) of any being whose presence you sense, but not its identity. Within the same radius, you also detect the presence of any place or object that has been consecrated or desecrated, as with the hallow spell. You can use this feature a number of times equal to 1 + your Charisma modifier. When you finish a long rest, you regain all expended uses`
+            },
+            {
+                name: "Lay on Hands",
+                id: 'lay-on-hands',
+                details: `You have a pool of healing pow er that replenishes when you take a long rest. With that pool, you can restore a total number of hit points equal to your paladin level x 5. As an action, you can touch a creature and draw power from the pool to restore a number of hit points to that creature, up to the maximum amount remaining in your pool. Alternatively, you can expend 5 hit points from your pool of healing to cure the target of one disease or neutralize one poison affecting it. You can cure multiple diseases and neutralize multiple poisons with a single use of Lay on Hands, expending hit points separately for each one.`
+            }
+        ],
         spellCasting: {}
     },
     2: {
         proficiencyBonus: 2,
-        features: ["Fighting Style", "SpellCasting", "Divine Smite"],
+        features: [
+            {
+                id: 'fighting-style',
+                name: "Fighting Style",
+                '!!': 'Choose a fighting style: Defense / Dueling / Great Weapon Fighting / Protenction',
+
+            },
+            "SpellCasting", 
+            {
+                id: 'divine-smite',
+                name: "Divine Smite",
+                details: `When you hit a creature with a melee weapon attack, you can expend one paladin spell slot to deal radiant damage to the target, in addition to the weapon’s damage. The extra damage is 2d8 for a 1st-level spell slot, plus 1d8 for each spell level higher than 1st, to a maximum of 5d8. The damage increases by 1d8 if the target is an undead or a fiend`
+            }
+        ],
         spellCasting: {
             slots: [2]
         }
@@ -984,6 +1080,7 @@ const paladin = {
     3: {
         proficiencyBonus: 2,
         features: ["Divine Health", "Sacred Oath"],
+        resistances: ['immune to disease'],
         spellCasting: {
             slots: [3]
         }
