@@ -72,11 +72,14 @@ class Skills extends React.Component {
             proficiencies: [],
             skillPicks: 0,
             skillOptions: [],
+            bonusSkillPicks: 0,
+            bonusSkillOptions: [],
             button1disabled: false,
             languages: [],
             languagePicks: 0,
             languageOptions: [],
-            button2disabled: false
+            button2disabled: false,
+            button3disabled: false,
         }
     }
 
@@ -97,6 +100,10 @@ class Skills extends React.Component {
         let languagePicks = this.props.state.languages.picks;
         let languageOptions = languageBank;
         
+        let bonusSkillPicks = this.props.state.skillProficiencies.bonus[0];
+        let bonusSkillOptions = this.props.state.skillProficiencies.bonus[1];
+
+
         if (options.includes('any')) {
             options = skillsBank
         };
@@ -104,6 +111,12 @@ class Skills extends React.Component {
         for(let i=0; i<options.length; i++){
             if (proficiencies.includes(options[i])) {
                 options.splice(i, 1)
+            }
+        };
+
+        for(let i=0; i<bonusSkillOptions.length; i++){
+            if (proficiencies.includes(bonusSkillOptions[i])) {
+                bonusSkillOptions.splice(i, 1)
             }
         };
 
@@ -118,6 +131,8 @@ class Skills extends React.Component {
             proficiencies: proficiencies,
             skillPicks: picks,
             skillOptions: options,
+            bonusSkillPicks: bonusSkillPicks,
+            bonusSkillOptions: bonusSkillOptions,
             languages: languages,
             languagePicks: languagePicks,
             languageOptions: languageOptions
@@ -138,6 +153,19 @@ class Skills extends React.Component {
         )
     }
 
+    BonusSkillOptionCards = () => {
+        return (
+            this.state.bonusSkillOptions.map((e, i)=>
+            <button
+                key={i}
+                className="skillOption" 
+                value={e}
+                onClick={this.selectBonusSkill} >
+                {e}
+            </button>
+            )
+        )
+    }
     languageOptionCards = () => {
         return(
             this.state.languageOptions.map((e, i)=>
@@ -167,6 +195,23 @@ class Skills extends React.Component {
         if (this.state.skillPicks <= 1) {
             selectAll(".skillOption")
                 .attr("disabled", "true")
+        }
+    }
+
+    selectBonusSkill = (event) => {
+        let options = this.state.skillOptions;
+        options.splice(options.indexOf(event.target.value), 1)
+        if (this.state.bonusSkillPicks > 0) {
+            this.setState((state)=>{
+                return {
+                    bonusSkillPicks: state.bonusSkillPicks - 1,
+                    bonusSkillOptions: options,
+                    proficiencies: [...state.proficiencies, event.target.value]
+                }
+            })
+        }
+        if (this.state.skillPicks <= 1) {
+            selectAll(".skillOption").attr("disabled", "true")
         }
     }
 
@@ -203,17 +248,37 @@ class Skills extends React.Component {
         this.props.dispatch('updateSkillProficiencies', this.state.proficiencies);
         this.setState({button1disabled: true})
         
-        if (this.state.skillPicks + this.state.languagePicks === 0 ) {
+        if (this.state.skillPicks + this.state.languagePicks === 0 && !this.props.state.progress.includes('skills') ) {
             console.log("end skill lang")
             this.props.dispatch("updateProgress", "skills")
             setTimeout(()=>{ this.setState({finalized: true}) }, 600)
+        }
+        if (this.state.finalized === true) {
+            this.setState({button3disabled: true})
         }
     }
 
     render(){
 
+        if (this.props.state.progress.includes('equipment')) {
+            return null;
+        }
+
         if (this.state.finalized === true || !this.props.state.progress.includes("alignment")) {
-            return null
+            return (
+                <div className="bonus-skills input-card">
+                    <h2>BONUS SKILLS!</h2>
+                    {this.state.bonusSkillPicks > 0 ? <div className="skill-option-container">{this.BonusSkillOptionCards()}</div> : null}
+                    {this.state.bonusSkillPicks === 0 && this.state.proficiencies.length !== 0 ?
+                        <button
+                            onClick={()=>this.handleSubmit()}
+                            disabled={this.state.button3disabled}
+                        >
+                            submit
+                        </button>
+                    : null}
+                </div>
+            )
         }
 
         if (this.state.hidden === true) {

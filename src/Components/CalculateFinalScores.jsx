@@ -118,16 +118,27 @@ class CalculateFinalScores extends React.Component {
             let ability = '';
             let abilityMod = 0;
             let range = weapon.properties.join(" ").match(/(range \d+\/\d+)/g) ?? "melee";
+            let miscAttackBonus = 0;
+            let miscDamageBonus = 0;
 
-
-
+            
             if (meleeWeapons.includes(weapon.name)) {
                 ability = 'STR'
                 abilityMod = this.props.abilityMods[0]
+                if (this.props.features.find(feature => feature.name === 'Dueling Fighting Style')) {
+                    if (!weapon.properties.includes("two-handed")) {
+                        miscDamageBonus = 2;
+                    }
+                }
                 
             } else if (rangedWeapons.includes(weapon.name)) {
                 ability = 'DEX'
                 abilityMod = this.props.abilityMods[1]
+                if (this.props.features.find(feature => feature.name === 'Archery Fighting Style')) {
+                    if (!weapon.properties.find(prop => prop.match(/(thrown)/))) {
+                        miscAttackBonus = 2;
+                    }
+                }
             }
             if (weapon.properties.includes("finesse")) {
                 ability = 'DEX'
@@ -140,8 +151,8 @@ class CalculateFinalScores extends React.Component {
                 }
             }
 
-            let attackBonus = `+${this.props.proficiencyBonus + abilityMod}`
-            let damage = weapon.damage + `+${abilityMod}`
+            let attackBonus = `+${this.props.proficiencyBonus + abilityMod + miscAttackBonus}`
+            let damage = weapon.damage + `+${abilityMod + miscDamageBonus}`
 
             weapon = Object.assign({}, weapon, {
                 type: weapon.type,
@@ -199,7 +210,12 @@ class CalculateFinalScores extends React.Component {
         let AC = 0;
         let base = armor[0]["AC"]["base"];
         let bonus = dexMod;
+        let miscBonus = 0;
         //console.log("base",base, "str", str)
+
+        if (this.props.features.find(feature => feature.name === 'Defense Fighting Style')) {
+            miscBonus = 1;
+        }
 
         if (armor[0].hasOwnProperty("stealth")) {
             //console.log("disadvantage on stealth")
@@ -222,7 +238,7 @@ class CalculateFinalScores extends React.Component {
             bonus = maxBonus
         }
         if (str >= strReq) {
-            AC = base + bonus + shield
+            AC = base + bonus + miscBonus + shield
         }
         //console.log("ac", AC)
         this.setState({AC: AC})
@@ -271,6 +287,7 @@ class CalculateFinalScores extends React.Component {
     }
     toggleFeatureDetails = (id) => {
         const details = select(`#details-${id}`);
+        //console.log(details)
         let display = details.style("display");
         if (display === 'none' ) {
             console.log("un hiding", details)
@@ -281,7 +298,7 @@ class CalculateFinalScores extends React.Component {
         }
     }
     render(){
-        console.log("LOCAL STATE CHAR SHEET: ", this.state, "SKILLS BANK: ", skillsBank)
+        //console.log("LOCAL STATE CHAR SHEET: ", this.state, "SKILLS BANK: ", skillsBank)
         let icon1 = 'pi pi-eye';
         let icon2 = 'pi pi-tag';
         let stats = [...this.props.baseStats.stats];
@@ -477,10 +494,10 @@ class CalculateFinalScores extends React.Component {
                                                 <div className="feature-name"><i className="pi pi-tag" />{e}<br/></div>
                                             : 
                                                 <div className="feature-row">
-                                                    <div className="feature-name" id={`tag-${e.name}`} onClick={()=>this.toggleFeatureDetails(e.name)} style={{cursor: "pointer"}}><i className="pi pi-tag" />{e.name}<br/></div>
+                                                    <div className="feature-name" onClick={()=>this.toggleFeatureDetails(e.id)} style={{cursor: "pointer"}}><i className="pi pi-tag" />{e.name}<br/></div>
                                                     <ul className="feature-details">
                                                         {Object.keys(e).map((key, j) => {
-                                                            if (key === 'name' || key === 'details') {return null}
+                                                            if (key === 'name' || key === 'details' || key === 'id') {return null}
                                                             return (
                                                                 <li key={j}>
                                                                     {key}: {e[key]}
@@ -488,7 +505,7 @@ class CalculateFinalScores extends React.Component {
                                                             )
                                                         })}
                                                     </ul>
-                                                    {e.hasOwnProperty("details") ? <div className="feature-description" id={`details-${e.name}`} style={{display: "none"}} >{e.details}</div> : null }
+                                                    {e.hasOwnProperty("details") ? <div className="feature-description" id={`details-${e.id}`} style={{display: "none"}} >{e.details}</div> : null }
                                                 </div>
                                             }
                                         </div>

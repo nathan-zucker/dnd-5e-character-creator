@@ -211,7 +211,7 @@ const savingThrowReducer = (state = {proficient: [], advantage: []}, action) => 
 }
 
 
-const skillReducer = (state = {picks: 0, proficiencies: []}, action) => {
+const skillReducer = (state = {picks: 0, proficiencies: [], bonus: [0, []]}, action) => {
     switch(action.type){
         case 'addSkillProficiency': return Object.assign({}, state, {
             proficiencies: [...state.proficiencies, action.payload]
@@ -224,6 +224,25 @@ const skillReducer = (state = {picks: 0, proficiencies: []}, action) => {
         })
         case 'addSkillPick': return Object.assign({}, state, {
             picks: state.picks + action.payload
+        })
+        case 'add-skill-package': return Object.assign({}, state, {
+            bonus: action.payload
+        })
+        default: return state;
+    }
+}
+const expertiseReducer = (state = { picks: 0, expertise: [], choices: [] }, action) => {
+    switch(action.type) {
+        case 'add-expertise-pick': return Object.assign({}, state, {
+            picks: state.picks + action.payload
+        })
+        case 'add-expertise': return Object.assign({}, state, {
+            picks: state.picks - 1,
+            expertise: [...state.expertise, action.payload]
+        })
+        case 'add-expertise-package': return Object.assign({}, state, {
+            picks: state.picks + action.payload[0],
+            choices: action.payload[1]
         })
         default: return state;
     }
@@ -309,6 +328,8 @@ const resistanceReducer = (state = [], action) => {
         if (!state.includes(action.payload)) {
             return [...state, action.payload]
         } else {return state}
+        case 'add-resistances': 
+            return state.concat(action.payload);
         default: return state;
     }
 }
@@ -327,6 +348,7 @@ const store = configureStore({
         classDetails: classDetailsReducer,
         savingThrows: savingThrowReducer,
         skillProficiencies: skillReducer,
+        expertise: expertiseReducer,
         weaponProficiencies: weaponProficiencyReducer,
         spellCasting: spellReducer,
         armor: armorReducer,
