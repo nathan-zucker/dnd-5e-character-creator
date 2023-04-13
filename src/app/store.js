@@ -10,6 +10,7 @@ const progressReducer = (state = [], action) => {
         case 'submitSubClass': return [...state, 'subClass'];
         case 'submitBackground': return [...state, 'background'];
         case 'updateProgress': return [...state, action.payload];
+        case 'test-progress': return action.payload;
         default: return state;
     }
 }
@@ -50,12 +51,14 @@ const baseStatReducer = (state = {count: 0, picks: 0, stats: [0,0,0,0,0,0], modi
         case "setStats": return Object.assign({}, state, {
             stats: action.payload
         })
+        case 'test-baseStats': return action.payload;
         default: return state;
     }
 }
 
 const hitPointReducer = ((state = {'Hit Die': 0, 'HP': 0, "bonus": 0}, action) => {
     switch(action.type){
+        case 'test-hitPoints': return action.payload;
         case "hitDie": return Object.assign({}, state, {'Hit Die': action.payload})
         case "hitPoints": return Object.assign({}, state, {'HP': state["HP"] + action.payload});
         case "HPbonus": return Object.assign({}, state, {'bonus': state["bonus"] + action.payload})
@@ -65,6 +68,7 @@ const hitPointReducer = ((state = {'Hit Die': 0, 'HP': 0, "bonus": 0}, action) =
 
 const raceReducer = (state = [], action) => {
     switch(action.type){
+        case 'test-race': return action.payload;
         case 'race': return [action.payload];
         case 'subRace': return [...state, action.payload];
         default: return state;
@@ -74,6 +78,7 @@ const raceReducer = (state = [], action) => {
 const classLevelReducer = (state = [["none", 0], ""], action) => {
     let newState = [...state];
     switch(action.type) {
+        case 'test-classLevel': return action.payload;
         case 'classLevel':
             newState[0] = action.payload;
             return newState; 
@@ -86,6 +91,7 @@ const classLevelReducer = (state = [["none", 0], ""], action) => {
 
 const classDetailsReducer = (state = {}, action) => {
     switch(action.type){
+        case 'test-class-details': return action.payload;
         case 'classDetails': return Object.assign({}, state, action.payload)
         case 'classDetailsOptions': return Object.assign({}, state, {
             extraOptions: [state.extraOptions, action.payload]
@@ -96,6 +102,7 @@ const classDetailsReducer = (state = {}, action) => {
 
 const backgroundReducer = (state = {}, action) => {
     switch(action.type){
+        case 'test-background': return action.payload;
         case 'updateBackground': return Object.assign({}, state, {
             background: action.payload
         });
@@ -108,6 +115,7 @@ const backgroundReducer = (state = {}, action) => {
 
 const featureReducer = (state = [], action) => {
     switch(action.type) {
+        case 'test-features': return action.payload;
         case 'clearFeatures': return [];
         case 'delete-feature':
             let feature = state.find(e => e.id === action.payload || e === action.payload)
@@ -164,6 +172,7 @@ const featureReducer = (state = [], action) => {
 
 const RacialBonusReducer = ((state={finalized: false}, action)=>{
     switch(action.type){
+        case 'test-race-details': return action.payload;
         case 'ResetRace': return Object.assign({}, state, action.payload);
         case 'RacialBonuses': return Object.assign({}, state, {
             race: action.race,
@@ -194,6 +203,7 @@ const RacialBonusReducer = ((state={finalized: false}, action)=>{
 
 const savingThrowReducer = (state = {proficient: [], advantage: []}, action) => {
     switch(action.type) {
+        case 'test-savingThrow': return action.payload;
         case 'saveProficiency': return Object.assign({}, state, {
             proficient: [...state.proficient, ...action.payload]
         });
@@ -207,6 +217,7 @@ const savingThrowReducer = (state = {proficient: [], advantage: []}, action) => 
 
 const skillReducer = (state = {picks: 0, proficiencies: [], bonus: [0, []]}, action) => {
     switch(action.type){
+        case 'test-skills': return action.payload;
         case 'addSkillProficiency': return Object.assign({}, state, {
             proficiencies: [...state.proficiencies, action.payload]
         });
@@ -244,6 +255,7 @@ const expertiseReducer = (state = { picks: 0, expertise: [], choices: [] }, acti
 
 const weaponProficiencyReducer = (state = [], action) => {
     switch(action.type){
+        case 'test-weaponPro': return action.payload;
         case 'weaponProficiency': return state.concat(action.payload)
         default: return state;
     }
@@ -251,6 +263,7 @@ const weaponProficiencyReducer = (state = [], action) => {
 
 const armorReducer = (state = {proficiencies: [], armor: []}, action) => {
     switch(action.type){
+        case 'test-armor': return action.payload;
         case 'armorProficiency': return Object.assign({}, state, {
             proficiencies: [...state.proficiencies, ...action.payload]
         })
@@ -263,6 +276,7 @@ const armorReducer = (state = {proficiencies: [], armor: []}, action) => {
 
 const toolReducer = (state = [], action) => {
     switch(action.type){
+        case 'test-tools': return action.payload;
         case 'toolProficiency': return [...state, action.payload];
         case 'toolProficiencyArray': return [...state, ...action.payload];
         default: return state;
@@ -271,6 +285,7 @@ const toolReducer = (state = [], action) => {
 
 const languageReducer = (state = {picks: 0, languages: []}, action) => {
     switch(action.type){
+        case 'test-languages': return action.payload;
         case 'addLanguagePick': return Object.assign({}, state, {
             picks: state.picks + action.payload 
         });
@@ -294,6 +309,7 @@ const spellReducer = (state = {}, action) => {
 
 const equipmentReducer = (state = [], action) => {
     switch(action.type){
+        case 'test-equipment': return action.payload;
         case 'addEquipment': return [...state, action.payload];
         case 'addEquipmentArray': return [...state, ...action.payload];
         case 'updateEquipment': return action.payload;
@@ -303,6 +319,7 @@ const equipmentReducer = (state = [], action) => {
 
 const weaponReducer = (state = [], action) => {
     switch(action.type){
+        case 'test-weapons': return action.payload;
         case 'addWeapon': return [...state, action.payload]
         case 'updateWeapons': return action.payload;
         default: return state;
@@ -311,6 +328,7 @@ const weaponReducer = (state = [], action) => {
 
 const alignmentReducer = (state = '', action) => {
     switch(action.type){
+        case 'test-alignment': return action.payload;
         case 'setAlignment': return action.payload;
         default: return state;
     }
