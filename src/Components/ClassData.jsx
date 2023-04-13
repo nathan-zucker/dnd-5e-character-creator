@@ -1277,10 +1277,14 @@ const ranger = {
                 id: 'favored-enemy',
                 details: `Choose a type of favored enemy: aberrations, beasts, celestials, constructs, dragons, elementals, fey, fiends, giants, monstrosities, oozes, plants, or undead. Alternatively, you can select two races of humanoid (such as gnolls and orcs) as favored enemies.You have advantage on Wisdom (Survival) checks to track your favored enemies, as well as on Intelligence checks to recall information about them.When you gain this feature, you also learn one language of your choice that is spoken by your favored enemies, if they speak one at all.`
             },
+            "Natural Explorer",
             {
                 name: "Natural Explorer",
                 id: 'natural-explorer',
-                details: `Choose one type of favored terrain: arctic, coast, desert, forest, grassland, mountain, swamp, or the Underdark. When you make an Intelligence or Wisdom check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you’re proficient in. While traveling for an hour or more in your favored terrain, you gain the following benefits:${<br/>}
+                options: [
+                    'Arctic', 'Coast', 'Desert', 'Forest', 'Grassland', 'Mountain', 'Swamp', 'Underdark'
+                ],
+                details: `When you make an Intelligence or Wisdom check related to your favored terrain, your proficiency bonus is doubled if you are using a skill that you’re proficient in. While traveling for an hour or more in your favored terrain, you gain the following benefits:${<br/>}
                 • Difficult terrain doesn’t slow your group’s travel.${<br/>}
                 • Your group can’t become lost except by magical means.${<br/>}
                 • Even when you are engaged in another activity while traveling (such as foraging, navigating, or tracking), you remain alert to danger.${<br/>}
@@ -1364,8 +1368,7 @@ const ranger = {
                             }
                         ]
                     }
-                ],
-                options: ["Colossus Slayer", "Giant Killer", "Horde Breaker"]
+                ]
             },
             7: {
                 features: ["Defensive Tactics"],

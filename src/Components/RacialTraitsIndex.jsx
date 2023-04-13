@@ -224,26 +224,40 @@ class RacialTraitsIndex extends React.Component {
     featureSelector = (trigger, group) => {
         if (this.props.features.includes(trigger)) {
             let parent = this.props.features.find(e => e.id === group)
-            let picks = parent.picks
+            if (parent === undefined) {return}
+            let picks = parent.picks ?? 1;
             let options = parent.options;
 
 
-            console.log(`pick ${picks} from ${options.join(', ')}`)
 
-            const clickHandler = (obj) => {
-                console.log("YOU CHOSE THIS", obj)
-                this.props.sendPackage('delete-feature', trigger)
-                this.props.sendPackage('addFeature', obj)
+            const clickHandler = (feature) => {
+                console.log("YOU CHOSE THIS", feature)
+                if (parent.hasOwnProperty('details')) {
+                    console.log("DETAILS to attach!")
+                    if (typeof feature === 'string') {
+                        feature = Object.assign({}, {
+                            name: feature,
+                            id: feature
+                        })
+                    }
+                    feature = Object.assign({}, feature, {
+                        details: parent.details
+                    })
+                }
+                //this.props.sendPackage('delete-feature', trigger)
+                
+                this.props.sendPackage('delete-feature', parent.id)
+                this.props.sendPackage('addFeature', feature)
             }
 
             const buttons = options.map((e, i) => {
                 return (
                     <div className="featureOption" key={i}>
                         <button 
-                            label={e.name}
+                            label={e.name ?? e}
                             onClick={()=>clickHandler(e)}
                         >
-                            {e.name}
+                            {e.name ?? e}
                         </button>
                     </div>
                 )
@@ -284,6 +298,7 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Sacred Oath")}
                     {this.subClassSelector("Ranger Archetype")}
                     {this.featureSelector('Hunter', 'hunters-prey')}
+                    {this.featureSelector('Natural Explorer', 'natural-explorer')}
 
                     {this.subClassSelector("Rogueish Archetype")}
                     {this.subClassSelector("Pact Magic")}
@@ -294,7 +309,7 @@ class RacialTraitsIndex extends React.Component {
 
 
                     {this.state.inputNeeded === 0 || this.state.selectors === 0 ? 
-                    <button onClick={this.handleContinue} >continue</button> : null}
+                    null: <button onClick={this.handleContinue} >continue</button>}
                 </div>
             )
         }

@@ -130,11 +130,11 @@ const featureReducer = (state = [], action) => {
                     return state.toSpliced(newFeature.index, 1, newFeature)
                 }
                 else {
-                    return state.push(newFeature)
+                    return [...state, newFeature]
                 }
             }
             else {
-                return state.push(action.payload);
+                return [...state, action.payload];
             }
         case 'addFeatureArray': 
         console.log('adding array of features')
