@@ -1,6 +1,6 @@
 import { selectAll } from "d3";
-import React from "react";
-import {connect} from "react-redux";
+import React, {useEffect, useState} from "react";
+import {connect, useDispatch, useSelector} from "react-redux";
 
 const allSkills = [
     "Athletics (Str)",
@@ -63,12 +63,74 @@ const languageBank = [
     "Undercommon"
 ]
 
+const Expertise = () => {
+    const dispatch = useDispatch()
+    const features = useSelector((state)=>state.features)
+    const skills = useSelector((state) => state.skillProficiencies.proficiencies)
+    const picks = useSelector((state) => state.expertise.picks)
+    const [options, setOptions] = useState([])
+    const [disabled, setDisabled] = useState(false)
+
+    useEffect(()=>{
+        let parent = features.find(feature => typeof feature === 'object' && feature.id.match(/(expertise)/)) ?? "none";
+        if (parent === 'none') {return}
+        if (parent !== 'none') {
+            if (parent.hasOwnProperty('picks')) {
+                dispatch({type: 'set-expertise-picks', payload: parent.picks})
+            }
+            if (parent.choices === 'skills') {
+                setOptions([...skills])
+            }
+            if (parent.choices !== 'skills') {
+                setOptions([...parent.choices])
+            }
+        }
+    },[])
+
+
+    const clickHandler = (option) => {
+        if (picks === 0) {return}
+        if (picks === 1) {
+            setDisabled(true)
+        }
+        let newOptions = options.toSpliced(options.indexOf(option), 1)
+        dispatch({type: 'add-expertise', option})
+        setOptions(newOptions)
+    }
+
+    if (picks === 0 && options.length === 0) {
+        return null
+    }
+
+    return (
+        <div className="expertise-container">
+            <h2>Select expertise, {picks} remaining!</h2>
+            {options.map((e, i) => {
+                return (
+                    <button
+                        key = {i}
+                        onClick = {() => clickHandler(e)}
+                        className = "expertise-button"
+                        disabled = {disabled}
+                    >
+                        {e}
+                    </button>
+                )
+            })}
+        </div>
+    )
+}
+
+
+
 class Skills extends React.Component {
     constructor(props){
         super(props);
         this.state = {
             hidden: true,
+
             finalized: false,
+
             proficiencies: [],
             skillPicks: 0,
             skillOptions: [],
@@ -82,16 +144,11 @@ class Skills extends React.Component {
             button3disabled: false,
         }
     }
-
     componentDidMount(){
         if (this.props.state.progress.includes('alignment') && this.state.hidden === true) {
             this.loadComponent();
         }
     }
-
-    componentDidUpdate(){
-    }
-
     loadComponent = () => {
         let proficiencies = [...this.props.state.skillProficiencies.proficiencies];
         let picks = this.props.state.classDetails.skills[0];
@@ -138,7 +195,6 @@ class Skills extends React.Component {
             languageOptions: languageOptions
         })
     }
-
     skillOptionCards = () => {
         return (
             this.state.skillOptions.map((e, i)=>
@@ -152,7 +208,6 @@ class Skills extends React.Component {
             )
         )
     }
-
     BonusSkillOptionCards = () => {
         return (
             this.state.bonusSkillOptions.map((e, i)=>
@@ -179,7 +234,6 @@ class Skills extends React.Component {
             )
         )
     }
-
     selectSkill = (event) => {
         let options = this.state.skillOptions;
         options.splice(options.indexOf(event.target.value), 1)
@@ -197,7 +251,6 @@ class Skills extends React.Component {
                 .attr("disabled", "true")
         }
     }
-
     selectBonusSkill = (event) => {
         let options = this.state.skillOptions;
         options.splice(options.indexOf(event.target.value), 1)
@@ -214,7 +267,6 @@ class Skills extends React.Component {
             selectAll(".skillOption").attr("disabled", "true")
         }
     }
-
     selectLanguage = (event) => {
         let options = this.state.languageOptions;
         options.splice(options.indexOf(event.target.value), 1);
@@ -232,7 +284,6 @@ class Skills extends React.Component {
                 .attr("disabled", "true")
         }
     }
-
     submitLanguages = () => {
         this.props.dispatch('updateLanguages', this.state.languages);
         this.setState({button2disabled: true});
@@ -243,7 +294,6 @@ class Skills extends React.Component {
             setTimeout(()=>{ this.setState({finalized: true}) }, 600)
         }
     }
-
     handleSubmit = () => {
         this.props.dispatch('updateSkillProficiencies', this.state.proficiencies);
         this.setState({button1disabled: true})
@@ -257,26 +307,25 @@ class Skills extends React.Component {
             this.setState({button3disabled: true})
         }
     }
-
     render(){
 
         if (this.props.state.progress.includes('equipment')) {
             return null;
         }
 
-        if (this.state.finalized === true || !this.props.state.progress.includes("alignment")) {
+        if (this.state.finalized === true) {
             return (
                 <div className="bonus-skills input-card">
-                    <h2>BONUS SKILLS!</h2>
                     {this.state.bonusSkillPicks > 0 ? <div className="skill-option-container">{this.BonusSkillOptionCards()}</div> : null}
-                    {this.state.bonusSkillPicks === 0 && this.state.proficiencies.length !== 0 ?
+                    {this.state.bonusSkillPicks === 0 && this.state.proficiencies !== this.props.state.skillProficiencies.proficiencies ?
                         <button
                             onClick={()=>this.handleSubmit()}
                             disabled={this.state.button3disabled}
                         >
-                            submit
+                            submit bonus skills
                         </button>
                     : null}
+                    <Expertise />
                 </div>
             )
         }

@@ -530,10 +530,10 @@ class CalculateFinalScores extends React.Component {
                             <div className="proficiency-section">
                                 <span className="section-header">Weapons:</span><br/>
                                 {
-                                    this.props.state.weaponProficiencies.proficiencies.length === 0 ? null :
+                                    this.props.state.weaponProficiencies.length === 0 ? null :
                                     <ul className="proficiency-list">
                                         {
-                                            this.props.state.weaponProficiencies.proficiencies.map((e, i) => {
+                                            this.props.state.weaponProficiencies.map((e, i) => {
                                                 return <li key={i}>{e}</li>
                                             })
                                         }

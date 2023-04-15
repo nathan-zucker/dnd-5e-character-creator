@@ -144,17 +144,14 @@ const featureReducer = (state = [], action) => {
             else {
                 return [...state, action.payload];
             }
-        case 'addFeatureArray': 
-        console.log('adding array of features')
+        case 'addFeatureArray':
             let currentState = state.concat(action.payload);
             let newState = [];
             for (let i = currentState.length - 1; i >=0; i--) {
                 if (typeof currentState[i] === 'object') {
-                    console.log("object detected", currentState[i].name)
                     let newFeature = currentState[i];
 
                     if (newState.find(feature => typeof feature === 'object' && feature.name === currentState[i].name)) {
-                        console.log("matching name")
                         let oldFeature = newState.find(feature => typeof feature === 'object' && feature.name === currentState[i].name);
                         newFeature = Object.assign({}, currentState[i], oldFeature );
                         newState.splice(newState.indexOf(oldFeature), 1);
@@ -238,6 +235,10 @@ const skillReducer = (state = {picks: 0, proficiencies: [], bonus: [0, []]}, act
 }
 const expertiseReducer = (state = { picks: 0, expertise: [], choices: [] }, action) => {
     switch(action.type) {
+        
+        case 'set-expertise-picks': return Object.assign({}, state, {
+            picks: action.payload
+        })
         case 'add-expertise-pick': return Object.assign({}, state, {
             picks: state.picks + action.payload
         })

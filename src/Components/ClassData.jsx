@@ -145,7 +145,11 @@ const bard = {
     2: {
         proficiencyBonus: 2,
         features: [
-            "Jack of All Trades",
+            {
+                name: "Jack of All Trades",
+                id: 'jack-of-all-trades',
+                details: `You can add half your proficiency bonus, rounded down, to any ability check you make that doesn’t already include your proficiency bonus.`
+            },
             {
                 id: 'song-of-rest',
                 name: "Song of Rest",
@@ -162,7 +166,15 @@ const bard = {
     },
     3: {
         proficiencyBonus: 2,
-        features: ["Bard College", "Expertise"],
+        features: [
+            "Bard College",
+            {
+                name: "Expertise",
+                id: 'expertise-bard',
+                picks: 2,
+                choices: 'skills'
+            }
+        ],
         spellCasting: {
             cantripsKnown: 2,
             spellsKnown: 6,
@@ -299,9 +311,15 @@ const cleric = {
     subClasses: {
         "Knowledge": {
             1: {
-                features: ["Blessings of Knowledge"],
+                features: ["Blessings of Knowledge",
+                    {
+                        name: 'Expertise',
+                        id: 'expertise-cleric',
+                        picks: 2,
+                        choices: ['Arcana', 'History', 'Nature', 'Religion']
+                    }
+                ],
                 spellCasting: {clericSpells: ["command", "identify"]},
-                'expertise-package': [2, ['Arcana', 'History', 'Nature', 'Religion']]
                 // two language picks 
             },
             2: {

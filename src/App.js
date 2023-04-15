@@ -69,7 +69,7 @@ function App() {
   const delay1 = 100
   const delay2 = 500
 
-  const mockCharacter = () => {
+  const mockCharacterBarbarian = () => {
     dispatch({type: 'test-progress', payload: [
       "classLevel",
       "race",
@@ -388,6 +388,271 @@ function App() {
     ]})
     dispatch({type: 'test-alignment', payload: "Chaotic Neutral"})
   }
+  const mockCharacterBard = () => {
+    dispatch({type: 'test-progress', payload: [
+      "classLevel",
+      "race",
+      "rolls",
+      "baseStats",
+      "background",
+      "alignment",
+      "skills"
+  ]})
+    dispatch({ type: 'test-baseStats', payload: {
+      "count": 6,
+      "picks": 0,
+      "stats": [
+          13,
+          16,
+          11,
+          9,
+          14,
+          15
+      ],
+      "modifiers": [
+          [
+              1,
+              3,
+              0,
+              -1,
+              2,
+              2
+          ],
+          [
+              "+1",
+              "+3",
+              "+0",
+              "-1",
+              "+2",
+              "+2"
+          ]
+      ],
+      "rolls": [
+          15,
+          14,
+          13,
+          12,
+          10,
+          8
+      ]
+  }})
+    dispatch({type: 'test-hitPoints', payload: {
+      "Hit Die": 8,
+      "HP": 0,
+      "bonus": 0
+  }})
+    dispatch({type: 'test-race', payload: [
+      "Human",
+      ""
+    ]})
+    dispatch({type: 'test-classLevel', payload: [
+      [
+          "Bard",
+          3
+      ],
+      "College of Lore"
+  ]})
+    dispatch({type: 'test-class-details', payload: {
+      "primaryAbility": [
+          "Charisma"
+      ],
+      "skills": [
+          3,
+          [
+              "any"
+          ]
+      ],
+      "proficiencyBonus": 2,
+      "subClasses": {
+          "College of Lore": {
+              "3": {
+                  "features": [
+                      "Bonus Proficiencies Lore",
+                      {
+                          "id": "cutting-words",
+                          "name": "Cutting Words",
+                          "details": "When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature’s roll"
+                      }
+                  ],
+                  "skills": [
+                      3,
+                      "any"
+                  ]
+              },
+              "6": {
+                  "features": [
+                      "Additional Magic Secrets"
+                  ]
+              },
+              "14": {
+                  "features": [
+                      "Peerless Skill"
+                  ]
+              }
+          },
+          "College of Valor": {
+              "3": {
+                  "features": [
+                      "Bonus Proficiencies Valor",
+                      {
+                          "id": "combat-inspiration",
+                          "name": "Combat Inspiration",
+                          "details": "A creature that has a Bardic Inspiration die from you can roll that die and add the number rolled to a weapon damage roll it just made. Alternatively, when an attack roll is made against the creature, it can use its reaction to roll the Bardic Inspiration die and add the number rolled to its AC against that attack, after seeing the roll but before knowing whether it hits or misses."
+                      }
+                  ],
+                  "weapons": [
+                      "martial"
+                  ],
+                  "armor": [
+                      "medium",
+                      "shield"
+                  ]
+              },
+              "6": {
+                  "features": [
+                      "Extra Attack"
+                  ]
+              },
+              "14": {
+                  "features": [
+                      "Battle Magic"
+                  ]
+              }
+          }
+      },
+      "subClasses2": {},
+      "extraOptions": [
+          null,
+          [
+              3,
+              "any"
+          ]
+      ]
+  }})
+    dispatch({type: 'test-background', payload: {
+      "background": "Entertainer",
+      "variants": [
+          "Gladiator"
+      ]
+  }})
+    dispatch({type: 'test-features', payload: [
+      "By Popular Demand",
+      "Entertainer Routines",
+      "Spellcasting",
+      {
+          "id": "bardic-inspiration",
+          "name": "Bardic Inspiration",
+          "bard die": "1d6",
+          "details": "use a bonus action on your turn to choose one creature other than yourself within 60 feet of you who can hear you. That creature gains one Bardic Inspiration die. Once within the next 10 minutes, the creature can roll the die and add the number rolled to one ability check, attack roll, or saving throw it makes"
+      },
+      {
+          "name": "Jack of All Trades",
+          "id": "jack-of-all-trades",
+          "details": "You can add half your proficiency bonus, rounded down, to any ability check you make that doesn’t already include your proficiency bonus."
+      },
+      {
+          "id": "song-of-rest",
+          "name": "Song of Rest",
+          "bard die": "1d6",
+          "details": "If you or any friendly creatures who can hear your perform ance regain hit points at the end of a short rest, each of those creatures regains an extra 1d6 hit points."
+      },
+      "Bard College",
+      {
+          "name": "Expertise",
+          "id": "expertise-bard",
+          "picks": 2,
+          "choices": "skills"
+      },
+      "Bonus Proficiencies Lore",
+      {
+          "id": "cutting-words",
+          "name": "Cutting Words",
+          "details": "When a creature that you can see within 60 feet of you makes an attack roll, an ability check, or a damage roll, you can use your reaction to expend one of your uses of Bardic Inspiration, rolling a Bardic Inspiration die and subtracting the number rolled from the creature’s roll"
+      }
+  ]})
+    dispatch({type: 'test-race-details', payload: {
+      "finalized": false,
+      "race": "Human",
+      "subRace": "",
+      "abilityScoreIncrease": [
+          1,
+          1,
+          1,
+          1,
+          1,
+          1
+      ],
+      "size": "Medium",
+      "speed": 30,
+      "darkVision": false,
+      "features": []
+  }})
+    dispatch({type: 'test-savingThrow', payload: {
+      "proficient": [
+          "Dexterity",
+          "Charisma"
+      ],
+      "advantage": []
+  }})
+    dispatch({type: 'test-skills', payload: {
+      "picks": 0,
+      "proficiencies": [
+          "Acrobatics (Dex)",
+          "Performance (Cha)",
+          "Sleight of Hand (Dex)",
+          "Stealth (Dex)",
+          "Arcana (Int)"
+      ],
+      "bonus": [
+          0,
+          []
+      ]
+  }})
+    dispatch({type: 'test-weaponPro', payload: [
+      "simple",
+      "hand crossbow",
+      "longsword",
+      "rapier",
+      "shortsword"
+  ]})
+    dispatch({type: 'test-armor', payload: {
+      "proficiencies": [
+          "light"
+      ],
+      "armor": []
+  }})
+    dispatch({type: 'test-tools', payload: [
+      "disguise kit",
+      "one type of musical instrument"
+  ]})
+    dispatch({type: 'test-languages', payload: {
+      "picks": 0,
+      "languages": [
+          "Common",
+          "Abyssal"
+      ]
+  }})
+    dispatch({type: 'test-equipment', payload: [
+      [
+          "rapier",
+          "longsword",
+          "any simple weapon"
+      ],
+      [
+          "diplomat's pack",
+          "entertainer's pack"
+      ],
+      "leather armor",
+      "dagger",
+      "5d4 x 10 gp",
+      "any one musical instrument",
+      "the favor of an admirer",
+      "a costume",
+      "belt pouch containing 15gp"
+  ]})
+    dispatch({type: 'test-weapons', payload: []})
+    dispatch({type: 'test-alignment', payload: "Neutral Good"})
+  }
 
   useEffect(()=>{
 
@@ -431,9 +696,14 @@ function App() {
         </div>
         <div className='main'>
           <div id="content">
+            <Button label='level 3 barbarian' onClick={()=>{
+              console.log('loading character...')
+              mockCharacterBarbarian()
+              return
+            }}/>
             <Button label='load mock character' onClick={()=>{
               console.log('loading character...')
-              mockCharacter()
+              mockCharacterBarbarian()
               return
             }}/>
             { !progress.includes('classLevel') ? <Class /> : null }

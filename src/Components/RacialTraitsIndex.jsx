@@ -270,6 +270,16 @@ class RacialTraitsIndex extends React.Component {
             )
         }
     }
+    /* 
+    expertiseSelector = (trigger) => {
+        let parent = this.props.features.find(feature => feature.id === trigger || feature === trigger) 
+        if (typeof parent !== 'object') { return }
+        if (this.props.features.includes(parent)) {
+            this.dispatchInfo('delete-feature', trigger)
+            this.dispatchInfo('add-expertise-package', [parent.picks, parent.choices])
+        }
+    }
+    */
 
     render(){
 
@@ -289,6 +299,8 @@ class RacialTraitsIndex extends React.Component {
                     {this.subClassSelector("Primal Path")}
                     {this.subClassSelector("Totem Spirit", 2)}
                     {this.subClassSelector("Bard College")}
+                    {/*this.expertiseSelector("expertise-bard")*/}
+
                     {this.subClassSelector("Divine Domain")}
                     {this.subClassSelector("Druid Circle")}
                     {this.subClassSelector("Circle of the Land", 2)}
@@ -307,9 +319,7 @@ class RacialTraitsIndex extends React.Component {
                     
                     {this.subClassSelector("Fighting Style", 2)}
 
-
-                    {this.state.inputNeeded === 0 || this.state.selectors === 0 ? 
-                    null: <button onClick={this.handleContinue} >continue</button>}
+                    <button onClick={this.handleContinue} >continue</button>
                 </div>
             )
         }
