@@ -696,16 +696,18 @@ function App() {
         </div>
         <div className='main'>
           <div id="content">
+            {/* 
             <Button label='level 3 barbarian' onClick={()=>{
-              console.log('loading character...')
+                console.log('loading character...')
               mockCharacterBarbarian()
               return
             }}/>
             <Button label='load mock character' onClick={()=>{
-              console.log('loading character...')
+                console.log('loading character...')
               mockCharacterBarbarian()
               return
             }}/>
+            */}
             { !progress.includes('classLevel') ? <Class /> : null }
             {/* !progress.includes('classLevel') ? <DisplayClass /> : null */}
             
